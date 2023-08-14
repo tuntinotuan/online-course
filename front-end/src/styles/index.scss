@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "reset";
+
+@layer base {
+  body {
+    @apply text-primaryBlack;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    // height: 2000px;
+  }
+}
+@layer components {
+  .page-container {
+    max-width: 1280px;
+    @apply mx-auto;
+  }
+  .page-container-fluid {
+    max-width: 1086px;
+    @apply mx-auto;
+  }
+  .page-container-my-course {
+    max-width: 950px;
+    @apply mx-auto;
+  }
+}

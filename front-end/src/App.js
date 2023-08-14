@@ -1,76 +1,78 @@
-import React, { useState } from "react";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  decrement,
-  increment,
-  incrementByValue,
-} from "./redux-toolkit/counterSlice";
-import DemoPage from "./pages/DemoPage";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Main from "./components/layout/Main";
+import CartPage from "./pages/CartPage";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import HomePage from "./pages/HomePage";
+import HomeCourseSelection from "./modules/home/HomeCourseSelection";
+import HomeSelectionItem from "./modules/home/HomeSelectionItem";
+import { dataViewingStudents } from "./data/dataConfig";
+import CourseDetailsPage from "./pages/CourseDetailsPage";
+import MyCoursesPage from "./pages/MyCoursesPage";
+import MyAllCourses from "./modules/my-course/MyAllCourses";
+import MyLists from "./modules/my-course/MyLists";
+import MyWishlist from "./modules/my-course/MyWishlist";
 
 function App() {
-  const dispatch = useDispatch();
-  const [byValue, setByValue] = useState(2);
-  const { count } = useSelector((state) => state.counter);
-  const turnOnSweetalert2 = () => {
-    Swal.fire({
-      title: `Are you sure?`,
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", `Your has been deleted.`, "success");
-      }
-    });
-  };
-  const handleIncrement = () => {
-    dispatch(increment());
-  };
-  const handleDecrement = () => {
-    dispatch(decrement());
-  };
-  const handleIncrementByValue = () => {
-    dispatch(incrementByValue({ value: byValue }));
-  };
   return (
     <div className="App">
-      {/* <span>{count}</span>
-      <h1>Hi</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat
-        pariatur dicta delectus nesciunt asperiores fuga excepturi ipsum cum rem
-        qui consectetur quam, blanditiis corporis enim accusamus officiis dolore
-        porro sequi?
-      </p>
-      <button
-        className="p-5 bg-gray-300 rounded-md"
-        onClick={turnOnSweetalert2}
-      >
-        Demo react-sweetalert2
-      </button>
-      <button className="p-5 bg-gray-300 rounded-md" onClick={handleIncrement}>
-        Increment
-      </button>
-      <button className="p-5 bg-gray-300 rounded-md" onClick={handleDecrement}>
-        Decrement
-      </button>
-      <input
-        type="number"
-        defaultValue={byValue}
-        className="border border-gray-200 rounded-md outline-none"
-        onChange={(e) => setByValue(Number(e.target.value))}
-      />
-      <button
-        className="p-5 bg-gray-300 rounded-md"
-        onClick={handleIncrementByValue}
-      >
-        Increment By Value
-      </button> */}
-      <DemoPage></DemoPage>
+      <Routes>
+        <Route path="/" element={<Main></Main>}>
+          <Route path="/" element={<HomePage></HomePage>}>
+            <Route
+              path="/"
+              element={<HomeCourseSelection></HomeCourseSelection>}
+            >
+              <Route
+                path="/"
+                element={<HomeSelectionItem></HomeSelectionItem>}
+              ></Route>
+              <Route
+                path="excel"
+                element={
+                  <HomeSelectionItem
+                    data={dataViewingStudents}
+                  ></HomeSelectionItem>
+                }
+              ></Route>
+              <Route
+                path="/web-development"
+                element={<HomeSelectionItem></HomeSelectionItem>}
+              ></Route>
+              <Route
+                path="javascript"
+                element={
+                  <HomeSelectionItem
+                    data={dataViewingStudents}
+                  ></HomeSelectionItem>
+                }
+              ></Route>
+            </Route>
+          </Route>
+          <Route
+            path="/course/:id"
+            element={<CourseDetailsPage></CourseDetailsPage>}
+          ></Route>
+          <Route path="/cart" element={<CartPage></CartPage>}></Route>
+          <Route path="my-course" element={<MyCoursesPage></MyCoursesPage>}>
+            <Route
+              path="learning"
+              element={<MyAllCourses></MyAllCourses>}
+            ></Route>
+            <Route path="lists" element={<MyLists></MyLists>}></Route>
+            <Route path="wishlist" element={<MyWishlist></MyWishlist>}></Route>
+          </Route>
+          <Route path="/log-in" element={<SignInPage></SignInPage>}></Route>
+          <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
+          <Route
+            path="/forgot-password"
+            element={<ForgotPasswordPage></ForgotPasswordPage>}
+          ></Route>
+          <Route path="*" element={<>Not Found</>}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
