@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconSearch = ({ className }) => {
+const IconSearch = ({ className, size = 24 }) => {
   return (
     <span className={className}>
       <svg
@@ -9,7 +9,7 @@ const IconSearch = ({ className }) => {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className={`w-6 h-6`}
+        style={{ width: size, height: size }}
       >
         <path
           strokeLinecap="round"

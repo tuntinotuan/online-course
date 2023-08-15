@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import SpecialTextWithDots from "../../components/special/SpecialTextWithDots";
 import { IconArrowDown } from "../../components/icon";
+import CourseHeading from "./CourseHeading";
 const dataLocal = [
   "You'll get a full understanding of how to program with Python and how to use it in conjunction with scientific computing modules and libraries to analyze data.",
   "You will also get lifetime access to over 100 example python code notebooks, new and updated videos, as well as future additions of various data analysis projects that you can use for a portfolio to show future employers! ",
@@ -29,7 +30,7 @@ const CourseDescription = () => {
         {!showMore && (
           <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-[rgba(255,255,255,0.9)]"></div>
         )}
-        <h1 className="text-2xl font-bold mb-5">Description</h1>
+        <CourseHeading>Description</CourseHeading>
         <p className="font-bold mb-2">
           This course will give you the resources to learn python and
           effectively use it analyze and visualize data! Start your career in
@@ -51,7 +52,7 @@ const CourseDescription = () => {
         ></SpecialTextWithDots>
       </div>
       <div
-        className="flex items-center gap-2 cursor-pointer text-purpleText56 font-bold"
+        className="flex items-center gap-2 font-bold text-purpleText56 hover:opacity-90 cursor-pointer mt-5"
         onClick={handleShowMore}
       >
         <span className="">{showMore ? "Show less" : "Show more"}</span>

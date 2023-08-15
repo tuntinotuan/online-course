@@ -14,6 +14,7 @@ import MyCoursesPage from "./pages/MyCoursesPage";
 import MyAllCourses from "./modules/my-course/MyAllCourses";
 import MyLists from "./modules/my-course/MyLists";
 import MyWishlist from "./modules/my-course/MyWishlist";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -63,6 +64,8 @@ function App() {
             ></Route>
             <Route path="lists" element={<MyLists></MyLists>}></Route>
             <Route path="wishlist" element={<MyWishlist></MyWishlist>}></Route>
+            <Route path=" " element={<>Anything</>}></Route>
+            <Route path="learning-tools" element={<>Anything</>}></Route>
           </Route>
           <Route path="/log-in" element={<SignInPage></SignInPage>}></Route>
           <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
@@ -72,6 +75,10 @@ function App() {
           ></Route>
           <Route path="*" element={<>Not Found</>}></Route>
         </Route>
+        <Route
+          path="/cart/checkout"
+          element={<CheckoutPage></CheckoutPage>}
+        ></Route>
       </Routes>
     </div>
   );

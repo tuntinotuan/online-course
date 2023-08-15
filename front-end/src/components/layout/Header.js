@@ -20,6 +20,7 @@ import NotificationToggle from "../notification/NotificationToggle";
 import WishlistToggle from "../wishlist/WishlistToggle";
 import Sidebar from "./Sidebar";
 import { SpecialCountCircle } from "../special";
+import { useSelector } from "react-redux";
 
 const Header = ({
   hiddenMultiple = false,
@@ -35,15 +36,16 @@ const Header = ({
   const { hovered: hoverNotification, nodeRef: nodeRefNotification } =
     useHover();
   const { hovered: hoverAvatar, nodeRef: nodeRefAvatar } = useHover();
+
+  const { user: users } = useSelector((state) => state.auth);
+  const { jwt, user } = users;
   return (
     <header
       className={`header relative flex items-center ${
         between ? "justify-between px-5" : ""
       } justify-center gap-x-5 bg-white shadow-lg z-50`}
     >
-      <NavLink to="/">
-        <LogoUdemy></LogoUdemy>
-      </NavLink>
+      <LogoUdemy></LogoUdemy>
       {!hiddenMultiple && (
         <div className="py-[24px] cursor-pointer" ref={nodeRefCategories}>
           <p className="hover:text-purpleText56">Categories</p>
@@ -101,7 +103,7 @@ const Header = ({
           Teach on Udemy
         </NavLink>
       )}
-      {hiddenMultiple && (
+      {jwt && (
         <>
           <NavLink to="/home/my-courses" className="hover:text-purpleText56">
             My learning
@@ -140,7 +142,7 @@ const Header = ({
           ></CartToggle>
         </div>
       </div>
-      {!hiddenMultiple ? (
+      {!jwt ? (
         <div className="flex items-center gap-2">
           <Button className="font-bold px-4" to="log-in">
             Log in
@@ -174,7 +176,7 @@ const Header = ({
               to="/user/edit-profile"
               cartHasCourse={true}
             ></ButtonUserAvatar>
-            <Sidebar hovered={hoverAvatar}></Sidebar>
+            <Sidebar data={user} hovered={hoverAvatar}></Sidebar>
           </div>
         </>
       )}

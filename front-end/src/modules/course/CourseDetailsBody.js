@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import CourseContent from "./CourseContent";
 import CourseDescription from "./CourseDescription";
 import CourseVideoOverview from "./CourseVideoOverview";
+import CourseFeaturedReview from "./CourseFeaturedReview";
+import CourseReviewList from "./CourseReviewList";
 
 const CourseDetailsBody = ({
   scroll,
@@ -38,6 +40,8 @@ function Left() {
     <Fragment>
       <CourseContent></CourseContent>
       <CourseDescription></CourseDescription>
+      <CourseFeaturedReview></CourseFeaturedReview>
+      <CourseReviewList></CourseReviewList>
     </Fragment>
   );
 }

@@ -12,7 +12,7 @@ const Input = ({
 }) => {
   const [focus, setFocus] = useState(false);
   const { field } = useController({ name, control, defaultValue: "" });
-  const handleBlueCapture = (e) => {
+  const handleBlurCapture = (e) => {
     e.target.value ? setFocus(true) : setFocus(false);
   };
   return (
@@ -22,17 +22,18 @@ const Input = ({
         type={type}
         className="w-full border border-primaryBlack px-4 pb-2 pt-6"
         onFocus={() => setFocus(true)}
-        onBlurCapture={handleBlueCapture}
+        onBlurCapture={handleBlurCapture}
         {...field}
         {...props}
       />
-      <span
-        className={`absolute left-4 top-1/2 -translate-y-1/2 transition-all ${
+      <label
+        className={`absolute left-4 top-1/2 -translate-y-1/2 transition-all cursor-text ${
           focus ? "top-1/4 text-xs font-semibold" : "font-bold"
         }`}
+        htmlFor={name}
       >
         {placeholder}
-      </span>
+      </label>
     </div>
   );
 };

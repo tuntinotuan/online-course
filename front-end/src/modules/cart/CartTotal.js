@@ -14,6 +14,7 @@ const CartTotal = () => {
           className="bg-purpleTextA4 py-3 text-white text-base font-bold"
           borderNone
           full
+          to="checkout"
         >
           Checkout
         </Button>

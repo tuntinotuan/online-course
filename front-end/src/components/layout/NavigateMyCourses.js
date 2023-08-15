@@ -25,17 +25,16 @@ const listNav = [
 ];
 
 const NavigateMyCourses = () => {
-  const commonCss = "relative text-base font-bold pb-2";
+  const commonCss =
+    "relative text-base font-bold hover:text-white transition-all pb-2";
   return (
-    <nav className="flex items-center gap-5 text-tagSky">
+    <nav className="flex items-center gap-5 text-purpleTextDC">
       {listNav.map((item) => (
         <NavLink
           to={item.path}
           key={item.title}
           className={({ isActive }) =>
-            isActive
-              ? `text-white border-[4px] border-transparent border-b-white ${commonCss}`
-              : `border-b-transparent ${commonCss}`
+            isActive ? `nav-my-course text-white ${commonCss}` : `${commonCss}`
           }
         >
           {item.title}

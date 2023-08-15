@@ -10,8 +10,8 @@ const CartToggleNoEmpty = ({ onClick = () => {} }) => {
     <div className="w-full">
       {Array(2)
         .fill(null)
-        .map((index) => (
-          <CartToggleItems key={index}></CartToggleItems>
+        .map(() => (
+          <CartToggleItems></CartToggleItems>
         ))}
       <div className="p-4">
         <div className="flex items-center gap-2 text-2xl font-bold">

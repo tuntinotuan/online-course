@@ -11,6 +11,7 @@ module.exports = {
         purpleText56: "#5624D0",
         purpleTextA4: "#A435F0",
         purpleTextC0: "#C0C4FC",
+        purpleTextDC: "#D1D7DC",
         greenText1E: "#1E6055",
         starBg: "#F69C08",
         starColor: "#4D3105",

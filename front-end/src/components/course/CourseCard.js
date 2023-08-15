@@ -13,6 +13,7 @@ const CourseCard = ({
   currentPrice,
   oldPrice,
   bestSeller = false,
+  blockTooltip = false,
 }) => {
   const { hovered, setHovered, nodeRef, coords } = useHover();
   return (
@@ -48,14 +49,16 @@ const CourseCard = ({
           <ButtonStatusTag className="bg-tagYellow">Bestseller</ButtonStatusTag>
         )}
       </div>
-      <CourseTooltip
-        title={title}
-        bestSeller={bestSeller}
-        hovered={hovered}
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
-        coords={coords}
-      ></CourseTooltip>
+      {!blockTooltip && (
+        <CourseTooltip
+          title={title}
+          bestSeller={bestSeller}
+          hovered={hovered}
+          onMouseOver={() => setHovered(true)}
+          onMouseOut={() => setHovered(false)}
+          coords={coords}
+        ></CourseTooltip>
+      )}
     </Link>
   );
 };

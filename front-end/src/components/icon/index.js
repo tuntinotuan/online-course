@@ -21,6 +21,8 @@ import IconDevice from "./IconDevice";
 import IconTrophy from "./IconTrophy";
 import IconCursor from "./IconCursor";
 import IconBell from "./IconBell";
+import IconLock from "./IconLock";
+import IconWarningSolid from "./IconWarningSolid";
 
 export {
   IconArrowLeft,
@@ -46,4 +48,6 @@ export {
   IconTrophy,
   IconCursor,
   IconBell,
+  IconLock,
+  IconWarningSolid,
 };

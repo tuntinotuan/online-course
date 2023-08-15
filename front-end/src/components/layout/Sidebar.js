@@ -5,16 +5,18 @@ import { Link } from "react-router-dom";
 import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
 
-const Sidebar = ({ hovered }) => {
+const Sidebar = ({ data, hovered }) => {
   return (
     <TooltipCover hovered={hovered} className="top-[106%] w-[260px]">
       <Link className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group">
         <ButtonUserAvatar size={66} className="text-2xl"></ButtonUserAvatar>
         <div>
           <h1 className="text-base font-bold transition-all group-hover:text-purpleText56">
-            Tuan Nguyen
+            {data.username || "Tuan Nguyen"}
           </h1>
-          <p className="text-xs text-grayA6">tuan48594@donga.edu.vn</p>
+          <p className="text-xs text-grayA6">
+            {data.email || "tuan48594@donga.edu.vn"}
+          </p>
         </div>
       </Link>
       <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">

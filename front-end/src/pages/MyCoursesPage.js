@@ -11,7 +11,7 @@ const MyCoursesPage = () => {
           <NavigateMyCourses></NavigateMyCourses>
         </div>
       </div>
-      <div className="page-container-my-course my-5">
+      <div className="page-container-my-course mb-8">
         <Outlet></Outlet>
       </div>
     </section>

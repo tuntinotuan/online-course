@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import requestTest from "./requests";
+import { requestTest } from "./requests";
 
 export const handleTestReduxThunk = createAsyncThunk(
   "test/handleTestReduxThunk",
@@ -12,6 +12,7 @@ export const handleTestReduxThunk = createAsyncThunk(
 const initialState = {
   count: 0,
   course: [],
+  user: [],
 };
 
 const counterSlide = createSlice({

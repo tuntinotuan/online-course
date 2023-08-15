@@ -3,6 +3,7 @@ import { Button, ButtonHeart, ButtonStatusTag } from "../button";
 import CourseSumary from "./CourseSumary";
 import ReactDOM from "react-dom";
 import { SpecialArrow, SpecialTextWithCheckIcon } from "../special";
+import { Link } from "react-router-dom";
 const targetCourse = [
   "Master Machine Learning on Python & R",
   "Have a great intuition of many Machine Learning models. What is your name, What's up Bro?",
@@ -35,9 +36,12 @@ const CourseTooltip = ({
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
     >
-      <h3 className="text-lg course-title font-bold transition-all hover:text-purpleText56 cursor-pointer">
+      <Link
+        to="/course/123"
+        className="text-lg course-title font-bold transition-all hover:text-purpleText56 cursor-pointer"
+      >
         {title}
-      </h3>
+      </Link>
       <div className="flex items-center gap-2">
         {bestSeller && (
           <ButtonStatusTag className="bg-tagYellow">Bestseller</ButtonStatusTag>

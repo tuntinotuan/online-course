@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CourseSumary from "../../components/course/CourseSumary";
 import CourseContentList from "./CourseContentList";
+import CourseHeading from "./CourseHeading";
 
 const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
   const [toggleAll, setToggleAll] = useState(false);
@@ -10,7 +11,7 @@ const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
   };
   return (
     <section>
-      <h1 className="text-2xl font-bold mb-5">Course content</h1>
+      <CourseHeading>Course content</CourseHeading>
       <div className={`${topFlex} last:mb-2`}>
         <CourseSumary
           obj={[

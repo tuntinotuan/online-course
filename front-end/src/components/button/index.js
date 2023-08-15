@@ -3,6 +3,7 @@ import ButtonStatusTag from "./ButtonStatusTag";
 import ButtonControlSwiper from "./ButtonControlSwiper";
 import ButtonHeart from "./ButtonHeart";
 import ButtonUserAvatar from "./ButtonUserAvatar";
+import ButtonPlayVideo from "./ButtonPlayVideo";
 
 export {
   Button,
@@ -10,4 +11,5 @@ export {
   ButtonControlSwiper,
   ButtonHeart,
   ButtonUserAvatar,
+  ButtonPlayVideo,
 };
