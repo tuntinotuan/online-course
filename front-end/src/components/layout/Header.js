@@ -6,7 +6,7 @@ import useHover from "../../hooks/useHover";
 import useClickOutSide from "../../hooks/useClickOutSide";
 import SearchMobile from "../search/SearchMobile";
 import {
-  IconArrowLeft,
+  IconArrowRight,
   IconBell,
   IconCartOutline,
   IconCartSolid,
@@ -21,6 +21,7 @@ import WishlistToggle from "../wishlist/WishlistToggle";
 import Sidebar from "./Sidebar";
 import { SpecialCountCircle } from "../special";
 import { useSelector } from "react-redux";
+import { ConvertUsernameShortly } from "../../utils/processing-string";
 
 const Header = ({
   hiddenMultiple = false,
@@ -58,33 +59,33 @@ const Header = ({
                     className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56"
                   >
                     Development
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </NavLink>
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     Business
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     Finance & Accounting
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     IT & Software
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     Office Productivity
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                 </ul>
                 <ul className="w-[250px] h-screen border border-transparent border-l-slate-200">
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     Web Development
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                   <li className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56">
                     Data Science
-                    <IconArrowLeft></IconArrowLeft>
+                    <IconArrowRight></IconArrowRight>
                   </li>
                 </ul>
               </div>
@@ -105,12 +106,12 @@ const Header = ({
       )}
       {jwt && (
         <>
-          <NavLink to="/home/my-courses" className="hover:text-purpleText56">
+          <NavLink to="/my-course/learning" className="hover:text-purpleText56">
             My learning
           </NavLink>
           <div ref={nodeRefWishlist} className="relative py-5">
             <NavLink
-              to="/home/my-courses/wishlist"
+              to="/my-course/wishlist"
               className="hover:text-purpleText56"
             >
               <IconHeart></IconHeart>
@@ -173,6 +174,7 @@ const Header = ({
           </div>
           <div ref={nodeRefAvatar} className="relative py-5">
             <ButtonUserAvatar
+              shortName={ConvertUsernameShortly(user.username)}
               to="/user/edit-profile"
               cartHasCourse={true}
             ></ButtonUserAvatar>

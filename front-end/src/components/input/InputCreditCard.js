@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CreditCardInput = () => {
+const InputCreditCard = () => {
   const [cardNumber, setCardNumber] = useState("");
 
   const handleCardNumberChange = (event) => {
@@ -28,4 +28,4 @@ const CreditCardInput = () => {
   );
 };
 
-export default CreditCardInput;
+export default InputCreditCard;

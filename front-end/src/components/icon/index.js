@@ -23,6 +23,8 @@ import IconCursor from "./IconCursor";
 import IconBell from "./IconBell";
 import IconLock from "./IconLock";
 import IconWarningSolid from "./IconWarningSolid";
+import IconEye from "./IconEye";
+import IconEyeClose from "./IconEyeClose";
 
 export {
   IconArrowLeft,
@@ -50,4 +52,6 @@ export {
   IconBell,
   IconLock,
   IconWarningSolid,
+  IconEye,
+  IconEyeClose,
 };

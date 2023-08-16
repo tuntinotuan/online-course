@@ -3,8 +3,10 @@ import counterSlice from "./counterSlice";
 import authSlice from "./authSlice";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import globalSlice from "./globalSlice";
 
 const reducer = combineReducers({
+  global: globalSlice,
   counter: counterSlice,
   auth: authSlice,
 });

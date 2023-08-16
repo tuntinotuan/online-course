@@ -15,6 +15,12 @@ import MyAllCourses from "./modules/my-course/MyAllCourses";
 import MyLists from "./modules/my-course/MyLists";
 import MyWishlist from "./modules/my-course/MyWishlist";
 import CheckoutPage from "./pages/CheckoutPage";
+import PageNotFound from "./components/notfound/PageNotFound";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import UserPage from "./pages/UserPage";
+import UserEditProfile from "./modules/user/UserEditProfile";
+import UserEditAccount from "./modules/user/UserEditAccount";
+import UserEditPhoto from "./modules/user/UserEditPhoto";
 
 function App() {
   return (
@@ -67,13 +73,31 @@ function App() {
             <Route path=" " element={<>Anything</>}></Route>
             <Route path="learning-tools" element={<>Anything</>}></Route>
           </Route>
+          <Route path="user" element={<UserPage></UserPage>}>
+            <Route
+              path="edit-profile"
+              element={<UserEditProfile></UserEditProfile>}
+            ></Route>
+            <Route
+              path="edit-account"
+              element={<UserEditAccount></UserEditAccount>}
+            ></Route>
+            <Route
+              path="edit-photo"
+              element={<UserEditPhoto></UserEditPhoto>}
+            ></Route>
+          </Route>
           <Route path="/log-in" element={<SignInPage></SignInPage>}></Route>
           <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
           <Route
             path="/forgot-password"
             element={<ForgotPasswordPage></ForgotPasswordPage>}
           ></Route>
-          <Route path="*" element={<>Not Found</>}></Route>
+          <Route
+            path="/reset-password"
+            element={<ResetPasswordPage></ResetPasswordPage>}
+          ></Route>
+          <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Route>
         <Route
           path="/cart/checkout"

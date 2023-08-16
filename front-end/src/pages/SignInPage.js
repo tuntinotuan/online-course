@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
 import AuthenticationPage from "./AuthenticationPage";
@@ -8,29 +8,64 @@ import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLoginThunk } from "../redux-toolkit/authSlice";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { InputTogglePassword } from "../components/input";
+import PageNotFound from "../components/notfound/PageNotFound";
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email("Please enter valid email address")
+    .required("Please enter your email address"),
+  password: yup
+    .string()
+    .min(8, "Your password must be at least 8 characters or greater")
+    .required("Please enter your password"),
+});
 
 const SignInPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
     mode: "onChange",
+    resolver: yupResolver(schema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  const { user } = useSelector((state) => state.auth);
+  const { user, error } = useSelector((state) => state.auth);
   const handleLogin = async (values) => {
+    if (!isValid) return;
     try {
       dispatch(handleLoginThunk(values));
-      navigate("/");
-      toast.success("Login successfully!");
     } catch (error) {
       console.log(error);
     }
   };
-  if (user.jwt) return <p>Not found UI</p>;
+  useEffect(() => {
+    const arrErrors = Object.values(errors);
+    if (arrErrors.length > 0) {
+      toast.error(arrErrors[0].message || error, {
+        pauseOnHover: false,
+        delay: 0,
+      });
+    } else {
+      error &&
+        toast.error(error, {
+          pauseOnHover: false,
+          delay: 0,
+        });
+    }
+  }, [errors, error]);
+
+  if (user.jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage title="Log in to your Udemy account">
       <form
@@ -51,12 +86,7 @@ const SignInPage = () => {
           type="email"
           placeholder="Email"
         ></Input>
-        <Input
-          control={control}
-          name="password"
-          type="password"
-          placeholder="Password"
-        ></Input>
+        <InputTogglePassword control={control}></InputTogglePassword>
         <Button
           type="submit"
           className="bg-purpleTextA4 text-base text-white font-bold py-3"

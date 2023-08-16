@@ -24,7 +24,7 @@ const ButtonControlSwiper = ({ sizeButton = "", coords }) => {
           }
         }
       >
-        <IconArrowRight size={24} stroke={3}></IconArrowRight>
+        <IconArrowLeft size={24} stroke={3}></IconArrowLeft>
       </button>
       <button
         onClick={() => handleClickNext(swiper)}
@@ -38,7 +38,7 @@ const ButtonControlSwiper = ({ sizeButton = "", coords }) => {
           }
         }
       >
-        <IconArrowLeft size={24} stroke={3}></IconArrowLeft>
+        <IconArrowRight size={24} stroke={3}></IconArrowRight>
       </button>
     </div>,
     document.querySelector("body")

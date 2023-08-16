@@ -1,15 +1,36 @@
 import React from "react";
 import TooltipCover from "../tooltip/TooltipCover";
 import ButtonUserAvatar from "../button/ButtonUserAvatar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
+import { ConvertUsernameShortly } from "../../utils/processing-string";
+import { handleLogoutThunk } from "../../redux-toolkit/authSlice";
 
 const Sidebar = ({ data, hovered }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      dispatch(handleLogoutThunk());
+      navigate("/log-in");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <TooltipCover hovered={hovered} className="top-[106%] w-[260px]">
-      <Link className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group">
-        <ButtonUserAvatar size={66} className="text-2xl"></ButtonUserAvatar>
+    <TooltipCover hovered={hovered} className="!top-[106%] w-[260px]">
+      <Link
+        to="/user/edit-profile"
+        className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group"
+      >
+        <ButtonUserAvatar
+          // avatar={`https://img-b.udemycdn.com/user/200_H/242590638_80e3.jpg`}
+          shortName={ConvertUsernameShortly(data.username)}
+          size={66}
+          className="text-2xl"
+        ></ButtonUserAvatar>
         <div>
           <h1 className="text-base font-bold transition-all group-hover:text-purpleText56">
             {data.username || "Tuan Nguyen"}
@@ -20,17 +41,29 @@ const Sidebar = ({ data, hovered }) => {
         </div>
       </Link>
       <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">
-        <Link className="w-full transition-all hover:text-purpleText56">
+        <Link
+          to="/my-course/learning"
+          className="w-full transition-all hover:text-purpleText56"
+        >
           My learning
         </Link>
-        <Link className="flex items-center justify-between w-full transition-all hover:text-purpleText56">
+        <Link
+          to="/cart"
+          className="flex items-center justify-between w-full transition-all hover:text-purpleText56"
+        >
           My cart
           <SpecialCountCircle></SpecialCountCircle>
         </Link>
-        <Link className="w-full transition-all hover:text-purpleText56">
+        <Link
+          to="/my-course/wishlist"
+          className="w-full transition-all hover:text-purpleText56"
+        >
           My wishlist
         </Link>
-        <Link className="w-full transition-all hover:text-purpleText56">
+        <Link
+          to="/user/edit-profile"
+          className="w-full transition-all hover:text-purpleText56"
+        >
           Edit profile
         </Link>
       </div>
@@ -46,7 +79,10 @@ const Sidebar = ({ data, hovered }) => {
         <Link className="w-full transition-all hover:text-purpleText56">
           Help
         </Link>
-        <Link className="w-full transition-all hover:text-purpleText56">
+        <Link
+          className="w-full transition-all hover:text-purpleText56"
+          onClick={handleLogout}
+        >
           Log out
         </Link>
       </div>
