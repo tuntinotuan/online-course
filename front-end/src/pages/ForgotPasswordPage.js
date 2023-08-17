@@ -4,12 +4,12 @@ import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
 import { Button } from "../components/button";
 import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
-import { handleForgotPasswordThunk } from "../redux-toolkit/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingSpinner from "../components/loading/LoadingSpine";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { handleForgotPassword } from "../redux-toolkit/auth/authHandlerThunk";
+import LoadingSpine from "../components/loading/LoadingSpine";
 
 const schema = yup.object({
   email: yup
@@ -32,10 +32,10 @@ const ForgotPasswordPage = () => {
     },
   });
   const { loading } = useSelector((state) => state.global);
-  const handleForgotPassword = (values) => {
+  const submitForgotPassword = (values) => {
     if (!isValid) return;
     console.log("values", values);
-    dispatch(handleForgotPasswordThunk(values));
+    dispatch(handleForgotPassword(values));
   };
   useEffect(() => {
     const arrErrors = Object.values(errors);
@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <AuthenticationPage title="Forgot Password">
-      <form onSubmit={handleSubmit(handleForgotPassword)}>
+      <form onSubmit={handleSubmit(submitForgotPassword)}>
         <div className="my-3">
           <Input
             control={control}
@@ -62,7 +62,7 @@ const ForgotPasswordPage = () => {
           full
         >
           {loading ? (
-            <LoadingSpinner size="24px" borderSize="2px"></LoadingSpinner>
+            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
           ) : (
             "Reset Password"
           )}

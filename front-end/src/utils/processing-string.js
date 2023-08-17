@@ -1,4 +1,8 @@
 export function ConvertUsernameShortly(name) {
+  if (!name)
+    throw new Error(
+      "ConvertUsernameShortly function must be have 'name' property"
+    );
   let results = "";
   const divideName = name.split(" ");
   if (divideName.length < 3) {

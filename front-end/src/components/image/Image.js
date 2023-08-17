@@ -2,7 +2,7 @@ import React from "react";
 
 const Image = ({ className, url = "", isOverlay = false }) => {
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
       <img
         srcSet={url}
         alt=""

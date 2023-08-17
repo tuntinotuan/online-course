@@ -5,8 +5,9 @@ const Input = ({
   name = "",
   type = "text",
   placeholder = "",
+  label = "",
+  size = 24,
   children,
-  hasIcon = false,
   control,
   ...props
 }) => {
@@ -22,21 +23,30 @@ const Input = ({
       <input
         id={name}
         type={type}
-        className="w-full border border-primaryBlack px-4 pb-2 pt-6"
+        placeholder={placeholder}
+        className="w-full border border-primaryBlack placeholder:text-primaryBlack placeholder:text-opacity-75"
         onFocus={() => setFocus(true)}
         onChangeCapture={(e) => setValueChange(e.target.value)}
         onBlurCapture={handleBlurCapture}
+        style={{
+          padding: placeholder
+            ? `${size / 3}px ${size / 2}px`
+            : `${size}px ${(size * 2) / 3}px ${size / 3}px`,
+        }}
         {...field}
         {...props}
       />
-      <label
-        className={`absolute left-4 top-1/2 -translate-y-1/2 transition-all cursor-text ${
-          focus ? "top-1/4 text-xs font-semibold opacity-95" : "font-bold"
-        }`}
-        htmlFor={name}
-      >
-        {placeholder}
-      </label>
+      {!placeholder && (
+        <label
+          className={`absolute left-4 top-1/2 -translate-y-1/2 transition-all cursor-text ${
+            focus ? "top-1/4 text-xs font-semibold opacity-95" : "font-bold"
+          }`}
+          style={{ left: (size * 2) / 3 }}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
       {children && (
         <div
           className={`icon-eye absolute top-1/2 right-4 -translate-y-1/2 transition-all ${

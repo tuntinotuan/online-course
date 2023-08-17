@@ -3,7 +3,7 @@ import { IconSearch } from "../icon";
 
 const Search = ({
   width = "w-[562px]",
-  bgColor = "bg-slate-50",
+  bgColor = "bg-grayF7",
   borderNone = false,
   rounded = "rounded-full",
 }) => {

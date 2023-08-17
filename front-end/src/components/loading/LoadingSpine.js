@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingSpinner = ({
+const LoadingSpine = ({
   size = "40px",
   borderSize = "5px",
   borderColor = "white",
@@ -19,4 +19,4 @@ const LoadingSpinner = ({
   );
 };
 
-export default LoadingSpinner;
+export default LoadingSpine;

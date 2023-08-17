@@ -37,7 +37,7 @@ const Button = ({
       className={`${square ? square : "py-2 px-3"} ${
         borderNone ? "" : "border border-primaryBlack"
       } ${mtAuto ? "mt-auto" : ""} ${full ? "w-full" : ""} ${className} ${
-        borderNone ? "hover:opacity-80" : "hover:bg-[#F5F5F5]"
+        borderNone ? "hover:opacity-80" : "hover:bg-grayF7"
       } transition-all`}
       {...props}
     >

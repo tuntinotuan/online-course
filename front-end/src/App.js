@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/layout/Main";
 import CartPage from "./pages/CartPage";
@@ -21,8 +21,18 @@ import UserPage from "./pages/UserPage";
 import UserEditProfile from "./modules/user/UserEditProfile";
 import UserEditAccount from "./modules/user/UserEditAccount";
 import UserEditPhoto from "./modules/user/UserEditPhoto";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetUserData } from "./redux-toolkit/user/userHandlerThunk";
 
 function App() {
+  const dispatch = useDispatch();
+  const { currentUserId } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (currentUserId) {
+      dispatch(handleGetUserData(currentUserId));
+    }
+  }, [dispatch, currentUserId]);
+
   return (
     <div className="App">
       <Routes>

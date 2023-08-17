@@ -6,13 +6,13 @@ import Button from "../components/button/Button";
 import { IconFacebook, IconGoogle } from "../components/icon";
 import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLoginThunk } from "../redux-toolkit/authSlice";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { InputTogglePassword } from "../components/input";
 import PageNotFound from "../components/notfound/PageNotFound";
+import { handleLogin } from "../redux-toolkit/auth/authHandlerThunk";
 
 const schema = yup.object({
   email: yup
@@ -40,11 +40,11 @@ const SignInPage = () => {
       password: "",
     },
   });
-  const { user, error } = useSelector((state) => state.auth);
-  const handleLogin = async (values) => {
+  const { jwt, error } = useSelector((state) => state.auth);
+  const loginHandler = async (values) => {
     if (!isValid) return;
     try {
-      dispatch(handleLoginThunk(values));
+      dispatch(handleLogin(values));
     } catch (error) {
       console.log(error);
     }
@@ -65,11 +65,11 @@ const SignInPage = () => {
     }
   }, [errors, error]);
 
-  if (user.jwt) return <PageNotFound></PageNotFound>;
+  if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage title="Log in to your Udemy account">
       <form
-        onSubmit={handleSubmit(handleLogin)}
+        onSubmit={handleSubmit(loginHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
       >
         <Button className="flex items-center gap-3 text-base font-bold" full>
@@ -84,7 +84,7 @@ const SignInPage = () => {
           control={control}
           name="email"
           type="email"
-          placeholder="Email"
+          label="Email"
         ></Input>
         <InputTogglePassword control={control}></InputTogglePassword>
         <Button

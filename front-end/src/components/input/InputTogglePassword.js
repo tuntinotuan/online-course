@@ -4,7 +4,7 @@ import { IconEye, IconEyeClose } from "../icon";
 
 const InputTogglePassword = ({
   name = "password",
-  placeholder = "Password",
+  label = "Password",
   control,
   sizeIcon = 18,
   ...props
@@ -15,7 +15,7 @@ const InputTogglePassword = ({
       control={control}
       name={name}
       type={togglePassword ? "text" : "password"}
-      placeholder={placeholder}
+      label={label}
       {...props}
     >
       {togglePassword ? (

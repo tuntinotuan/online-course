@@ -17,7 +17,7 @@ const ButtonUserAvatar = ({
         className={`relative flex items-center justify-center text-white font-bold rounded-full ${
           avatar ? "" : "bg-primaryBlack"
         } ${className}`}
-        style={{ width: size, height: size }}
+        style={{ width: size, height: size, fontSize: (size * 2) / 5 }}
       >
         {avatar ? (
           <Image url={avatar} className="rounded-full"></Image>

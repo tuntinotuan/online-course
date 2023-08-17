@@ -9,8 +9,8 @@ import { InputTogglePassword } from "../components/input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { handleRegisterThunk } from "../redux-toolkit/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { handleRegister } from "../redux-toolkit/auth/authHandlerThunk";
 
 const schema = yup.object({
   fullname: yup
@@ -29,6 +29,7 @@ const schema = yup.object({
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
   const {
     control,
     handleSubmit,
@@ -42,37 +43,33 @@ const SignUpPage = () => {
       password: "",
     },
   });
-  const handleRegister = (values) => {
+  const registerHandler = (values) => {
     if (!isValid) return;
     console.log("values", values);
-    dispatch(handleRegisterThunk(values));
+    dispatch(handleRegister(values));
   };
   useEffect(() => {
     const arrErrors = Object.values(errors);
-    if (arrErrors.length > 0) {
-      toast.error(arrErrors[0].message, {
+    if (arrErrors.length > 0 || error) {
+      toast.error(arrErrors[0]?.message || error, {
         pauseOnHover: false,
         delay: 0,
       });
     }
-  }, [errors]);
+  }, [errors, error]);
 
   return (
     <AuthenticationPage title="Sign up and start learning">
       <form
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(registerHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
       >
-        <Input
-          control={control}
-          name="fullname"
-          placeholder="Full name"
-        ></Input>
+        <Input control={control} name="fullname" label="Full name"></Input>
         <Input
           control={control}
           name="email"
           type="email"
-          placeholder="Email"
+          label="Email"
         ></Input>
         <InputTogglePassword control={control}></InputTogglePassword>
         <Button

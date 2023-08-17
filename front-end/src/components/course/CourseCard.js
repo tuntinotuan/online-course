@@ -22,7 +22,9 @@ const CourseCard = ({
       className="course-card relative h-full select-none -z-1 cursor-pointer group"
       ref={nodeRef}
     >
-      <Image url={img} className="mb-2" isOverlay={hovered}></Image>
+      <div className="h-[135px]">
+        <Image url={img} className="mb-2" isOverlay={hovered}></Image>
+      </div>
       <div>
         <h3 className="text-base course-title font-bold line-clamp-2">
           {title}

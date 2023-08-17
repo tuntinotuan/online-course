@@ -22,6 +22,7 @@ import Sidebar from "./Sidebar";
 import { SpecialCountCircle } from "../special";
 import { useSelector } from "react-redux";
 import { ConvertUsernameShortly } from "../../utils/processing-string";
+import { strapiPathBE } from "../../utils/constants";
 
 const Header = ({
   hiddenMultiple = false,
@@ -38,8 +39,9 @@ const Header = ({
     useHover();
   const { hovered: hoverAvatar, nodeRef: nodeRefAvatar } = useHover();
 
-  const { user: users } = useSelector((state) => state.auth);
-  const { jwt, user } = users;
+  const { jwt } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.user);
+  const { avatar } = userData;
   return (
     <header
       className={`header relative flex items-center ${
@@ -174,11 +176,12 @@ const Header = ({
           </div>
           <div ref={nodeRefAvatar} className="relative py-5">
             <ButtonUserAvatar
-              shortName={ConvertUsernameShortly(user.username)}
+              avatar={avatar && `${strapiPathBE}${avatar?.url}`}
+              shortName={ConvertUsernameShortly(userData.username)}
               to="/user/edit-profile"
               cartHasCourse={true}
             ></ButtonUserAvatar>
-            <Sidebar data={user} hovered={hoverAvatar}></Sidebar>
+            <Sidebar hovered={hoverAvatar}></Sidebar>
           </div>
         </>
       )}

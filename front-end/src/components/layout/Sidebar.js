@@ -2,18 +2,21 @@ import React from "react";
 import TooltipCover from "../tooltip/TooltipCover";
 import ButtonUserAvatar from "../button/ButtonUserAvatar";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
 import { ConvertUsernameShortly } from "../../utils/processing-string";
-import { handleLogoutThunk } from "../../redux-toolkit/authSlice";
+import { strapiPathBE } from "../../utils/constants";
+import { handleLogout } from "../../redux-toolkit/auth/authHandlerThunk";
 
-const Sidebar = ({ data, hovered }) => {
+const Sidebar = ({ hovered }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = async () => {
+  const { userData } = useSelector((state) => state.user);
+  const { avatar } = userData;
+  const logoutHandler = async () => {
     try {
-      dispatch(handleLogoutThunk());
+      dispatch(handleLogout());
       navigate("/log-in");
     } catch (error) {
       console.log(error);
@@ -26,17 +29,18 @@ const Sidebar = ({ data, hovered }) => {
         className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group"
       >
         <ButtonUserAvatar
-          // avatar={`https://img-b.udemycdn.com/user/200_H/242590638_80e3.jpg`}
-          shortName={ConvertUsernameShortly(data.username)}
+          avatar={avatar && `${strapiPathBE}${avatar?.url}`}
+          shortName={ConvertUsernameShortly(userData?.username)}
           size={66}
+          to="/user/edit-profile"
           className="text-2xl"
         ></ButtonUserAvatar>
         <div>
           <h1 className="text-base font-bold transition-all group-hover:text-purpleText56">
-            {data.username || "Tuan Nguyen"}
+            {userData?.username || "Tuan Nguyen"}
           </h1>
           <p className="text-xs text-grayA6">
-            {data.email || "tuan48594@donga.edu.vn"}
+            {userData?.email || "tuan48594@donga.edu.vn"}
           </p>
         </div>
       </Link>
@@ -81,7 +85,7 @@ const Sidebar = ({ data, hovered }) => {
         </Link>
         <Link
           className="w-full transition-all hover:text-purpleText56"
-          onClick={handleLogout}
+          onClick={logoutHandler}
         >
           Log out
         </Link>
