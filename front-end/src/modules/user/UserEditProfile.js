@@ -24,11 +24,8 @@ const UserEditProfile = () => {
       birthDay: userData.birthday,
     },
   });
-  console.log("isSubmitting", isSubmitting);
   const editProfileHandler = (values) => {
     if (!isValid) return;
-    console.log("values", values);
-    // console.log("userData.id", userData.id);
     dispatch(handleUpdateUserProfile(values));
   };
   return (

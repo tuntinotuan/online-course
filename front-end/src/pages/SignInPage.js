@@ -52,7 +52,7 @@ const SignInPage = () => {
   useEffect(() => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
-      toast.error(arrErrors[0].message || error, {
+      toast.error(arrErrors[0].message, {
         pauseOnHover: false,
         delay: 0,
       });

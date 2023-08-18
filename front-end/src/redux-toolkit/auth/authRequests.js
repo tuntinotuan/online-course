@@ -37,3 +37,15 @@ export function requestForgotPassword({ email }) {
   //     console.log("An error occurred:", error.response);
   //   });
 }
+
+export function requestChangePassword({
+  currentPassword,
+  newPassword,
+  reTypePassword,
+}) {
+  return strapi.changePassword({
+    currentPassword: currentPassword,
+    password: newPassword,
+    passwordConfirmation: reTypePassword,
+  });
+}

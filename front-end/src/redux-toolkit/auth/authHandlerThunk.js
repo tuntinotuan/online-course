@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  requestChangePassword,
   requestForgotPassword,
   requestLogin,
   requestLogout,
@@ -60,6 +61,21 @@ export const handleForgotPassword = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
+    }
+  }
+);
+export const handleChangePassword = createAsyncThunk(
+  "forgotPassword/hanldChangePasswordThunk",
+  async (value, { dispatch }) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await requestChangePassword(value);
+      console.log("response", response);
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+      dispatch(setError(error.error.message));
     }
   }
 );

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
 
 export function requestGetUserData(userId) {
@@ -5,15 +6,45 @@ export function requestGetUserData(userId) {
     populate: "*",
   });
 }
-export function requestUpdateUserProfile(userId, data) {
-  const { fullname, address, phone, birthday } = data;
-  console.log("data", data);
-  return strapi.update("users", userId, {
-    data: {
+export function requestUpdateUserProfile(userId, jwt, data) {
+  const { fullname, address, phone, birthDay } = data;
+  // return strapi.update("users", userId, {
+  //   // data: {
+  //   username: fullname,
+  //   address: address,
+  //   phonenumber: phone,
+  //   birthday: birthDay,
+  //   // },
+  // });
+  return axios.put(
+    `http://localhost:1337/api/users/${userId}`,
+    {
       username: fullname,
       address: address,
       phonenumber: phone,
-      birthday: birthday,
+      birthday: birthDay,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+export function requestUpdateUserAvatar(userId, jwt, data) {
+  // console.log("input", userId, jwt, data);
+  const formData = new FormData();
+  formData.append("files", data, data?.name);
+  formData.append("ref", "plugin::users-permissions.user");
+  formData.append("refId", userId);
+  formData.append("field", "avatar");
+  // formData.forEach((value, key) => {
+  //   console.log("key %s: value %s", key, value);
+  // });
+  return axios.post("http://localhost:1337/api/upload", formData, {
+    headers: {
+      authorization: `Bearer ${jwt}`,
     },
   });
 }
