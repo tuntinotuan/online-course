@@ -5,6 +5,7 @@ import CoursePrice from "./CoursePrice";
 import CourseCard from "./CourseCard";
 import CourseList from "./CourseList";
 import CourseTooltip from "./CourseTooltip";
+import CourseCardSkeleton from "./CourseCardSkeleton";
 
 export {
   CourseStar,
@@ -14,4 +15,5 @@ export {
   CourseCard,
   CourseList,
   CourseTooltip,
+  CourseCardSkeleton,
 };

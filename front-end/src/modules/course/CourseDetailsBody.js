@@ -4,6 +4,7 @@ import CourseDescription from "./CourseDescription";
 import CourseVideoOverview from "./CourseVideoOverview";
 import CourseFeaturedReview from "./CourseFeaturedReview";
 import CourseReviewList from "./CourseReviewList";
+import CourseInstructor from "./CourseInstructor";
 
 const CourseDetailsBody = ({
   scroll,
@@ -42,6 +43,7 @@ function Left() {
       <CourseDescription></CourseDescription>
       <CourseFeaturedReview></CourseFeaturedReview>
       <CourseReviewList></CourseReviewList>
+      <CourseInstructor></CourseInstructor>
     </Fragment>
   );
 }

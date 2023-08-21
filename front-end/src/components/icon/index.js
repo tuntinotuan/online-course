@@ -10,6 +10,7 @@ import IconTag from "./IconTag";
 import IconGoogle from "./IconGoogle";
 import IconFacebook from "./IconFacebook";
 import IconHeart from "./IconHeart";
+import IconHeartSolid from "./IconHeartSolid";
 import IconSearch from "./IconSearch";
 import IconCheck from "./IconCheck";
 import IconPlay from "./IconPlay";
@@ -25,6 +26,7 @@ import IconLock from "./IconLock";
 import IconWarningSolid from "./IconWarningSolid";
 import IconEye from "./IconEye";
 import IconEyeClose from "./IconEyeClose";
+import IconPen from "./IconPen";
 
 export {
   IconArrowLeft,
@@ -39,6 +41,7 @@ export {
   IconGoogle,
   IconFacebook,
   IconHeart,
+  IconHeartSolid,
   IconSearch,
   IconCheck,
   IconPlay,
@@ -54,4 +57,5 @@ export {
   IconWarningSolid,
   IconEye,
   IconEyeClose,
+  IconPen,
 };

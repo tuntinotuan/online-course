@@ -18,7 +18,6 @@ export const handleGetUserData = createAsyncThunk(
     return results;
   }
 );
-
 export const handleUpdateUserProfile = createAsyncThunk(
   "user/handleUpdateUserProfileThunk",
   async (data, { getState }) => {

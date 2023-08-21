@@ -1,5 +1,6 @@
 import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
+import { strapiPathBE } from "../../utils/constants";
 
 export function requestGetUserData(userId) {
   return strapi.findOne("users", userId, {
@@ -17,7 +18,7 @@ export function requestUpdateUserProfile(userId, jwt, data) {
   //   // },
   // });
   return axios.put(
-    `http://localhost:1337/api/users/${userId}`,
+    `${strapiPathBE}/api/users/${userId}`,
     {
       username: fullname,
       address: address,
@@ -42,7 +43,7 @@ export function requestUpdateUserAvatar(userId, jwt, data) {
   // formData.forEach((value, key) => {
   //   console.log("key %s: value %s", key, value);
   // });
-  return axios.post("http://localhost:1337/api/upload", formData, {
+  return axios.post(`${strapiPathBE}/api/upload`, formData, {
     headers: {
       authorization: `Bearer ${jwt}`,
     },

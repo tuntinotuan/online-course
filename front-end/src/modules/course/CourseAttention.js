@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonStatusTag from "../../components/button/ButtonStatusTag";
 
-const CourseAttention = () => {
+const CourseAttention = ({ data }) => {
   return (
     <section
       className={`bg-primaryBlack text-white py-2 px-3
@@ -12,7 +12,8 @@ const CourseAttention = () => {
       >
         <div>
           <h1 className="text-sm font-bold mb-2">
-            Learning Python for Data Analysis and Visualization Ver 1
+            {data.title ||
+              "Learning Python for Data Analysis and Visualization Ver 1"}
           </h1>
           <div className="flex items-center gap-2">
             <ButtonStatusTag className="bg-tagYellow">

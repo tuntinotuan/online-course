@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import UserTopContent from "./UserTopContent";
 import UserTopBlock from "./UserTopBlock";
-import { InputTogglePassword } from "../../components/input";
+import {
+  InputEmailWithIcon,
+  InputTogglePassword,
+} from "../../components/input";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import * as yup from "yup";
@@ -57,6 +60,7 @@ const UserEditAccount = () => {
       <UserTopBlock className="!items-start !justify-start text-start !py-6">
         <form className="flex flex-col items-start gap-3 w-[600px] mx-auto">
           <h3 className="font-bold">Email:</h3>
+          <InputEmailWithIcon></InputEmailWithIcon>
         </form>
       </UserTopBlock>
       <form

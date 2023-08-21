@@ -7,7 +7,7 @@ import IconEarth from "../../components/icon/IconEarth";
 import IconCard from "../../components/icon/IconCard";
 import CourseVideo from "./CourseVideo";
 
-const CourseDetailsOverview = () => {
+const CourseDetailsOverview = ({ data }) => {
   return (
     <section className="bg-primaryBlack text-white py-8 overflow-hidden">
       <div className="page-container-fluid">
@@ -20,11 +20,12 @@ const CourseDetailsOverview = () => {
           <CourseVideo className="my-5 hidden"></CourseVideo>
           <div>
             <h1 className="text-3xl font-bold">
-              Learning Python for Data Analysis and Visualization Ver 1
+              {data.title ||
+                "Learning Python for Data Analysis and Visualization Ver 1"}
             </h1>
             <p className="text-lg my-3">
-              Learn python and how to use it to analyze,visualize and present
-              data. Includes tons of sample code and hours of video!
+              {data.subtitle ||
+                "Learn python and how to use it to analyze,visualize and present data. Includes tons of sample code and hours of video!"}
             </p>
             <div className={"flex items-center gap-2"}>
               <ButtonStatusTag className="bg-tagYellow">
@@ -57,14 +58,14 @@ const CourseDetailsOverview = () => {
               <p>
                 Created by
                 <span className="text-purpleTextC0 underline ml-1 cursor-pointer">
-                  Jose Portilla
+                  {data?.user?.username || "Jose Portilla"}
                 </span>
               </p>
             </div>
             <div className={`flex items-center gap-3 text-sm`}>
               <p className="flex items-center gap-1">
                 <IconExclamation size={17}></IconExclamation>
-                Last updated 9/2019
+                Last <span>{data.updatedAt || "updated 9/2019"}</span>
               </p>
               <p className="flex items-center gap-1">
                 <IconEarth size={16}></IconEarth>

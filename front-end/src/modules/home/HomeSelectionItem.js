@@ -1,9 +1,8 @@
 import React from "react";
 import { Button } from "../../components/button";
 import { CourseList } from "../../components/course";
-import { dataCourses } from "../../data/dataConfig";
 
-const HomeSelectionItem = ({ data }) => {
+const HomeSelectionItem = () => {
   return (
     <div className="p-8 border border-slate-200 overflow-hidden">
       <h1 className="text-2xl font-bold mb-4">
@@ -22,7 +21,7 @@ const HomeSelectionItem = ({ data }) => {
         alias. Soluta nam, blanditiis molestiae enim dolore velit.
       </p>
       <Button className="font-bold mb-8">Explore Python</Button>
-      <CourseList data={data || dataCourses}></CourseList>
+      <CourseList></CourseList>
     </div>
   );
 };

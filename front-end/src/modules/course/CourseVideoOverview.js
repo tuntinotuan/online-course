@@ -10,11 +10,21 @@ import {
   IconTrophy,
 } from "../../components/icon";
 import CourseVideo from "./CourseVideo";
+import { useDispatch, useSelector } from "react-redux";
+import CoursePrice from "../../components/course/CoursePrice";
+import { handleAddToCart } from "../../redux-toolkit/cart/cartHandlerThunk";
+import { useParams } from "react-router-dom";
 
 const CourseVideoOverview = ({ offset }) => {
+  const { courseId } = useParams();
+  const dispatch = useDispatch();
+  const { course } = useSelector((state) => state.course);
   let pointScrollFixed = offset > 299;
   const scrollbarHeight = document.body.scrollHeight;
   let pointScrollSticky = offset > scrollbarHeight - 999;
+  const addToCart = () => {
+    dispatch(handleAddToCart(courseId));
+  };
   return (
     <section
       className={`${
@@ -29,14 +39,27 @@ const CourseVideoOverview = ({ offset }) => {
     >
       <CourseVideo className={pointScrollFixed ? "hidden" : ""}></CourseVideo>
       <div className="p-5">
-        <h1 className="text-3xl font-bold mb-3">
-          <span className="underline">đ</span>1,799,000
-        </h1>
+        <CoursePrice
+          className="text-3xl mb-3"
+          price={
+            course?.current_price?.toLocaleString("en-US") ||
+            course?.original_price?.toLocaleString("en-US")
+          }
+        ></CoursePrice>
+        {course?.current_price && (
+          <CoursePrice
+            className="text-xl font-normal line-through mb-3"
+            price={
+              course?.original_price?.toLocaleString("en-US") || "1,799,000"
+            }
+          ></CoursePrice>
+        )}
         <Button
           className="bg-purpleTextA4 font-bold text-white mb-2"
           square="py-3"
           full
           borderNone
+          onClick={addToCart}
         >
           Add to Cart
         </Button>

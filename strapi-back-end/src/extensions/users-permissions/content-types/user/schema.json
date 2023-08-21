@@ -78,11 +78,30 @@
       "type": "date"
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "user"
+    },
+    "cart": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart.cart",
+      "mappedBy": "user"
+    },
+    "favorite": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::favorite.favorite",
+      "inversedBy": "user"
     }
   }
 }

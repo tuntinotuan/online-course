@@ -9,21 +9,21 @@ import {
   SwiperProvider,
   useSwiperContext,
 } from "../../contexts/swiper-context";
+import CourseCardSkeleton from "./CourseCardSkeleton";
+import { useSelector } from "react-redux";
 
-const CourseList = ({ data, autoPlay = false, items = 5 }) => {
+const CourseList = ({ autoPlay = false, items = 5 }) => {
   return (
     <SwiperProvider>
-      <CourseListMain
-        data={data}
-        autoPlay={autoPlay}
-        items={items}
-      ></CourseListMain>
+      <CourseListMain autoPlay={autoPlay} items={items}></CourseListMain>
     </SwiperProvider>
   );
 };
 
-function CourseListMain({ data, autoPlay, items }) {
-  const { nodeRef, coords } = useSwiperContext();
+function CourseListMain({ autoPlay, items }) {
+  const { nodeRef } = useSwiperContext();
+  const { loading } = useSelector((state) => state.global);
+  const { courseList } = useSelector((state) => state.course);
   return (
     <div className={`relative course-list`} ref={nodeRef}>
       <Swiper
@@ -34,23 +34,38 @@ function CourseListMain({ data, autoPlay, items }) {
         spaceBetween={15}
         autoplay={autoPlay}
       >
-        {data &&
-          data.map((item, index) => (
-            <SwiperSlide key={index}>
+        {loading &&
+          Array(5)
+            .fill(null)
+            .map(() => (
+              <SwiperSlide>
+                <CourseCardSkeleton></CourseCardSkeleton>
+              </SwiperSlide>
+            ))}
+        {!loading &&
+          courseList?.map((course) => (
+            <SwiperSlide key={course.id}>
               <CourseCard
-                img={item.img_course}
-                title={item.title}
-                instructer={item.instructor}
-                currentPrice={item.current_price}
-                oldPrice={item.original_price}
-                bestSeller={item.best_seller}
+                id={course.id}
+                img={course.overview_image?.url}
+                title={course.title}
+                subtitle={course.subtitle}
+                updatedAt={course.updatedAt}
+                instructor={course.user}
+                originalPrice={course.original_price}
+                currentPrice={course?.current_price}
+                bestSeller={course.best_seller}
               ></CourseCard>
             </SwiperSlide>
           ))}
+        {/* {courseList.length > items && ( */}
         <ButtonControlSwiper
           sizeButton="w-12 h-12"
-          coords={coords}
+          // className={
+          //   courseList.length > items ? "opacity-100 visible" : "opacity-0 invisible"
+          // }
         ></ButtonControlSwiper>
+        {/* )} */}
       </Swiper>
     </div>
   );

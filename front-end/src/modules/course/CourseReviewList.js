@@ -21,6 +21,7 @@ const CourseReviewList = () => {
       <div className="grid grid-cols-2 gap-8">
         {dataLocal.map((items) => (
           <ReviewCard
+            key={items.name}
             name={items.name}
             shortName={ConvertUsernameShortly(items.name)}
             time={items.time}

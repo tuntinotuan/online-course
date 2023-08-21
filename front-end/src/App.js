@@ -23,6 +23,7 @@ import UserEditAccount from "./modules/user/UserEditAccount";
 import UserEditPhoto from "./modules/user/UserEditPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetUserData } from "./redux-toolkit/user/userHandlerThunk";
+import { handleGetCourseData } from "./redux-toolkit/course/courseHandlerThunk";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
     if (currentUserId) {
       dispatch(handleGetUserData(currentUserId));
     }
+    dispatch(handleGetCourseData());
   }, [dispatch, currentUserId]);
 
   return (
@@ -69,7 +71,7 @@ function App() {
             </Route>
           </Route>
           <Route
-            path="/course/:id"
+            path="/course/:courseId"
             element={<CourseDetailsPage></CourseDetailsPage>}
           ></Route>
           <Route path="/cart" element={<CartPage></CartPage>}></Route>

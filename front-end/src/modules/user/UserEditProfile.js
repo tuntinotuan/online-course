@@ -63,6 +63,7 @@ const UserEditProfile = () => {
           type="date"
           placeholder="Birth Day"
           size={36}
+          className="!w-[150px]"
         ></Input>
         <ReactMarkdown
           name="description"

@@ -11,7 +11,7 @@ const NavigateCourse = ({
       <ul className={`flex items-center text-purpleTextC0 font-bold`}>
         <li className={`cursor-pointer`}>{active}</li>
         {array.map((items) => (
-          <li className={`flex items-center cursor-pointer`}>
+          <li className={`flex items-center cursor-pointer`} key={items}>
             {arrow && (
               <IconArrowLeft
                 className="mx-2 text-white"

@@ -14,6 +14,8 @@ const Sidebar = ({ hovered }) => {
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
   const { avatar } = userData;
+  const { myCart } = useSelector((state) => state.cart);
+  const { courses } = myCart;
   const logoutHandler = async () => {
     try {
       dispatch(handleLogout());
@@ -56,7 +58,7 @@ const Sidebar = ({ hovered }) => {
           className="flex items-center justify-between w-full transition-all hover:text-purpleText56"
         >
           My cart
-          <SpecialCountCircle></SpecialCountCircle>
+          {courses?.length > 0 && <SpecialCountCircle></SpecialCountCircle>}
         </Link>
         <Link
           to="/my-course/wishlist"
