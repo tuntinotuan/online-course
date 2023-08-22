@@ -9,8 +9,20 @@ export function requestGetCourseData() {
     // },
   });
 }
+
 export function requestGetSingleCourse(courseId) {
   return strapi.findOne("courses", courseId, {
     populate: ["overview_image", "user.courses"],
+  });
+}
+
+export function requestSearchCourse(keyword) {
+  return strapi.find("courses", {
+    filters: {
+      title: {
+        $contains: keyword,
+      },
+    },
+    populate: "*",
   });
 }

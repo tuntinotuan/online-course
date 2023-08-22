@@ -6,6 +6,9 @@ import CourseTooltip from "./CourseTooltip";
 import useHover from "../../hooks/useHover";
 import { Link } from "react-router-dom";
 import { strapiPathBE } from "../../utils/constants";
+import { IconHeartSolid } from "../icon";
+import { handleRemoveItemFromWishlist } from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
+import { useDispatch } from "react-redux";
 
 const CourseCard = ({
   id,
@@ -18,10 +21,15 @@ const CourseCard = ({
   currentPrice,
   bestSeller = false,
   blockTooltip = false,
+  iconHeart = false,
 }) => {
+  const dispatch = useDispatch();
   const { nodeRef, hovered, setHovered, coords } = useHover();
+  const removeFromWishList = () => {
+    dispatch(handleRemoveItemFromWishlist(id));
+  };
   return (
-    <div className="">
+    <div className="relative">
       <Link
         to={`/course/${id}`}
         className="course-card relative h-full select-none -z-1 cursor-pointer group"
@@ -75,6 +83,15 @@ const CourseCard = ({
           onMouseOut={() => setHovered(false)}
           coords={coords}
         ></CourseTooltip>
+      )}
+      {iconHeart && (
+        <div className="absolute top-3 right-3 text-white">
+          <IconHeartSolid
+            size={29}
+            className="drop-shadow-md cursor-pointer"
+            onClick={removeFromWishList}
+          ></IconHeartSolid>
+        </div>
       )}
     </div>
   );

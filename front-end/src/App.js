@@ -24,6 +24,7 @@ import UserEditPhoto from "./modules/user/UserEditPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetUserData } from "./redux-toolkit/user/userHandlerThunk";
 import { handleGetCourseData } from "./redux-toolkit/course/courseHandlerThunk";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,10 @@ function App() {
           <Route
             path="/reset-password"
             element={<ResetPasswordPage></ResetPasswordPage>}
+          ></Route>
+          <Route
+            path="/courses/search"
+            element={<SearchPage></SearchPage>}
           ></Route>
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Route>

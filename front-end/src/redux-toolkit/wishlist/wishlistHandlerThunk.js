@@ -8,6 +8,8 @@ import {
 import { setMyWishlist } from "./wishlistSlice";
 import { requestGetCourseData } from "../course/courseRequests";
 import { setCourseList } from "../course/courseSlice";
+import { requestAddToCart, requestGetMyCart } from "../cart/cartRequests";
+import { setMyCart } from "../cart/cartSlice";
 
 export const handleGetMyWishlist = createAsyncThunk(
   "wishlist/handleGetMyWishlist",
@@ -15,7 +17,6 @@ export const handleGetMyWishlist = createAsyncThunk(
     let results = [];
     try {
       const response = await requestGetMyWishlist(wishlistId);
-      console.log("response", response.data);
       results = response.data;
     } catch (error) {
       console.log(error);
@@ -57,6 +58,23 @@ export const handleRemoveItemFromWishlist = createAsyncThunk(
       const wishListList = await requestGetMyWishlist(userData?.favorite?.id);
       dispatch(setMyWishlist(wishListList.data));
       console.log("response", response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+export const handleMoveItemToCart = createAsyncThunk(
+  "wishlist/handleMoveItemToCart",
+  async (courseId, { getState, dispatch }) => {
+    const state = getState();
+    const { userData } = state.user;
+    try {
+      await requestRemoveItemFromWishlist(userData?.favorite?.id, courseId);
+      await requestAddToCart(userData?.cart?.id, courseId);
+      const wishListList = await requestGetMyWishlist(userData?.favorite?.id);
+      const cartList = await requestGetMyCart(userData?.cart?.id);
+      dispatch(setMyWishlist(wishListList.data));
+      dispatch(setMyCart(cartList.data));
     } catch (error) {
       console.log(error);
     }

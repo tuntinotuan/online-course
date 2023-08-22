@@ -1,8 +1,8 @@
 import React from "react";
 
-const IconHeartSolid = ({ className, size = 24 }) => {
+const IconHeartSolid = ({ className, onClick = () => {}, size = 24 }) => {
   return (
-    <span className={className}>
+    <span className={className} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

@@ -13,7 +13,7 @@ module.exports = {
         purpleTextC0: "#C0C4FC",
         purpleTextDC: "#D1D7DC",
         greenText1E: "#1E6055",
-        starBg: "#F69C08",
+        starBg: "#B4690E",
         starColor: "#4D3105",
         tagYellow: "#ECEB98",
         tagSky: "#ACD2CC",

@@ -7,7 +7,6 @@ function SwiperProvider(props) {
   const [coords, setCoords] = useState(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  console.log("coords", coords);
   const handleClickPrev = (swiper) => {
     swiper.slidePrev(1000);
     setIsBeginning(swiper.isBeginning);

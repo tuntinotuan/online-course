@@ -15,6 +15,7 @@ const CartNoEmpty = ({ data }) => {
               img={course.overview_image}
               title={course.title}
               instructor={course?.user?.username}
+              rating={course.star}
               price={course?.current_price || course.original_price}
             ></CartItems>
           ))}

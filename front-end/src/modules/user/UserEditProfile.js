@@ -10,11 +10,11 @@ import LoadingSpine from "../../components/loading/LoadingSpine";
 
 const UserEditProfile = () => {
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
+  const { userData, loadingUser } = useSelector((state) => state.user);
   const {
     control,
     handleSubmit,
-    formState: { isValid, isSubmitting },
+    formState: { isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -71,11 +71,12 @@ const UserEditProfile = () => {
         ></ReactMarkdown>
         <Button
           type="submit"
-          className="bg-primaryBlack text-white font-bold py-4 px-6 mt-5"
+          className="flex items-center justify-center w-[90px] bg-primaryBlack text-white font-bold py-4 px-6 mt-5"
           borderNone
+          disabled={loadingUser}
         >
-          {isSubmitting ? (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+          {loadingUser ? (
+            <LoadingSpine size="22px" borderSize="2px"></LoadingSpine>
           ) : (
             "Save"
           )}

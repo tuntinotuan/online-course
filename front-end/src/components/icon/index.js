@@ -27,6 +27,7 @@ import IconWarningSolid from "./IconWarningSolid";
 import IconEye from "./IconEye";
 import IconEyeClose from "./IconEyeClose";
 import IconPen from "./IconPen";
+import IconFilter from "./IconFilter";
 
 export {
   IconArrowLeft,
@@ -57,5 +58,6 @@ export {
   IconWarningSolid,
   IconEye,
   IconEyeClose,
+  IconFilter,
   IconPen,
 };

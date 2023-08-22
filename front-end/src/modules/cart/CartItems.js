@@ -1,6 +1,6 @@
 import React from "react";
 import CourseSumary from "../../components/course/CourseSumary";
-import CourseStar from "../../components/course/CourseStar";
+import CourseRating from "../../components/course/CourseRating";
 import CoursePrice from "../../components/course/CoursePrice";
 import { ButtonStatusTag } from "../../components/button";
 import Image from "../../components/image/Image";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { handleRemoveItemFromCart } from "../../redux-toolkit/cart/cartHandlerThunk";
 
-const CartItems = ({ id, img, title, instructor, price }) => {
+const CartItems = ({ id, img, title, instructor, rating, price }) => {
   const dispatch = useDispatch();
   const removeItemFromCart = () => {
     dispatch(handleRemoveItemFromCart(id));
@@ -29,7 +29,7 @@ const CartItems = ({ id, img, title, instructor, price }) => {
           <ButtonStatusTag className="bg-tagSky">
             Updated Recently
           </ButtonStatusTag>
-          <CourseStar></CourseStar>
+          <CourseRating rating={rating}></CourseRating>
         </div>
         <CourseSumary></CourseSumary>
       </div>

@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { strapiPathBE } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { handleUpdateUserAvatar } from "../../redux-toolkit/user/userHandlerThunk";
+import LoadingSpine from "../../components/loading/LoadingSpine";
 
 const UserEditPhoto = () => {
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
+  const { userData, loadingUser } = useSelector((state) => state.user);
   const [urlChosenImage, setUrlChosenImage] = useState();
   // const { urlChosenImage } = useSelector((state) => state.global);
   const { avatar } = userData;
@@ -53,10 +54,15 @@ const UserEditPhoto = () => {
         ></InputSelectFile>
         <Button
           type="submit"
-          className="bg-primaryBlack text-white font-bold py-4 px-6 mt-8"
+          className="flex items-center justify-center w-[90px] bg-primaryBlack text-white font-bold py-4 px-6 mt-8"
           borderNone
+          disabled={loadingUser || !urlChosenImage}
         >
-          Save
+          {loadingUser ? (
+            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+          ) : (
+            "Save"
+          )}
         </Button>
       </form>
     </div>

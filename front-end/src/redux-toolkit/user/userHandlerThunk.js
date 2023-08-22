@@ -4,6 +4,7 @@ import {
   requestUpdateUserProfile,
   requestUpdateUserAvatar,
 } from "./userRequests";
+import { setUserData } from "./userSlice";
 
 export const handleGetUserData = createAsyncThunk(
   "user/handleUserDataThunk",
@@ -20,12 +21,13 @@ export const handleGetUserData = createAsyncThunk(
 );
 export const handleUpdateUserProfile = createAsyncThunk(
   "user/handleUpdateUserProfileThunk",
-  async (data, { getState }) => {
+  async (data, { getState, dispatch }) => {
     const state = getState();
-    const { userData } = state.user;
-    const { jwt } = state.auth;
+    const { jwt, currentUserId } = state.auth;
     try {
-      const response = await requestUpdateUserProfile(userData.id, jwt, data);
+      const response = await requestUpdateUserProfile(currentUserId, jwt, data);
+      const newUseData = await requestGetUserData(currentUserId);
+      dispatch(setUserData(newUseData));
       console.log("response", response);
     } catch (error) {
       console.log(error);
@@ -34,12 +36,13 @@ export const handleUpdateUserProfile = createAsyncThunk(
 );
 export const handleUpdateUserAvatar = createAsyncThunk(
   "user/handleUpdateUserAvatarThunk",
-  async (data, { getState }) => {
+  async (data, { getState, dispatch }) => {
     const state = getState();
-    const { userData } = state.user;
-    const { jwt } = state.auth;
+    const { jwt, currentUserId } = state.auth;
     try {
-      const response = await requestUpdateUserAvatar(userData.id, jwt, data);
+      const response = await requestUpdateUserAvatar(currentUserId, jwt, data);
+      const newUseData = await requestGetUserData(currentUserId);
+      dispatch(setUserData(newUseData));
       console.log("response", response);
     } catch (error) {
       console.log(error);

@@ -25,6 +25,7 @@ const MyWishlist = () => {
                 currentPrice={course.current_price}
                 originalPrice={course.original_price}
                 blockTooltip
+                iconHeart
               ></CourseCard>
             ))}
           </div>

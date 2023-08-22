@@ -27,10 +27,11 @@ const schema = yup.object({
 const UserEditAccount = () => {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
-  const { loading } = useSelector((state) => state.global);
+  const { loadingUser } = useSelector((state) => state.user);
   const {
     control,
     handleSubmit,
+    watch,
     formState: { isValid, errors },
   } = useForm({
     mode: "onChange",
@@ -90,8 +91,14 @@ const UserEditAccount = () => {
           type="submit"
           className="flex items-center justify-center w-[165px] text-base bg-primaryBlack text-white font-bold py-3 px-3 mt-6"
           borderNone
+          disabled={
+            loadingUser ||
+            !watch("currentPassword") ||
+            !watch("newPassword") ||
+            !watch("reTypePassword")
+          }
         >
-          {loading ? (
+          {loadingUser ? (
             <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
           ) : (
             "Change password"

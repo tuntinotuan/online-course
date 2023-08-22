@@ -23,7 +23,7 @@ const Button = ({
             borderNone ? "" : "border border-primaryBlack"
           } ${mtAuto ? "mt-auto" : ""} ${full ? "w-full" : ""} ${className} ${
             borderNone ? "hover:opacity-80" : "hover:bg-[#F5F5F5]"
-          } transition-all`}
+          } transition-all disabled:cursor-wait disabled:opacity-60`}
           {...props}
         >
           {children}
@@ -38,7 +38,7 @@ const Button = ({
         borderNone ? "" : "border border-primaryBlack"
       } ${mtAuto ? "mt-auto" : ""} ${full ? "w-full" : ""} ${className} ${
         borderNone ? "hover:opacity-80" : "hover:bg-grayF7"
-      } transition-all`}
+      } transition-all disabled:cursor-wait disabled:opacity-60`}
       {...props}
     >
       {children}

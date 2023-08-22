@@ -1,13 +1,18 @@
 import React from "react";
 import { Button } from "../button";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartToggleItems from "../cart/CartToggleItems";
+import { handleMoveItemToCart } from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
 
 const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
+  const wishlistMoveToCart = (id) => {
+    dispatch(handleMoveItemToCart(id));
+  };
   return (
     <div className="w-full">
       <div className="max-h-[420px] overflow-y-auto">
@@ -24,7 +29,11 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
                 currentPrice={items.current_price}
                 key={items.id}
               >
-                <Button className="font-bold mt-2" full>
+                <Button
+                  className="font-bold mt-2"
+                  full
+                  onClick={() => wishlistMoveToCart(items.id)}
+                >
                   Add to cart
                 </Button>
               </CartToggleItems>

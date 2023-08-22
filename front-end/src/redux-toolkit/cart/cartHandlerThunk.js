@@ -15,7 +15,6 @@ export const handleGetMyCart = createAsyncThunk(
     let results = [];
     try {
       const response = await requestGetMyCart(cartId);
-      console.log("response", response.data);
       results = response.data;
     } catch (error) {
       console.log(error);

@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   handleGetCourseData,
   handleGetSingleCourse,
+  handleSearchCourse,
 } from "./courseHandlerThunk";
 
 const initialState = {
   courseList: [],
   course: "",
+  coursesSearch: [],
 };
 
 const courseSlice = createSlice({
@@ -25,6 +27,9 @@ const courseSlice = createSlice({
       })
       .addCase(handleGetSingleCourse.fulfilled, (state, action) => {
         state.course = action.payload;
+      })
+      .addCase(handleSearchCourse.fulfilled, (state, action) => {
+        state.coursesSearch = action.payload;
       });
   },
 });

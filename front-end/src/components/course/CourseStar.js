@@ -1,26 +1,33 @@
 import React from "react";
+import { styled } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-
-const CourseStar = ({ rating = 4.9, totalRating = 310905 }) => {
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "#B4690E",
+  },
+  "& .MuiRating-iconHover": {
+    color: "#ff3d47",
+  },
+  "& .MuiRating-iconEmpty": {
+    color: "#B4690E",
+  },
+});
+const CourseStar = ({ rating, readOnly = false }) => {
   const options = {
     value: rating,
-    readOnly: true,
+    readOnly: readOnly,
     precision: 0.5,
   };
   return (
-    <div className="flex items-center gap-1">
-      <h2 className="text-starColor font-bold">{rating}</h2>
-      <Rating
-        name="half-rating text-feedback size-small"
-        size="small"
-        emptyIcon={
-          <StarBorderIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-        }
-        {...options}
-      />
-      <span className="text-xs text-grayA6">({totalRating} ratings)</span>
-    </div>
+    <StyledRating
+      size="small"
+      name="half-rating"
+      icon={<StarRoundedIcon fontSize="inherit" />}
+      emptyIcon={<StarOutlineRoundedIcon fontSize="inherit" />}
+      {...options}
+    ></StyledRating>
   );
 };
 

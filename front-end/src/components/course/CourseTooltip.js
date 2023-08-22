@@ -25,6 +25,7 @@ const CourseTooltip = ({
   bestSeller,
   hovered,
   coords,
+  coordinateMiddle = false,
   onMouseOver = () => {},
   onMouseOut = () => {},
 }) => {
@@ -58,7 +59,7 @@ const CourseTooltip = ({
         coords && {
           top: coords.top + coords.height / 2 + window.scrollY,
           left:
-            coords?.x > 600
+            coords?.x > window.innerWidth / 2
               ? coords?.x - 340 - 20
               : coords?.x + coords.width + 20,
         }
@@ -104,7 +105,7 @@ const CourseTooltip = ({
           onClick={addToCart}
         >
           {loadingAdd && (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+            <LoadingSpine size="28px" borderSize="2px"></LoadingSpine>
           )}
           {!loadingAdd && (intoCart ? "Go to cart" : "Add to cart")}
         </Button>
@@ -116,8 +117,8 @@ const CourseTooltip = ({
       </div>
       <div
         className={`cover-space absolute top-0 w-5 h-full bg-transparent ${
-          coords?.x > 600 ? "left-full" : "right-full"
-        } cursor-pointer`}
+          coords?.x > window.innerWidth / 2 ? "left-full" : "right-full"
+        }`}
       ></div>
       <SpecialArrow coords={coords}></SpecialArrow>
     </div>,

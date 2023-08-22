@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { requestGetCourseData, requestGetSingleCourse } from "./courseRequests";
+import {
+  requestGetCourseData,
+  requestGetSingleCourse,
+  requestSearchCourse,
+} from "./courseRequests";
 import { setLoading } from "../globalSlice";
 
 export const handleGetCourseData = createAsyncThunk(
@@ -9,7 +13,6 @@ export const handleGetCourseData = createAsyncThunk(
     dispatch(setLoading(true));
     try {
       const response = await requestGetCourseData(query);
-      console.log("response", response);
       results = response.data;
       dispatch(setLoading(false));
     } catch (error) {
@@ -31,5 +34,14 @@ export const handleGetSingleCourse = createAsyncThunk(
       console.log(error);
     }
     return results;
+  }
+);
+
+export const handleSearchCourse = createAsyncThunk(
+  "course/handleSearchCourse",
+  async (keyword, ThunkAPI) => {
+    const response = await requestSearchCourse(keyword);
+    console.log("response", response.data);
+    return response.data;
   }
 );

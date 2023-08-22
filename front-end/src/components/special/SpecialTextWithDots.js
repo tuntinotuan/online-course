@@ -5,13 +5,24 @@ const dataLocal = [
   "Have a computer (either Mac, Windows, or Linux)",
   "Desire to learn!",
 ];
-const SpecialTextWithDots = ({ title = "Requirements", data = dataLocal }) => {
+const SpecialTextWithDots = ({
+  title = "Requirements",
+  styleTitle,
+  content = dataLocal,
+  styleContent,
+  dotSize = 8,
+}) => {
   return (
     <section>
-      <h1 className="text-2xl font-bold mt-8 mb-5">{title}</h1>
-      {data.map((items) => (
-        <div className="flex items-center gap-5 text-slate-600 pl-1 mb-2">
-          <div className="w-2 h-2 bg-primaryBlack rounded-full"></div>
+      <h1 className={`text-2xl font-bold mt-8 mb-5 ${styleTitle}`}>{title}</h1>
+      {content.map((items) => (
+        <div
+          className={`flex items-center gap-5 text-slate-600 pl-1 mb-2 ${styleContent}`}
+        >
+          <div
+            className="bg-primaryBlack rounded-full"
+            style={{ width: dotSize, height: dotSize }}
+          ></div>
           <p>{items}</p>
         </div>
       ))}
