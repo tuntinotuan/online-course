@@ -3,7 +3,7 @@ import { IconSearch } from "../icon";
 import { useDispatch } from "react-redux";
 import { handleSearchCourse } from "../../redux-toolkit/course/courseHandlerThunk";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Search = ({
   width = "w-[562px]",
@@ -13,6 +13,8 @@ const Search = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const keyword = params.get("keyword");
   const { handleSubmit } = useForm({ mode: "onChange" });
   const [filter, setFilter] = useState("");
   const handleChangeInput = (e) => {
@@ -20,7 +22,7 @@ const Search = ({
   };
   const handleSubmitSearch = () => {
     if (!filter) return null;
-    dispatch(handleSearchCourse(filter));
+    dispatch(handleSearchCourse(filter || keyword));
     navigate(`/courses/search?keyword=${filter}`);
   };
   return (
@@ -37,6 +39,7 @@ const Search = ({
       <input
         type="text"
         placeholder="Search for anything"
+        defaultValue={keyword}
         className={`w-full h-full px-4 placeholder:text-grayA6 ${bgColor} outline-none`}
         onChange={handleChangeInput}
       />

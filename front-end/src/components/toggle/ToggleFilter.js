@@ -22,7 +22,13 @@ const ToggleFilter = ({ initial = false, title, children }) => {
           ></IconArrowDown>
         </div>
       </div>
-      {toggle && <div className="flex flex-col gap-4 mb-3">{children}</div>}
+      <div
+        className={`flex flex-col gap-4 transition-all duration- ${
+          toggle ? "mb-3" : "overflow-hidden opacity-0 invisible h-0"
+        }`}
+      >
+        {children}
+      </div>
     </>
   );
 };

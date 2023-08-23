@@ -50,7 +50,7 @@ const CourseTooltip = ({
   };
   return ReactDOM.createPortal(
     <div
-      className={`absolute bg-white w-[340px] h-auto border border-gray-300 p-6 -translate-y-1/2 transition-all ${
+      className={`absolute bg-white w-[340px] h-auto border border-gray-300 p-6 -translate-y-1/2 transition-all duration-200 ${
         hovered
           ? "opacity-100 visible scale-100"
           : "opacity-0 invisible scale-90"

@@ -86,7 +86,7 @@ const CheckoutPaymentMethod = () => {
             <p className="font-bold text-base mr-auto">Credit/Debit Card</p>
             <div className="flex items-center gap-1">
               {creditCardImg.map((url) => (
-                <div className="w-10">
+                <div className="w-10" key={url}>
                   <Image url={url} className="rounded"></Image>
                 </div>
               ))}

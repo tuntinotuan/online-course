@@ -7,3 +7,13 @@ export function totalCoursePrice(arrData) {
   });
   return total;
 }
+
+export function totalCourseOriginnalPrice(arrData) {
+  if (!arrData)
+    throw new Error("totalCourseOriginnalPrice must be have a arrData param");
+  let total = 0;
+  arrData.forEach((item) => {
+    total += item.original_price;
+  });
+  return total;
+}

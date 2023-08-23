@@ -20,7 +20,10 @@ const CartItems = ({ id, img, title, instructor, rating, price }) => {
         <Image url={`${strapiPathBE}${img?.url}`}></Image>
       </Link>
       <div className="flex flex-col gap-2 mx-4">
-        <Link to={`/course/${id}`} className="font-bold text-base">
+        <Link
+          to={`/course/${id}`}
+          className="max-w-[400px] font-bold text-base line-clamp-2"
+        >
           {title || "The Complete 2023 Web Development Bootcamp"}
         </Link>
         <h2 className="text-grayA6 text-xs">{instructor || "By Dr. Jason"}</h2>
@@ -33,14 +36,14 @@ const CartItems = ({ id, img, title, instructor, rating, price }) => {
         </div>
         <CourseSumary></CourseSumary>
       </div>
-      <div className="flex flex-col items-end gap-2 mr-10 ml-auto">
+      <div className="flex flex-col items-end gap-2 ml-auto">
         <button className="text-purpleText56" onClick={removeItemFromCart}>
           Remove
         </button>
         <button className="text-purpleText56">Save for Later</button>
       </div>
       <CoursePrice
-        className="text-purpleTextA4 text-lg ml-auto"
+        className="text-purpleTextA4 text-lg ml-10"
         price={price?.toLocaleString("en-US")}
         tag
       ></CoursePrice>

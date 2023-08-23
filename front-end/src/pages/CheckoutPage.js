@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckoutHeader from "../modules/checkout/CheckoutHeader";
 import CheckoutPaymentMethod from "../modules/checkout/CheckoutPaymentMethod";
 import CheckoutSummary from "../modules/checkout/CheckoutSummary";
 import CheckoutOrderDetails from "../modules/checkout/CheckoutOrderDetails";
 import CheckoutTitle from "../modules/checkout/CheckoutTitle";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetMyCart } from "../redux-toolkit/cart/cartHandlerThunk";
 
 const CheckoutPage = () => {
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
+  const { cart } = userData;
+  useEffect(() => {
+    dispatch(handleGetMyCart(cart?.id));
+  }, [cart, dispatch]);
   return (
     <div>
       <CheckoutHeader></CheckoutHeader>

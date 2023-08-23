@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchControl from "../modules/search/SearchControl";
 import SearchBody from "../modules/search/SearchBody";
 import { useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SpecialTextWithDots from "../components/special/SpecialTextWithDots";
+import { handleSearchCourse } from "../redux-toolkit/course/courseHandlerThunk";
+import LoadingSpineQuarter from "../components/loading/LoadingSpineQuarter";
 
 const SearchPage = () => {
+  const dispatch = useDispatch();
   const [params] = useSearchParams();
   const keyword = params.get("keyword");
-  const { coursesSearch } = useSelector((state) => state.course);
+  const { coursesSearch, courseLoading } = useSelector((state) => state.course);
+  useEffect(() => {
+    dispatch(handleSearchCourse(keyword));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section className={`page-container my-12 overflow-hidden`}>
-      {coursesSearch.length > 0 ? (
+      {courseLoading && (
+        <div className="flex items-start justify-center w-full h-[100vh] mx-auto">
+          <LoadingSpineQuarter></LoadingSpineQuarter>
+        </div>
+      )}
+      {coursesSearch?.length > 0 ? (
         <>
           <h1 className="text-3xl font-bold mb-4">
-            {(coursesSearch && coursesSearch.length.toLocaleString("en-US")) ||
+            {(coursesSearch && coursesSearch?.length.toLocaleString("en-US")) ||
               0}{" "}
             results for {`“${keyword}”`}
           </h1>

@@ -6,15 +6,15 @@ import { useSelector } from "react-redux";
 const SearchBody = () => {
   const { showFilter } = useSelector((state) => state.global);
   return (
-    <div className="grid grid-cols-12 w-full gap-12">
+    <div className="flex items-start w-full">
       <div
-        className={`col-span-3 transition-all duration-500 ${
-          showFilter ? "" : "-translate-x-[500px]"
+        className={`w-[300px] transition-all duration-500 ${
+          showFilter ? "mr-12" : "-ml-[300px]"
         }`}
       >
         <SearchFilterOption></SearchFilterOption>
       </div>
-      <div className={`${showFilter ? "col-span-9" : "col-span-full"}`}>
+      <div className={`${showFilter ? "" : "flex-1"}`}>
         <SearchList></SearchList>
       </div>
     </div>

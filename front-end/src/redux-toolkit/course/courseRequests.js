@@ -16,13 +16,38 @@ export function requestGetSingleCourse(courseId) {
   });
 }
 
-export function requestSearchCourse(keyword) {
+export function requestSearchCourse(filter) {
+  const { keyword, sortBy, rating } = filter;
   return strapi.find("courses", {
     filters: {
-      title: {
-        $contains: keyword,
-      },
+      $or: [
+        {
+          title: {
+            $contains: keyword,
+          },
+        },
+        {
+          user: {
+            username: { $contains: keyword },
+          },
+        },
+      ],
+      $and: rating
+        ? [
+            {
+              star: {
+                $gte: rating,
+              },
+            },
+            {
+              star: {
+                $lte: 5,
+              },
+            },
+          ]
+        : [{}],
     },
+    sort: [sortBy],
     populate: "*",
   });
 }
