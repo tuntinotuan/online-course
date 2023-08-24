@@ -4,29 +4,38 @@ import CourseStar from "../course/CourseStar";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  handleGetCourseRating,
   handleSearchCourse,
+  handleSearchCourseOnly,
 } from "../../redux-toolkit/course/courseHandlerThunk";
 
 const FilterRating = () => {
-  const { courseAllRatings } = useSelector((state) => state.course);
-  const { fourDotFive, four, threeDotFive, three } = courseAllRatings;
+  const { coursesSearchOnly } = useSelector((state) => state.course);
+  let fourDotFive = [];
+  let four = [];
+  let threeDotFive = [];
+  let three = [];
+  coursesSearchOnly.forEach((item) => {
+    if (item.star >= 4.5) fourDotFive.push(item);
+    if (item.star >= 4) four.push(item);
+    if (item.star >= 3.5) threeDotFive.push(item);
+    if (item.star >= 3) three.push(item);
+  });
   const defineValue = [
     {
       value: 4.5,
-      total: fourDotFive,
+      total: fourDotFive.length,
     },
     {
       value: 4,
-      total: four,
+      total: four.length,
     },
     {
       value: 3.5,
-      total: threeDotFive,
+      total: threeDotFive.length,
     },
     {
       value: 3,
-      total: three,
+      total: three.length,
     },
   ];
   const dispatch = useDispatch();
@@ -35,11 +44,9 @@ const FilterRating = () => {
   const rating = params.get("ratings");
   const sortBy = params.get("sort-by");
   const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
-    dispatch(handleGetCourseRating());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
+    dispatch(handleSearchCourseOnly({ keyword }));
     dispatch(handleSearchCourse({ keyword, sortBy, rating }));
   }, [keyword, sortBy, rating, dispatch]);
   const handleClickFilterStar = (value) => {
@@ -50,6 +57,7 @@ const FilterRating = () => {
     <div>
       {defineValue.map((item) => (
         <RatingItem
+          key={item.value}
           on={item.value === Number(rating)}
           value={item.value}
           total={item.total}

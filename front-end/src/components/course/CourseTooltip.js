@@ -33,6 +33,7 @@ const CourseTooltip = ({
   const { myCart, loadingAdd } = useSelector((state) => state.cart);
   const { courses } = myCart;
   const { myWishlist } = useSelector((state) => state.wishlist);
+  console.log("coords", coords);
   const intoCart = courses?.some((item) => {
     return item.id === courseId;
   });
@@ -50,18 +51,23 @@ const CourseTooltip = ({
   };
   return ReactDOM.createPortal(
     <div
-      className={`absolute bg-white w-[340px] h-auto border border-gray-300 p-6 -translate-y-1/2 transition-all duration-200 ${
+      className={`absolute bg-white w-[340px] h-auto border border-gray-300 p-6 transition-all duration-200 ${
         hovered
           ? "opacity-100 visible scale-100"
           : "opacity-0 invisible scale-90"
-      } z-50`}
+      } ${coordinateMiddle ? "-translate-x-1/2" : "-translate-y-1/2"} z-50`}
       style={
         coords && {
-          top: coords.top + coords.height / 2 + window.scrollY,
-          left:
-            coords?.x > window.innerWidth / 2
-              ? coords?.x - 340 - 20
-              : coords?.x + coords.width + 20,
+          top: coordinateMiddle
+            ? coords?.y > window.innerHeight / 2
+              ? coords.top - 290 + 5 + window.scrollY
+              : coords.bottom + 5 + window.scrollY
+            : coords.top + coords.height / 2 + window.scrollY,
+          left: coordinateMiddle
+            ? coords?.left + coords.width / 2
+            : coords?.x > window.innerWidth / 2
+            ? coords?.x - 340 - 20
+            : coords?.x + coords.width + 20,
         }
       }
       onMouseOver={onMouseOver}
@@ -77,18 +83,17 @@ const CourseTooltip = ({
         {bestSeller && (
           <ButtonStatusTag className="bg-tagYellow">Bestseller</ButtonStatusTag>
         )}
-        <span className="text-xs text-greenText1E">
-          Updated{" "}
-          <p className="inline font-bold">
-            {moment(updatedAt).format("MMMM YYYY") || "June 2023"}
-          </p>
-        </span>
+        {updatedAt && (
+          <span className="text-xs text-greenText1E">
+            Updated{" "}
+            <p className="inline font-bold">
+              {moment(updatedAt).format("MMMM YYYY") || "June 2023"}
+            </p>
+          </span>
+        )}
       </div>
       <CourseSumary className="my-2"></CourseSumary>
-      <p>
-        {subtitle ||
-          "Learn complete Python with Basics, Data Science, Data Visualisation, Desktop Graphical Applications and Machine Learning"}
-      </p>
+      <p>{subtitle}</p>
       <div className="my-3">
         {targetCourse.map((item) => (
           <SpecialTextWithCheckIcon
@@ -116,11 +121,20 @@ const CourseTooltip = ({
         ></ButtonHeart>
       </div>
       <div
-        className={`cover-space absolute top-0 w-5 h-full bg-transparent ${
-          coords?.x > window.innerWidth / 2 ? "left-full" : "right-full"
+        className={`cover-space absolute w-5 h-full bg-transparent ${
+          coordinateMiddle
+            ? coords?.y > window.innerHeight / 2
+              ? "top-full left-0 w-full !h-5"
+              : "bottom-full left-0 w-full !h-5"
+            : coords?.x > window.innerWidth / 2
+            ? "left-full top-0"
+            : "right-full top-0"
         }`}
       ></div>
-      <SpecialArrow coords={coords}></SpecialArrow>
+      <SpecialArrow
+        coords={coords}
+        coordinateMiddle={coordinateMiddle}
+      ></SpecialArrow>
     </div>,
     document.querySelector("body")
   );

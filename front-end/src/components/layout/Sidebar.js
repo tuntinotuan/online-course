@@ -34,7 +34,6 @@ const Sidebar = ({ hovered }) => {
           avatar={avatar && `${strapiPathBE}${avatar?.url}`}
           shortName={ConvertUsernameShortly(userData?.username)}
           size={66}
-          to="/user/edit-profile"
           className="text-2xl"
         ></ButtonUserAvatar>
         <div>

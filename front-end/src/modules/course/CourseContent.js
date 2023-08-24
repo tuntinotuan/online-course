@@ -30,8 +30,11 @@ const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
       </div>
       {Array(4)
         .fill(null)
-        .map(() => (
-          <CourseContentList toggleAll={toggleAll}></CourseContentList>
+        .map((index) => (
+          <CourseContentList
+            toggleAll={toggleAll}
+            key={index}
+          ></CourseContentList>
         ))}
     </section>
   );

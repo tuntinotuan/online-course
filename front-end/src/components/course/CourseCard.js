@@ -4,11 +4,13 @@ import CoursePrice from "./CoursePrice";
 import Image from "../image/Image";
 import CourseTooltip from "./CourseTooltip";
 import useHover from "../../hooks/useHover";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { strapiPathBE } from "../../utils/constants";
 import { IconHeartSolid } from "../icon";
 import { handleRemoveItemFromWishlist } from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { processingSearchArray } from "../../utils/processing-array";
+import { setWishlistSearch } from "../../redux-toolkit/wishlist/wishlistSlice";
 
 const CourseCard = ({
   id,
@@ -25,8 +27,20 @@ const CourseCard = ({
 }) => {
   const dispatch = useDispatch();
   const { nodeRef, hovered, setHovered, coords } = useHover();
-  const removeFromWishList = () => {
-    dispatch(handleRemoveItemFromWishlist(id));
+  const [params] = useSearchParams();
+  const query = params.get("q-wishlist");
+  const { myWishlist } = useSelector((state) => state.wishlist);
+  const { courses } = myWishlist;
+  const removeFromWishList = async () => {
+    try {
+      dispatch(handleRemoveItemFromWishlist(id));
+      if (query) {
+        const newWishlist = await processingSearchArray(courses, query);
+        dispatch(setWishlistSearch(newWishlist));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="relative">

@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   handleGetCourseData,
-  handleGetCourseRating,
   handleGetSingleCourse,
   handleSearchCourse,
+  handleSearchCourseOnly,
 } from "./courseHandlerThunk";
 
 const initialState = {
   courseList: [],
   course: "",
   coursesSearch: [],
+  coursesSearchOnly: [],
   courseLoading: false,
-  courseAllRatings: {},
 };
 
 const courseSlice = createSlice({
@@ -41,8 +41,8 @@ const courseSlice = createSlice({
       .addCase(handleSearchCourse.rejected, (state, action) => {
         state.courseLoading = false;
       })
-      .addCase(handleGetCourseRating.fulfilled, (state, action) => {
-        state.courseAllRatings = action.payload;
+      .addCase(handleSearchCourseOnly.fulfilled, (state, action) => {
+        state.coursesSearchOnly = action.payload;
       });
   },
 });

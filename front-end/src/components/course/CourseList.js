@@ -37,8 +37,8 @@ function CourseListMain({ autoPlay, items }) {
         {loading &&
           Array(5)
             .fill(null)
-            .map(() => (
-              <SwiperSlide>
+            .map((item, index) => (
+              <SwiperSlide key={index}>
                 <CourseCardSkeleton></CourseCardSkeleton>
               </SwiperSlide>
             ))}

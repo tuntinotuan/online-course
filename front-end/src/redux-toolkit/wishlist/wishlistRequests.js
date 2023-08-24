@@ -32,3 +32,29 @@ export function requestRemoveItemFromWishlist(wishlistId, courseId) {
     },
   });
 }
+
+export function requestSearchWishlist(wishlistId, keyword) {
+  console.log("wishlistId", wishlistId, keyword);
+  return strapi.findOne("favorites", wishlistId, {
+    filters: {
+      $and: [
+        {
+          courses: {
+            title: {
+              $contains: keyword,
+            },
+          },
+        },
+        { id: wishlistId },
+      ],
+    },
+    // filters: {
+    //   courses: {
+    //     title: {
+    //       $contains: keyword,
+    //     },
+    //   },
+    // },
+    populate: ["courses.overview_image", "courses.user"],
+  });
+}

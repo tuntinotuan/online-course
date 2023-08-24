@@ -37,7 +37,9 @@ const CourseDescription = () => {
           Data Science!
         </p>
         {dataLocal.map((items) => (
-          <p className="text-slate-600 mb-2">{items}</p>
+          <p className="text-slate-600 mb-2" key={items}>
+            {items}
+          </p>
         ))}
         <p className="text-slate-600 mt-5">
           Please make sure you read the entire page to understand if the course

@@ -19,7 +19,7 @@ const CourseCardRow = ({ data }) => {
         <Link to={`/course/${data.id}`} className="w-[250px] flex-shrink-0">
           <Image
             url={`${strapiPathBE}${data?.overview_image?.url}`}
-            isOverlay
+            isOverlay={hovered}
           ></Image>
         </Link>
         <div>
@@ -54,15 +54,16 @@ const CourseCardRow = ({ data }) => {
           )}
         </span>
       </div>
-      {false && (
-        <CourseTooltip
-          courseId={data.id}
-          hovered={hovered}
-          onMouseOver={() => setHovered(true)}
-          onMouseOut={() => setHovered(false)}
-          coords={coords}
-        ></CourseTooltip>
-      )}
+      {/* {false && ( */}
+      <CourseTooltip
+        courseId={data.id}
+        hovered={hovered}
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
+        coords={coords}
+        coordinateMiddle
+      ></CourseTooltip>
+      {/* )} */}
     </div>
   );
 };

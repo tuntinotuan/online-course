@@ -8,7 +8,7 @@ const SearchList = () => {
     <div>
       {coursesSearch &&
         coursesSearch.map((item) => (
-          <CourseCardRow data={item}></CourseCardRow>
+          <CourseCardRow data={item} key={item.id}></CourseCardRow>
         ))}
     </div>
   );

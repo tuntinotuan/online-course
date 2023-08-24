@@ -16,7 +16,8 @@ const CartNoEmpty = ({ data }) => {
               title={course.title}
               instructor={course?.user?.username}
               rating={course.star}
-              price={course?.current_price || course.original_price}
+              originalPrice={course.original_price}
+              currentPrice={course?.current_price}
             ></CartItems>
           ))}
         {false && (

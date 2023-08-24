@@ -9,7 +9,15 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { handleRemoveItemFromCart } from "../../redux-toolkit/cart/cartHandlerThunk";
 
-const CartItems = ({ id, img, title, instructor, rating, price }) => {
+const CartItems = ({
+  id,
+  img,
+  title,
+  instructor,
+  rating,
+  originalPrice,
+  currentPrice,
+}) => {
   const dispatch = useDispatch();
   const removeItemFromCart = () => {
     dispatch(handleRemoveItemFromCart(id));
@@ -19,7 +27,7 @@ const CartItems = ({ id, img, title, instructor, rating, price }) => {
       <Link to={`/course/${id}`} className="w-[120px]">
         <Image url={`${strapiPathBE}${img?.url}`}></Image>
       </Link>
-      <div className="flex flex-col gap-2 mx-4">
+      <div className="flex flex-col gap-1 mx-4">
         <Link
           to={`/course/${id}`}
           className="max-w-[400px] font-bold text-base line-clamp-2"
@@ -42,11 +50,19 @@ const CartItems = ({ id, img, title, instructor, rating, price }) => {
         </button>
         <button className="text-purpleText56">Save for Later</button>
       </div>
-      <CoursePrice
-        className="text-purpleTextA4 text-lg ml-10"
-        price={price?.toLocaleString("en-US")}
-        tag
-      ></CoursePrice>
+      <div className="text-base ml-10">
+        <CoursePrice
+          className="text-purpleTextA4"
+          price={(currentPrice || originalPrice)?.toLocaleString("en-US")}
+          tag
+        ></CoursePrice>
+        {currentPrice && (
+          <CoursePrice
+            className="font-normal text-grayA6 line-through"
+            price={originalPrice?.toLocaleString("en-US")}
+          ></CoursePrice>
+        )}
+      </div>
     </div>
   );
 };

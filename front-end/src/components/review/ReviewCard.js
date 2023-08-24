@@ -35,11 +35,12 @@ function Star({ amount }) {
     <div className="flex items-center gap-1">
       {Array(5)
         .fill(null)
-        .map(() => (
+        .map((index) => (
           <img
             src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"
             alt=""
             className="w-[11px] h-[11px]"
+            key={index}
           />
         ))}
     </div>

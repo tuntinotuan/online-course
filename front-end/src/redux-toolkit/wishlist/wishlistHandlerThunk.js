@@ -4,6 +4,7 @@ import {
   requestCreateWishlist,
   requestGetMyWishlist,
   requestRemoveItemFromWishlist,
+  requestSearchWishlist,
 } from "./wishlistRequests";
 import { setMyWishlist } from "./wishlistSlice";
 import { requestGetCourseData } from "../course/courseRequests";
@@ -78,5 +79,19 @@ export const handleMoveItemToCart = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
+  }
+);
+
+export const handleSearchWishlist = createAsyncThunk(
+  "wishlist/handleSearchWishlist",
+  async (keyword, { getState }) => {
+    const state = getState();
+    const { userData } = state.user;
+    const response = await requestSearchWishlist(
+      userData?.favorite?.id,
+      keyword
+    );
+    console.log("response", response);
+    return response.data;
   }
 );

@@ -14,15 +14,16 @@ const Search = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const keyword = params.get("keyword");
+  let keyword = params.get("keyword");
   const { handleSubmit } = useForm({ mode: "onChange" });
   const [filter, setFilter] = useState("");
   const handleChangeInput = (e) => {
     setFilter(e.target.value);
   };
+
   const handleSubmitSearch = () => {
     if (!filter) return null;
-    dispatch(handleSearchCourse(filter || keyword));
+    filter && dispatch(handleSearchCourse({ keyword }));
     navigate(`/courses/search?keyword=${filter}`);
   };
   return (

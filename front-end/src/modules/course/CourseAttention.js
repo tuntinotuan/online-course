@@ -23,7 +23,7 @@ const CourseAttention = ({ data }) => {
               <span className="text-starBg font-bold text-sm">4.3</span>
               {Array(4)
                 .fill(null)
-                .map((index) => (
+                .map((item, index) => (
                   <img
                     src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"
                     alt=""

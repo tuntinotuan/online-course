@@ -11,28 +11,28 @@ const ButtonUserAvatar = ({
   size = 32,
   to = "",
 }) => {
-  return (
-    <NavLink to={to}>
-      <div
-        className={`relative flex items-center justify-center text-white font-bold rounded-full ${
-          avatar ? "" : "bg-primaryBlack"
-        } ${className}`}
-        style={{ width: size, height: size, fontSize: (size * 2) / 5 }}
-      >
-        {avatar ? (
-          <Image url={avatar} className="rounded-full"></Image>
-        ) : (
-          shortName
-        )}
-        {cartHasCourse && (
-          <SpecialCircle
-            className="absolute top-0 right-0 text-purpleTextA4"
-            size={12}
-          ></SpecialCircle>
-        )}
-      </div>
-    </NavLink>
+  const renderElement = () => (
+    <div
+      className={`relative flex items-center justify-center text-white font-bold rounded-full ${
+        avatar ? "" : "bg-primaryBlack"
+      } ${className}`}
+      style={{ width: size, height: size, fontSize: (size * 2) / 5 }}
+    >
+      {avatar ? (
+        <Image url={avatar} className="rounded-full"></Image>
+      ) : (
+        shortName
+      )}
+      {cartHasCourse && (
+        <SpecialCircle
+          className="absolute top-0 right-0 text-purpleTextA4"
+          size={12}
+        ></SpecialCircle>
+      )}
+    </div>
   );
+  if (to) return <NavLink to={to}>{renderElement}</NavLink>;
+  return renderElement();
 };
 
 export default ButtonUserAvatar;

@@ -18,26 +18,24 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
       <div className="max-h-[420px] overflow-y-auto">
         {courses &&
           courses.map((items) => (
-            <div>
-              <CartToggleItems
-                id={items.id}
-                image={items?.overview_image?.url}
-                title={items.title}
-                subtitle={items.subtitle}
-                instructor={items?.user?.username}
-                originalPrice={items.original_price}
-                currentPrice={items.current_price}
-                key={items.id}
+            <CartToggleItems
+              key={items.id}
+              id={items.id}
+              image={items?.overview_image?.url}
+              title={items.title}
+              subtitle={items.subtitle}
+              instructor={items?.user?.username}
+              originalPrice={items.original_price}
+              currentPrice={items.current_price}
+            >
+              <Button
+                className="font-bold mt-2"
+                full
+                onClick={() => wishlistMoveToCart(items.id)}
               >
-                <Button
-                  className="font-bold mt-2"
-                  full
-                  onClick={() => wishlistMoveToCart(items.id)}
-                >
-                  Add to cart
-                </Button>
-              </CartToggleItems>
-            </div>
+                Add to cart
+              </Button>
+            </CartToggleItems>
           ))}
       </div>
       {pathname !== "/my-course/wishlist" && (

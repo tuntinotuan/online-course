@@ -18,6 +18,7 @@ const SpecialTextWithDots = ({
       {content.map((items) => (
         <div
           className={`flex items-center gap-5 text-slate-600 pl-1 mb-2 ${styleContent}`}
+          key={items}
         >
           <div
             className="bg-primaryBlack rounded-full"

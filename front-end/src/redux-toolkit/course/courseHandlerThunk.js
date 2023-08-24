@@ -36,33 +36,18 @@ export const handleGetSingleCourse = createAsyncThunk(
     return results;
   }
 );
-
+export const handleSearchCourseOnly = createAsyncThunk(
+  "course/handleSearchCourseOnly",
+  async (filter, ThunkAPI) => {
+    const response = await requestSearchCourse(filter);
+    return response.data;
+  }
+);
 export const handleSearchCourse = createAsyncThunk(
   "course/handleSearchCourse",
   async (filter, ThunkAPI) => {
     const response = await requestSearchCourse(filter);
     console.log("response", response.data);
     return response.data;
-  }
-);
-
-export const handleGetCourseRating = createAsyncThunk(
-  "course/handleGetCourseRating",
-  async (filter, ThunkAPI) => {
-    const upFourDotFive = await requestSearchCourse({ rating: 4.5 });
-    const upFour = await requestSearchCourse({ rating: 4 });
-    const upThreeDotFive = await requestSearchCourse({ rating: 3.5 });
-    const upThree = await requestSearchCourse({ rating: 3 });
-    // console.log("response ratings 4.5", upFourDotFive.data.length);
-    // console.log("response ratings 4", upFour.data.length);
-    // console.log("response ratings 3.5", upThreeDotFive.data.length);
-    // console.log("response ratings 3", upThree.data.length);
-    const newObj = {
-      fourDotFive: upFourDotFive.data.length,
-      four: upFour.data.length,
-      threeDotFive: upThreeDotFive.data.length,
-      three: upThree.data.length,
-    };
-    return newObj;
   }
 );
