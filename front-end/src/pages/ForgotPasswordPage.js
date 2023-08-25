@@ -18,7 +18,11 @@ const schema = yup.object({
     .required("Please enter your email"),
 });
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage = ({
+  className,
+  unToSignIn = false,
+  onClickSignIn,
+}) => {
   const dispatch = useDispatch();
   const {
     control,
@@ -45,14 +49,14 @@ const ForgotPasswordPage = () => {
   }, [errors]);
 
   return (
-    <AuthenticationPage title="Forgot Password">
+    <AuthenticationPage title="Forgot Password" className={className}>
       <form onSubmit={handleSubmit(submitForgotPassword)}>
         <div className="my-3">
           <Input
             control={control}
             name="email"
             type="email"
-            placeholder="Email"
+            label="Email"
           ></Input>
         </div>
         <Button
@@ -73,7 +77,8 @@ const ForgotPasswordPage = () => {
         textNormal="or"
         textUnderline="Log in"
         textUnderlineClassName="text-base"
-        to="/log-in"
+        to={unToSignIn ? false : "/log-in"}
+        onClick={onClickSignIn}
       ></AuthenAnotherOption>
     </AuthenticationPage>
   );

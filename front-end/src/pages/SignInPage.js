@@ -25,7 +25,13 @@ const schema = yup.object({
     .required("Please enter your password"),
 });
 
-const SignInPage = () => {
+const SignInPage = ({
+  className,
+  unToForgotPassword = false,
+  unToSignUp = false,
+  onClickSignUp,
+  onClickForgotPassword,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -67,7 +73,10 @@ const SignInPage = () => {
 
   if (jwt) return <PageNotFound></PageNotFound>;
   return (
-    <AuthenticationPage title="Log in to your Udemy account">
+    <AuthenticationPage
+      title="Log in to your Udemy account"
+      className={className}
+    >
       <form
         onSubmit={handleSubmit(loginHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
@@ -100,14 +109,16 @@ const SignInPage = () => {
           textNormal="or"
           textUnderline="Forgot Password"
           textUnderlineClassName="text-base"
-          to="/forgot-password"
+          to={unToForgotPassword ? false : "/forgot-password"}
+          onClick={onClickForgotPassword}
         ></AuthenAnotherOption>
       </form>
       <AuthenAnotherOption
         className="text-center mt-3"
         textNormal="Don't have an account?"
         textUnderline="Sign up"
-        to="/sign-up"
+        to={unToSignUp ? false : "/sign-up"}
+        onClick={onClickSignUp}
       ></AuthenAnotherOption>
     </AuthenticationPage>
   );

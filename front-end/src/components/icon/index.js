@@ -28,9 +28,11 @@ import IconEye from "./IconEye";
 import IconEyeClose from "./IconEyeClose";
 import IconPen from "./IconPen";
 import IconFilter from "./IconFilter";
+import IconClose from "./IconClose";
 
 export {
   IconArrowLeft,
+  IconClose,
   IconArrowRight,
   IconArrowDown,
   IconCartOutline,

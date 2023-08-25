@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import LoadingSpine from "../loading/LoadingSpine";
 
 const ButtonHeart = ({ contain, className, onClick = () => {} }) => {
+  const { jwt } = useSelector((state) => state.auth);
   const { loadingHeart } = useSelector((state) => state.wishlist);
   return (
     <button
@@ -19,7 +20,11 @@ const ButtonHeart = ({ contain, className, onClick = () => {} }) => {
         ></LoadingSpine>
       )}
       {!loadingHeart &&
-        (contain ? <IconHeartSolid></IconHeartSolid> : <IconHeart></IconHeart>)}
+        (jwt && contain ? (
+          <IconHeartSolid></IconHeartSolid>
+        ) : (
+          <IconHeart></IconHeart>
+        ))}
     </button>
   );
 };

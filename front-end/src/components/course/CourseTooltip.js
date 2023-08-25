@@ -3,7 +3,7 @@ import { Button, ButtonHeart, ButtonStatusTag } from "../button";
 import CourseSumary from "./CourseSumary";
 import ReactDOM from "react-dom";
 import { SpecialArrow, SpecialTextWithCheckIcon } from "../special";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddToCart } from "../../redux-toolkit/cart/cartHandlerThunk";
@@ -30,11 +30,14 @@ const CourseTooltip = ({
   onMouseOut = () => {},
 }) => {
   const dispatch = useDispatch();
-  const { myCart, loadingAdd } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const { jwt } = useSelector((state) => state.auth);
+  const { myCart, myCartLocal, loadingAdd } = useSelector(
+    (state) => state.cart
+  );
   const { courses } = myCart;
   const { myWishlist } = useSelector((state) => state.wishlist);
-  console.log("coords", coords);
-  const intoCart = courses?.some((item) => {
+  const intoCart = (courses || myCartLocal)?.some((item) => {
     return item.id === courseId;
   });
   const intoWishlist = myWishlist.courses?.some((item) => {
@@ -44,6 +47,7 @@ const CourseTooltip = ({
     dispatch(handleAddToCart(courseId));
   };
   const addToWishlist = () => {
+    if (!jwt) return navigate("/sign-up");
     dispatch(handleAddToWishlist(courseId));
   };
   const removeFromWishList = () => {

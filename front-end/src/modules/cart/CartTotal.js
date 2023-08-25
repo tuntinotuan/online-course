@@ -5,8 +5,12 @@ import {
   totalCourseOriginnalPrice,
   totalCoursePrice,
 } from "../../utils/processing-number";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleShowPopupSignUp } from "../../redux-toolkit/globalSlice";
 
 const CartTotal = ({ data }) => {
+  const dispatch = useDispatch();
+  const { jwt } = useSelector((state) => state.auth);
   const total = totalCoursePrice(data);
   const originalTotal = totalCourseOriginnalPrice(data || []);
   const discount = originalTotal - total;
@@ -22,7 +26,7 @@ const CartTotal = ({ data }) => {
           ></CoursePrice>
           {discount > 0 && (
             <CoursePrice
-              price={discount.toLocaleString("en-US")}
+              price={originalTotal.toLocaleString("en-US")}
               className="text-base font-normal text-grayA6 line-through"
             ></CoursePrice>
           )}
@@ -36,7 +40,8 @@ const CartTotal = ({ data }) => {
           className="bg-purpleTextA4 py-3 text-white text-base font-bold"
           borderNone
           full
-          to="checkout"
+          onClick={() => dispatch(toggleShowPopupSignUp(true))}
+          to={jwt ? "checkout" : false}
         >
           Checkout
         </Button>

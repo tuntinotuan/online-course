@@ -25,17 +25,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleGetUserData } from "./redux-toolkit/user/userHandlerThunk";
 import { handleGetCourseData } from "./redux-toolkit/course/courseHandlerThunk";
 import SearchPage from "./pages/SearchPage";
+import PopupSignUp from "./components/popup/PopupSignUp";
+import PopupSignIn from "./components/popup/PopupSignIn";
+import PopupForgotPassword from "./components/popup/PopupForgotPassword";
+import { handleGetMyWishlist } from "./redux-toolkit/wishlist/wishlistHandlerThunk";
 
 function App() {
   const dispatch = useDispatch();
-  const { currentUserId } = useSelector((state) => state.auth);
+  const { jwt, currentUserId } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.user);
+  const { favorite } = userData;
   useEffect(() => {
     if (currentUserId) {
       dispatch(handleGetUserData(currentUserId));
     }
     dispatch(handleGetCourseData());
   }, [dispatch, currentUserId]);
-
+  useEffect(() => {
+    dispatch(handleGetMyWishlist(favorite?.id));
+  }, [favorite, dispatch]);
   return (
     <div className="App">
       <Routes>
@@ -121,6 +129,13 @@ function App() {
           element={<CheckoutPage></CheckoutPage>}
         ></Route>
       </Routes>
+      {!jwt && (
+        <>
+          <PopupSignUp></PopupSignUp>
+          <PopupSignIn></PopupSignIn>
+          <PopupForgotPassword></PopupForgotPassword>
+        </>
+      )}
     </div>
   );
 }

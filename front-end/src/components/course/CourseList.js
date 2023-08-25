@@ -52,6 +52,7 @@ function CourseListMain({ autoPlay, items }) {
                 subtitle={course.subtitle}
                 updatedAt={course.updatedAt}
                 instructor={course.user}
+                star={course.star}
                 originalPrice={course.original_price}
                 currentPrice={course?.current_price}
                 bestSeller={course.best_seller}

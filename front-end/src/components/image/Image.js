@@ -1,12 +1,19 @@
 import React from "react";
 
-const Image = ({ className, url = "", isOverlay = false }) => {
+const Image = ({
+  className,
+  url = "",
+  borderNone = false,
+  isOverlay = false,
+}) => {
   return (
     <div className="relative w-full h-full">
       <img
         srcSet={url}
         alt=""
-        className={`w-full h-full object-cover border border-gray-200 ${className}`}
+        className={`w-full h-full object-cover ${
+          borderNone ? "" : "border border-gray-200"
+        } ${className}`}
       />
       <div
         className={`absolute top-0 w-full h-full transition-all bg-primaryBlack bg-opacity-25 ${

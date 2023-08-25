@@ -30,3 +30,10 @@ export function requestRemoveItemFromCart(cartId, courseId) {
     },
   });
 }
+export function requestUpdateMyCartLocalToMyCart(cartId, courseId) {
+  return strapi.update("carts", cartId, {
+    courses: {
+      connect: courseId,
+    },
+  });
+}

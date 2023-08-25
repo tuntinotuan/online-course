@@ -22,20 +22,20 @@ export function requestRegister({ fullname, email, password }) {
 }
 export function requestForgotPassword({ email }) {
   console.log("emaill", email);
-  return strapi.forgotPassword({ email: email });
+  // return strapi.forgotPassword({ email: email });
   // return axios.post("http://localhost:1337/auth/forgot-password", {
   //   email: email,
   // });
-  // return axios
-  //   .post("http://localhost:1337/api/auth/forgot-password", {
-  //     email: email, // user's email
-  //   })
-  //   .then((response) => {
-  //     console.log("Your user received an email");
-  //   })
-  //   .catch((error) => {
-  //     console.log("An error occurred:", error.response);
-  //   });
+  return axios
+    .post("http://localhost:1337/api/auth/forgot-password", {
+      email: email, // user's email
+    })
+    .then((response) => {
+      console.log("Your user received an email");
+    })
+    .catch((error) => {
+      console.log("An error occurred:", error.response);
+    });
 }
 
 export function requestChangePassword({

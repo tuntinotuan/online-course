@@ -32,7 +32,7 @@ const Header = ({
   const { hovered: hoverCategories, nodeRef: nodeRefCategories } = useHover();
 
   const { jwt } = useSelector((state) => state.auth);
-  const { myCart } = useSelector((state) => state.cart);
+  const { myCart, myCartLocal } = useSelector((state) => state.cart);
   const { courses } = myCart;
   return (
     <header
@@ -118,12 +118,12 @@ const Header = ({
             className="relative hover:text-purpleText56"
             onClick={() => setHovered(false)}
           >
-            {courses?.length > 0 ? (
+            {courses?.length > 0 || myCartLocal?.length > 0 ? (
               <IconCartSolid></IconCartSolid>
             ) : (
               <IconCartOutline></IconCartOutline>
             )}
-            {courses?.length > 0 && (
+            {(courses?.length > 0 || myCartLocal?.length > 0) && (
               <SpecialCountCircle className="absolute -top-1/2 right-0 translate-x-1/2"></SpecialCountCircle>
             )}
           </NavLink>

@@ -4,16 +4,38 @@ import {
   requestCreateCart,
   requestGetMyCart,
   requestRemoveItemFromCart,
+  requestUpdateMyCartLocalToMyCart,
 } from "./cartRequests";
-import { setLoadingAddCart, setMyCart } from "./cartSlice";
-import { requestGetCourseData } from "../course/courseRequests";
+import { setLoadingAddCart, setMyCart, setMyCartLocal } from "./cartSlice";
+import {
+  requestGetCourseData,
+  requestGetSingleCourse,
+} from "../course/courseRequests";
 import { setCourseList } from "../course/courseSlice";
 
 export const handleGetMyCart = createAsyncThunk(
   "cart/handleGetMyCart",
-  async (cartId, ThunkAPI) => {
+  async (cartId, { getState, dispatch }) => {
     let results = [];
+    let getFullIdFromCartLocal = [];
+    const state = getState();
+    const { jwt } = state.auth;
+    const { myCartLocal } = state.cart;
+    const { userData } = state.user;
     try {
+      if (myCartLocal.length > 0) {
+        await myCartLocal.map((item) => {
+          getFullIdFromCartLocal.push({ id: item.id });
+          return getFullIdFromCartLocal;
+        });
+        await requestUpdateMyCartLocalToMyCart(
+          userData?.cart?.id,
+          getFullIdFromCartLocal
+        );
+        if (jwt) {
+          dispatch(setMyCartLocal([]));
+        }
+      }
       const response = await requestGetMyCart(cartId);
       results = response.data;
     } catch (error) {
@@ -27,16 +49,31 @@ export const handleAddToCart = createAsyncThunk(
   async (courseId, { getState, dispatch }) => {
     const state = getState();
     const { userData } = state.user;
+    const { myCartLocal } = state.cart;
+    const { jwt } = state.auth;
     dispatch(setLoadingAddCart(true));
     try {
-      const response = !userData?.cart?.id
-        ? await requestCreateCart(userData.id, courseId)
-        : await requestAddToCart(userData?.cart?.id, courseId);
-      console.log("response", response);
-      const courseData = await requestGetCourseData();
-      const cartList = await requestGetMyCart(userData?.cart?.id);
-      dispatch(setCourseList(courseData.data));
-      dispatch(setMyCart(cartList.data));
+      // Cart save on localStorage
+      if (!jwt) {
+        let results = [];
+        const checkId = await myCartLocal.some((item) => item.id === courseId);
+        if (!checkId) {
+          const response = await requestGetSingleCourse(courseId);
+          console.log("response", response.data);
+          results.push(...myCartLocal, response.data);
+          dispatch(setMyCartLocal(results));
+        }
+      }
+      if (jwt) {
+        const response = !userData?.cart?.id
+          ? await requestCreateCart(userData.id, courseId)
+          : await requestAddToCart(userData?.cart?.id, courseId);
+        console.log("response", response);
+        const courseData = await requestGetCourseData();
+        const cartList = await requestGetMyCart(userData?.cart?.id);
+        dispatch(setCourseList(courseData.data));
+        dispatch(setMyCart(cartList.data));
+      }
       dispatch(setLoadingAddCart(false));
     } catch (error) {
       console.log(error);
@@ -50,14 +87,24 @@ export const handleRemoveItemFromCart = createAsyncThunk(
     let results = [];
     const state = getState();
     const { userData } = state.user;
+    const { jwt } = state.auth;
+    const { myCartLocal } = state.cart;
     try {
-      const response = await requestRemoveItemFromCart(
-        userData?.cart?.id,
-        courseId
-      );
-      console.log("response", response);
-      const cartList = await requestGetMyCart(userData?.cart?.id);
-      dispatch(setMyCart(cartList.data));
+      if (!jwt) {
+        const results = await myCartLocal.filter(
+          (item) => item.id !== courseId
+        );
+        dispatch(setMyCartLocal(results));
+      }
+      if (jwt) {
+        const response = await requestRemoveItemFromCart(
+          userData?.cart?.id,
+          courseId
+        );
+        console.log("response", response);
+        const cartList = await requestGetMyCart(userData?.cart?.id);
+        dispatch(setMyCart(cartList.data));
+      }
     } catch (error) {
       console.log(error);
     }

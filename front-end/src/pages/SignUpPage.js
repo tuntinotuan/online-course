@@ -27,7 +27,7 @@ const schema = yup.object({
     .required("Please enter your password"),
 });
 
-const SignUpPage = () => {
+const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
   const {
@@ -57,9 +57,14 @@ const SignUpPage = () => {
       });
     }
   }, [errors, error]);
-
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
   return (
-    <AuthenticationPage title="Sign up and start learning">
+    <AuthenticationPage
+      title="Sign up and start learning"
+      className={className}
+    >
       <form
         onSubmit={handleSubmit(registerHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
@@ -91,7 +96,8 @@ const SignUpPage = () => {
         className="text-center mt-3"
         textNormal="Already have an account?"
         textUnderline="Log in"
-        to="/log-in"
+        to={unToSignIn ? false : "/log-in"}
+        onClick={onClickSignIn}
       ></AuthenAnotherOption>
     </AuthenticationPage>
   );

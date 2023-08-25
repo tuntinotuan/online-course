@@ -1,5 +1,6 @@
 import React from "react";
 import Search from "./Search";
+import { IconClose } from "../icon";
 
 const SearchMobile = ({ onClick }) => {
   return (
@@ -15,20 +16,7 @@ const SearchMobile = ({ onClick }) => {
           className="flex items-center justify-center w-16 h-10 bg-white rounded-full"
           onClick={onClick}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <IconClose></IconClose>
         </div>
       </div>
     </div>

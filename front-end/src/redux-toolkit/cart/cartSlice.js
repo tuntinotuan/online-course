@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
 import { handleGetMyCart } from "./cartHandlerThunk";
 
 const initialState = {
   myCart: [],
+  myCartLocal: [],
   loadingAdd: false,
 };
 
@@ -13,6 +16,10 @@ const cartSlice = createSlice({
     setMyCart: (state, action) => ({
       ...state,
       myCart: action.payload,
+    }),
+    setMyCartLocal: (state, action) => ({
+      ...state,
+      myCartLocal: action.payload,
     }),
     setLoadingAddCart: (state, action) => ({
       ...state,
@@ -26,6 +33,13 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setMyCart, setLoadingAddCart } = cartSlice.actions;
+const cartPersistConfig = {
+  key: "cart",
+  storage: storage,
+  whitelist: ["myCartLocal"],
+};
 
-export default cartSlice.reducer;
+export const { setMyCart, setMyCartLocal, setLoadingAddCart } =
+  cartSlice.actions;
+
+export default persistReducer(cartPersistConfig, cartSlice.reducer);

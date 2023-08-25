@@ -11,6 +11,7 @@ import { handleRemoveItemFromWishlist } from "../../redux-toolkit/wishlist/wishl
 import { useDispatch, useSelector } from "react-redux";
 import { processingSearchArray } from "../../utils/processing-array";
 import { setWishlistSearch } from "../../redux-toolkit/wishlist/wishlistSlice";
+import CourseRating from "./CourseRating";
 
 const CourseCard = ({
   id,
@@ -19,6 +20,7 @@ const CourseCard = ({
   subtitle,
   updatedAt,
   instructor,
+  star,
   originalPrice,
   currentPrice,
   bestSeller = false,
@@ -63,6 +65,7 @@ const CourseCard = ({
           <p className="course-instructer text-xs text-grayA6 truncate">
             {instructor?.username}
           </p>
+          <CourseRating rating={star}></CourseRating>
           <div className="flex items-center text-base gap-2 mb-2">
             <span className="font-bold">
               <CoursePrice

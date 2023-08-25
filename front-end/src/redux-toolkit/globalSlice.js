@@ -4,6 +4,9 @@ const initialState = {
   loading: false,
   urlChosenImage: "",
   showFilter: true,
+  showPopupSignUp: false,
+  showPopupSignIn: false,
+  showPopupForgotPassword: false,
 };
 
 const globalSlice = createSlice({
@@ -22,10 +25,28 @@ const globalSlice = createSlice({
       ...state,
       showFilter: action.payload,
     }),
+    toggleShowPopupSignUp: (state, action) => ({
+      ...state,
+      showPopupSignUp: action.payload,
+    }),
+    toggleShowPopupSignIn: (state, action) => ({
+      ...state,
+      showPopupSignIn: action.payload,
+    }),
+    toggleShowPopupForgotPassword: (state, action) => ({
+      ...state,
+      showPopupForgotPassword: action.payload,
+    }),
   },
 });
 
-export const { setLoading, setUrlImage, toggleShowFilter } =
-  globalSlice.actions;
+export const {
+  setLoading,
+  setUrlImage,
+  toggleShowFilter,
+  toggleShowPopupSignUp,
+  toggleShowPopupSignIn,
+  toggleShowPopupForgotPassword,
+} = globalSlice.actions;
 
 export default globalSlice.reducer;

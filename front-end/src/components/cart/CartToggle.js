@@ -7,7 +7,7 @@ import { handleGetMyCart } from "../../redux-toolkit/cart/cartHandlerThunk";
 
 const CartToggle = ({ hovered, onClick = () => {} }) => {
   const dispatch = useDispatch();
-  const { myCart } = useSelector((state) => state.cart);
+  const { myCart, myCartLocal } = useSelector((state) => state.cart);
   const { courses } = myCart;
   const { userData } = useSelector((state) => state.user);
   const { cart } = userData;
@@ -16,7 +16,7 @@ const CartToggle = ({ hovered, onClick = () => {} }) => {
   }, [cart, dispatch]);
   return (
     <TooltipCover hovered={hovered}>
-      {courses?.length > 0 ? (
+      {courses?.length > 0 || myCartLocal.length > 0 ? (
         <CartToggleNoEmpty onClick={onClick}></CartToggleNoEmpty>
       ) : (
         <TooltipEmpty

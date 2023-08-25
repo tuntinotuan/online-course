@@ -7,6 +7,7 @@ const AuthenAnotherOption = ({
   textUnderline = "This is underline text",
   textUnderlineClassName,
   to = "",
+  onClick,
 }) => {
   return (
     <h3 className={className}>
@@ -15,6 +16,7 @@ const AuthenAnotherOption = ({
         className={`text-purpleText56 font-bold ${textUnderlineClassName}`}
         text={textUnderline}
         to={to}
+        onClick={onClick}
       ></SpecialTextUnderline>
     </h3>
   );
