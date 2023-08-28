@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { SpecialCircle } from "../special";
 import Image from "../image/Image";
+import { convertUsernameShortly } from "../../utils/processing-string";
 
 const ButtonUserAvatar = ({
   className,
@@ -21,7 +22,7 @@ const ButtonUserAvatar = ({
       {avatar ? (
         <Image url={avatar} className="rounded-full"></Image>
       ) : (
-        shortName
+        convertUsernameShortly(shortName)
       )}
       {cartHasCourse && (
         <SpecialCircle

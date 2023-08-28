@@ -1,12 +1,18 @@
 import React from "react";
 import CourseStar from "./CourseStar";
 
-const CourseRating = ({ rating, totalRating = 0 }) => {
+const CourseRating = ({ className, rating, totalRating = 0, secondary }) => {
   return (
-    <div className="flex items-center gap-1 my-1">
-      <h2 className="text-starColor font-bold">{rating || 0}</h2>
-      <CourseStar rating={rating} readOnly></CourseStar>
-      <span className="text-xs text-grayA6">({totalRating || 0})</span>
+    <div className={`flex items-center text-grayA6 gap-1 my-1 ${className}`}>
+      <h2
+        className={`font-bold ${
+          secondary ? "text-[#F69C08]" : "text-starColor"
+        }`}
+      >
+        {rating || 0}
+      </h2>
+      <CourseStar rating={rating} readOnly secondary={secondary}></CourseStar>
+      <span className="text-xs">({totalRating || 0})</span>
     </div>
   );
 };

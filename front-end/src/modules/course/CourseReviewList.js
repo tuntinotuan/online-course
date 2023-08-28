@@ -3,7 +3,6 @@ import Button from "../../components/button/Button";
 import CourseHeading from "./CourseHeading";
 import { SpecialCircle } from "../../components/special";
 import ReviewCard from "../../components/review/ReviewCard";
-import { ConvertUsernameShortly } from "../../utils/processing-string";
 
 const CourseReviewList = () => {
   return (
@@ -23,7 +22,7 @@ const CourseReviewList = () => {
           <ReviewCard
             key={items.name}
             name={items.name}
-            shortName={ConvertUsernameShortly(items.name)}
+            shortName={items.name}
             time={items.time}
             content={items.text}
           ></ReviewCard>

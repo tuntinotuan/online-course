@@ -26,6 +26,7 @@ const CourseCard = ({
   bestSeller = false,
   blockTooltip = false,
   iconHeart = false,
+  imageHeight = "h-[135px]",
 }) => {
   const dispatch = useDispatch();
   const { nodeRef, hovered, setHovered, coords } = useHover();
@@ -51,7 +52,7 @@ const CourseCard = ({
         className="course-card relative h-full select-none -z-1 cursor-pointer group"
         ref={nodeRef}
       >
-        <div className="h-[135px]">
+        <div className={`${imageHeight}`}>
           <Image
             url={`${strapiPathBE}${img}`}
             className="mb-2"
@@ -59,7 +60,10 @@ const CourseCard = ({
           ></Image>
         </div>
         <div>
-          <h3 className="text-base course-title font-bold line-clamp-2">
+          <h3
+            className="text-base course-title font-bold line-clamp-2"
+            title={title}
+          >
             {title}
           </h3>
           <p className="course-instructer text-xs text-grayA6 truncate">

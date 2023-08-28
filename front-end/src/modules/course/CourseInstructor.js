@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IconArrowDown } from "../../components/icon";
 import { useSelector } from "react-redux";
 import ButtonUserAvatar from "../../components/button/ButtonUserAvatar";
-import { ConvertUsernameShortly } from "../../utils/processing-string";
+import { Link } from "react-router-dom";
 
 const CourseInstructor = () => {
   const [showMore, setShowMore] = useState(false);
@@ -14,17 +14,21 @@ const CourseInstructor = () => {
   return (
     <section className="py-5">
       <h1 className="text-2xl font-bold mb-5">Instructor</h1>
-      <h2 className="text-xl font-bold text-purpleText56 border border-transparent border-b-primaryBlack cursor-pointer">
+      <Link
+        to={`/user/${user?.id}`}
+        className="text-xl font-bold text-purpleText56 border border-transparent border-b-primaryBlack"
+      >
         {user?.username || "Jose Portilla"}
-      </h2>
+      </Link>
       <h3 className="opacity-50 mt-2">
         Head of Data Science at Pierian Training
       </h3>
       <div className="profile flex items-center gap-5 py-2">
         <div className="w-28 h-28">
           <ButtonUserAvatar
-            shortName={ConvertUsernameShortly(user?.username)}
+            shortName={user?.username}
             size={112}
+            to={`/user/${user?.id}`}
           ></ButtonUserAvatar>
         </div>
         <div>

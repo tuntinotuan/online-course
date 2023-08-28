@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "video_intros",
+  "info": {
+    "singularName": "video-intro",
+    "pluralName": "video-intros",
+    "displayName": "VideoIntro"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "video": {
+      "allowedTypes": [
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "preview_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "duration": {
+      "type": "string"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course.course",
+      "mappedBy": "video_intro"
+    }
+  }
+}

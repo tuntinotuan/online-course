@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonUserAvatar from "../button/ButtonUserAvatar";
+import CourseStar from "../course/CourseStar";
 
 const ReviewCard = ({ name, shortName, time, content }) => {
   return (
@@ -14,7 +15,7 @@ const ReviewCard = ({ name, shortName, time, content }) => {
           <div>
             <h2 className="text-base font-bold">{name}</h2>
             <div className="flex items-center gap-2">
-              <Star></Star>
+              <CourseStar rating={5} readOnly></CourseStar>
               <p className="text-xs font-bold text-grayA6">{time}</p>
             </div>
           </div>
@@ -29,22 +30,5 @@ const ReviewCard = ({ name, shortName, time, content }) => {
     </div>
   );
 };
-
-function Star({ amount }) {
-  return (
-    <div className="flex items-center gap-1">
-      {Array(5)
-        .fill(null)
-        .map((index) => (
-          <img
-            src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"
-            alt=""
-            className="w-[11px] h-[11px]"
-            key={index}
-          />
-        ))}
-    </div>
-  );
-}
 
 export default ReviewCard;

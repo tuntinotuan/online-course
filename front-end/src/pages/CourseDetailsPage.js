@@ -5,6 +5,7 @@ import CourseDetailsBody from "../modules/course/CourseDetailsBody";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetSingleCourse } from "../redux-toolkit/course/courseHandlerThunk";
+import PopupPreviewVideo from "../components/popup/PopupPreviewVideo";
 
 const CourseDetailsPage = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const CourseDetailsPage = () => {
       <CourseAttention data={course}></CourseAttention>
       <CourseDetailsOverview data={course}></CourseDetailsOverview>
       <CourseDetailsBody scroll={offset}></CourseDetailsBody>
+      <PopupPreviewVideo></PopupPreviewVideo>
     </section>
   );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IconArrowDown } from "../../components/icon";
 import CourseContentItem from "./CourseContentItem";
 
-const CourseContentList = ({ toggleAll }) => {
+const CourseContentList = ({ listData, toggleAll }) => {
   const [toggle, setToggle] = useState(false);
   useEffect(() => {
     toggleAll ? setToggle(true) : setToggle(false);
@@ -12,27 +12,33 @@ const CourseContentList = ({ toggleAll }) => {
     setToggle(!toggle);
   };
   return (
-    <div className="border border-slate-200 border-b-transparent">
+    <div className="border border-gray-300 border-b-transparent last:border-b-gray-300">
       <div
-        className="flex items-center justify-between w-full bg-slate-100 border border-transparent border-b-slate-200 py-3 px-5 cursor-pointer"
+        className={`flex items-center justify-between w-full bg-grayF7 border border-transparent py-3 px-5 cursor-pointer ${
+          toggle ? "border-b-gray-300" : ""
+        }`}
         onClick={handleToggle}
       >
         <div className="flex items-center gap-4">
           <IconArrowDown
             className={`${toggle ? "-rotate-180" : ""} transition-all`}
-            size={16}
+            size={14}
           ></IconArrowDown>
-          <h2 className="text-[15px] font-bold">Intro to Course and Python</h2>
+          <h2 className="text-[15px] font-bold">
+            {listData.lesson || "Intro to Course and Python"}
+          </h2>
         </div>
-        <span className="text-[13px] text-slate-600">2 lectures • 7 min</span>
+        <span>{listData?.video_courses?.length} lectures • 7 min</span>
       </div>
       {toggle && (
         <div className="flex flex-col gap-4 p-5">
-          {Array(3)
-            .fill(null)
-            .map((item) => (
-              <CourseContentItem></CourseContentItem>
-            ))}
+          {listData?.video_courses?.length > 0 ? (
+            listData?.video_courses?.map((video) => (
+              <CourseContentItem video={video}></CourseContentItem>
+            ))
+          ) : (
+            <p className="text-xs text-grayA6">Next release course</p>
+          )}
         </div>
       )}
     </div>

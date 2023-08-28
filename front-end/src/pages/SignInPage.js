@@ -50,7 +50,7 @@ const SignInPage = ({
   const loginHandler = async (values) => {
     if (!isValid) return;
     try {
-      dispatch(handleLogin(values));
+      dispatch(handleLogin({ values, navigate }));
     } catch (error) {
       console.log(error);
     }

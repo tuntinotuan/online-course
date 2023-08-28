@@ -11,6 +11,8 @@ import { processingSearchArray } from "../../utils/processing-array";
 
 const SearchWishlist = ({ size = 40 }) => {
   const dispatch = useDispatch();
+  const [params] = useSearchParams();
+  const query = params.get("q-wishlist");
   const [searchParams, setSearchParams] = useSearchParams();
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
@@ -44,6 +46,7 @@ const SearchWishlist = ({ size = 40 }) => {
       <input
         type="text"
         placeholder="Search my course"
+        defaultValue={query}
         onChange={handleChangeInput}
         className="w-[200px] h-full placeholder:text-grayA6 border border-primaryBlack py-3 px-4"
       />

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Main from "./components/layout/Main";
 import CartPage from "./pages/CartPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -29,12 +29,17 @@ import PopupSignUp from "./components/popup/PopupSignUp";
 import PopupSignIn from "./components/popup/PopupSignIn";
 import PopupForgotPassword from "./components/popup/PopupForgotPassword";
 import { handleGetMyWishlist } from "./redux-toolkit/wishlist/wishlistHandlerThunk";
+import { setWishlistSearch } from "./redux-toolkit/wishlist/wishlistSlice";
+import UserDetailsPage from "./pages/UserDetailsPage";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { jwt, currentUserId } = useSelector((state) => state.auth);
   const { userData } = useSelector((state) => state.user);
   const { favorite } = userData;
+  const { myWishlist } = useSelector((state) => state.wishlist);
+  const { courses } = myWishlist;
   useEffect(() => {
     if (currentUserId) {
       dispatch(handleGetUserData(currentUserId));
@@ -44,6 +49,11 @@ function App() {
   useEffect(() => {
     dispatch(handleGetMyWishlist(favorite?.id));
   }, [favorite, dispatch]);
+  useEffect(() => {
+    if (location.pathname !== "/my-course/wishlist") {
+      dispatch(setWishlistSearch(null));
+    }
+  }, [courses, location, dispatch]);
   return (
     <div className="App">
       <Routes>
@@ -108,6 +118,10 @@ function App() {
               element={<UserEditPhoto></UserEditPhoto>}
             ></Route>
           </Route>
+          <Route
+            path="/user/:authorId"
+            element={<UserDetailsPage></UserDetailsPage>}
+          ></Route>
           <Route path="/log-in" element={<SignInPage></SignInPage>}></Route>
           <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
           <Route

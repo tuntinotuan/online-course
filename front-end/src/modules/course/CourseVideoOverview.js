@@ -14,14 +14,22 @@ import { useDispatch, useSelector } from "react-redux";
 import CoursePrice from "../../components/course/CoursePrice";
 import { handleAddToCart } from "../../redux-toolkit/cart/cartHandlerThunk";
 import { useParams } from "react-router-dom";
+import LoadingSpine from "../../components/loading/LoadingSpine";
 
 const CourseVideoOverview = ({ offset }) => {
   const { courseId } = useParams();
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
+  const { myCart, myCartLocal, loadingAdd } = useSelector(
+    (state) => state.cart
+  );
+  const { courses } = myCart;
   let pointScrollFixed = offset > 299;
   const scrollbarHeight = document.body.scrollHeight;
   let pointScrollSticky = offset > scrollbarHeight - 999;
+  const intoCart = (courses || myCartLocal)?.some((item) => {
+    return item.id === Number(courseId);
+  });
   const addToCart = () => {
     dispatch(handleAddToCart(courseId));
   };
@@ -32,9 +40,9 @@ const CourseVideoOverview = ({ offset }) => {
           ? `${
               pointScrollSticky
                 ? "absolute mt-auto bottom-0"
-                : "fixed top-4 z-[99]"
+                : "fixed top-4 z-[49]"
             } max-w-[350px]`
-          : "-translate-y-[332px]"
+          : `-translate-y-1/3`
       } bg-white border border-white shadow-lg`}
     >
       <CourseVideo className={pointScrollFixed ? "hidden" : ""}></CourseVideo>
@@ -55,13 +63,17 @@ const CourseVideoOverview = ({ offset }) => {
           ></CoursePrice>
         )}
         <Button
-          className="bg-purpleTextA4 font-bold text-white mb-2"
+          className="flex items-center justify-center bg-purpleTextA4 font-bold text-white mb-2"
           square="py-3"
+          to={intoCart && "/cart"}
           full
           borderNone
-          onClick={addToCart}
+          onClick={intoCart ? () => {} : addToCart}
         >
-          Add to Cart
+          {loadingAdd && (
+            <LoadingSpine size="22px" borderSize="2px"></LoadingSpine>
+          )}
+          {!loadingAdd && (intoCart ? "Go to cart" : "Add to cart")}
         </Button>
         <Button className="font-bold" square="py-3" full>
           Buy now

@@ -7,17 +7,27 @@ import {
   requestRegister,
 } from "./authRequests";
 import { setCurrentUserId, setError } from "./authSlice";
-import { setLoading } from "../globalSlice";
+import {
+  setLoading,
+  toggleShowPopupForgotPassword,
+  toggleShowPopupSignIn,
+  toggleShowPopupSignUp,
+} from "../globalSlice";
 
 export const handleLogin = createAsyncThunk(
   "login/handleLoginThunk",
   async (query, { dispatch }) => {
     let results = "";
+    const { values, navigate } = query;
     try {
-      const response = await requestLogin(query);
+      const response = await requestLogin(values);
       const { jwt, user } = response;
       results = jwt;
       dispatch(setCurrentUserId(user?.id));
+      dispatch(toggleShowPopupSignUp(false));
+      dispatch(toggleShowPopupSignIn(false));
+      dispatch(toggleShowPopupForgotPassword(false));
+      navigate("/");
     } catch (error) {
       console.log(error);
       dispatch(setError(error.error.message));

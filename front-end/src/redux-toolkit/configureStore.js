@@ -19,6 +19,7 @@ import userSlice from "./user/userSlice";
 import courseSlice from "./course/courseSlice";
 import cartSlice from "./cart/cartSlice";
 import wishlistSlice from "./wishlist/wishlistSlice";
+import authorSlice from "./author/authorSlice";
 
 const reducer = combineReducers({
   global: globalSlice,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   course: courseSlice,
   cart: cartSlice,
   wishlist: wishlistSlice,
+  author: authorSlice,
 });
 
 const persistConfig = {

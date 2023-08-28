@@ -6,6 +6,8 @@ import IconExclamation from "../../components/icon/IconExclamation";
 import IconEarth from "../../components/icon/IconEarth";
 import IconCard from "../../components/icon/IconCard";
 import CourseVideo from "./CourseVideo";
+import CourseRating from "../../components/course/CourseRating";
+import { Link } from "react-router-dom";
 
 const CourseDetailsOverview = ({ data }) => {
   return (
@@ -31,35 +33,22 @@ const CourseDetailsOverview = ({ data }) => {
               <ButtonStatusTag className="bg-tagYellow">
                 Bestseller
               </ButtonStatusTag>
-              <div className={`rate flex items-center gap-1 cursor-pointer`}>
-                <span className="text-starBg font-bold text-sm">4.3</span>
-                {Array(4)
-                  .fill(null)
-                  .map((index) => (
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"
-                      alt=""
-                      className="w-[11px] h-[11px]"
-                      key={index}
-                    />
-                  ))}
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/2107/2107737.png"
-                  alt=""
-                  className="w-[11px] h-[11px]"
-                />
-                <span className="text-xs text-purpleTextC0 underline">
-                  (18,934 ratings)
-                </span>
-              </div>
+              <CourseRating
+                rating={data.star}
+                className="text-purpleTextC0"
+                secondary
+              ></CourseRating>
               <p>197,152 students</p>
             </div>
             <div className="my-2">
               <p>
                 Created by
-                <span className="text-purpleTextC0 underline ml-1 cursor-pointer">
+                <Link
+                  to={`/user/${data?.user?.id}`}
+                  className="text-purpleTextC0 underline ml-1"
+                >
                   {data?.user?.username || "Jose Portilla"}
-                </span>
+                </Link>
               </p>
             </div>
             <div className={`flex items-center gap-3 text-sm`}>

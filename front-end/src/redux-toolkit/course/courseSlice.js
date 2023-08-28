@@ -12,6 +12,8 @@ const initialState = {
   coursesSearch: [],
   coursesSearchOnly: [],
   courseLoading: false,
+  showPopupVideo: false,
+  urlPreviewVideo: "",
 };
 
 const courseSlice = createSlice({
@@ -21,6 +23,14 @@ const courseSlice = createSlice({
     setCourseList: (state, action) => ({
       ...state,
       courseList: action.payload,
+    }),
+    toggleShowPopupVideo: (state, action) => ({
+      ...state,
+      showPopupVideo: action.payload,
+    }),
+    setUrlPreviewVideo: (state, action) => ({
+      ...state,
+      urlPreviewVideo: action.payload,
     }),
   },
   extraReducers: (builder) => {
@@ -47,6 +57,7 @@ const courseSlice = createSlice({
   },
 });
 
-export const { setCourseList } = courseSlice.actions;
+export const { setCourseList, toggleShowPopupVideo, setUrlPreviewVideo } =
+  courseSlice.actions;
 
 export default courseSlice.reducer;

@@ -68,6 +68,18 @@
       "relation": "manyToMany",
       "target": "api::favorite.favorite",
       "mappedBy": "courses"
+    },
+    "video_lists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video-list.video-list",
+      "mappedBy": "course"
+    },
+    "video_intro": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::video-intro.video-intro",
+      "inversedBy": "course"
     }
   }
 }

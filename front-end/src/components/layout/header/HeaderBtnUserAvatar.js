@@ -1,7 +1,6 @@
 import React from "react";
 import Sidebar from "../Sidebar";
 import { strapiPathBE } from "../../../utils/constants";
-import { ConvertUsernameShortly } from "../../../utils/processing-string";
 import { ButtonUserAvatar } from "../../button";
 import useHover from "../../../hooks/useHover";
 import { useSelector } from "react-redux";
@@ -16,7 +15,7 @@ const HeaderBtnUserAvatar = () => {
     <div ref={nodeRef} className="relative py-5">
       <ButtonUserAvatar
         avatar={avatar && `${strapiPathBE}${avatar?.url}`}
-        shortName={ConvertUsernameShortly(userData.username)}
+        shortName={userData.username}
         to="/user/edit-profile"
         cartHasCourse={courses?.length > 0}
       ></ButtonUserAvatar>

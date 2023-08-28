@@ -2,7 +2,6 @@ import React from "react";
 import { ButtonUserAvatar } from "../../components/button";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ConvertUsernameShortly } from "../../utils/processing-string";
 import { strapiPathBE } from "../../utils/constants";
 
 const listLink = [
@@ -28,7 +27,7 @@ const UserSidebar = () => {
       <div className="flex flex-col items-center gap-2 p-4">
         <ButtonUserAvatar
           avatar={avatar && `${strapiPathBE}${avatar?.url}`}
-          shortName={ConvertUsernameShortly(userData?.username)}
+          shortName={userData?.username}
           size={120}
           to="/user/edit-profile"
         ></ButtonUserAvatar>

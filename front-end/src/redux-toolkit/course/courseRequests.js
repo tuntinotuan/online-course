@@ -12,7 +12,21 @@ export function requestGetCourseData() {
 
 export function requestGetSingleCourse(courseId) {
   return strapi.findOne("courses", courseId, {
-    populate: ["overview_image", "user.courses"],
+    populate: {
+      overview_image: {
+        populate: "*",
+      },
+      video_lists: {
+        populate: "video_courses.video",
+      },
+      user: {
+        populate: "*",
+      },
+      video_intro: {
+        populate: "*",
+      },
+    },
+    // populate: ["overview_image", "user.courses"],
   });
 }
 

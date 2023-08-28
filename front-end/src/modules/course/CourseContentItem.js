@@ -1,18 +1,31 @@
 import React from "react";
 import { IconFilm } from "../../components/icon";
+import { useDispatch } from "react-redux";
+import {
+  setUrlPreviewVideo,
+  toggleShowPopupVideo,
+} from "../../redux-toolkit/course/courseSlice";
 
-const CourseContentItem = () => {
+const CourseContentItem = ({ video }) => {
+  const dispatch = useDispatch();
+  const handleClickPreview = () => {
+    dispatch(toggleShowPopupVideo(true));
+    dispatch(setUrlPreviewVideo(video.video.url));
+  };
   return (
-    <div className="flex items-center justify-between">
+    <div
+      className={`flex items-center justify-between cursor-pointer`}
+      onClick={handleClickPreview}
+    >
       <div className="flex items-center gap-4">
         <IconFilm size={18}></IconFilm>
         <p className="text-purpleText56 underline cursor-pointer">
-          Course Intro
+          {video.title || "Course Intro"}
         </p>
       </div>
       <div className="flex items-center gap-10">
         <p className="text-purpleText56 underline cursor-pointer">Preview</p>
-        <span className="opacity-70">03:52</span>
+        <span className="opacity-70">{video.duration || "03:52"}</span>
       </div>
     </div>
   );

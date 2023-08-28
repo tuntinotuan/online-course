@@ -5,6 +5,7 @@ import CourseVideoOverview from "./CourseVideoOverview";
 import CourseFeaturedReview from "./CourseFeaturedReview";
 import CourseReviewList from "./CourseReviewList";
 import CourseInstructor from "./CourseInstructor";
+import { useSelector } from "react-redux";
 
 const CourseDetailsBody = ({
   scroll,
@@ -37,9 +38,13 @@ const CourseDetailsBody = ({
 };
 
 function Left() {
+  const { course } = useSelector((state) => state.course);
+  const { video_lists } = course;
   return (
     <Fragment>
-      <CourseContent></CourseContent>
+      {video_lists?.length > 0 && (
+        <CourseContent videoData={video_lists}></CourseContent>
+      )}
       <CourseDescription></CourseDescription>
       <CourseFeaturedReview></CourseFeaturedReview>
       <CourseReviewList></CourseReviewList>

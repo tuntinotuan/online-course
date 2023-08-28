@@ -3,8 +3,12 @@ import { useState } from "react";
 import CourseSumary from "../../components/course/CourseSumary";
 import CourseContentList from "./CourseContentList";
 import CourseHeading from "./CourseHeading";
+import { processQuantityOfLectures } from "../../utils/processing-array";
 
-const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
+const CourseContent = ({
+  videoData,
+  topFlex = "flex items-center justify-between",
+}) => {
   const [toggleAll, setToggleAll] = useState(false);
   const handeToggleAll = () => {
     setToggleAll(!toggleAll);
@@ -15,8 +19,11 @@ const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
       <div className={`${topFlex} last:mb-2`}>
         <CourseSumary
           obj={[
-            { value: 15, title: "sections" },
-            { value: 110, title: "lectures" },
+            { value: videoData?.length || 15, title: "sections" },
+            {
+              value: processQuantityOfLectures(videoData) || 110,
+              title: "lectures",
+            },
             { value: "21h 5m", title: "total length" },
           ]}
           className="text-base mb-3"
@@ -28,14 +35,13 @@ const CourseContent = ({ topFlex = "flex items-center justify-between" }) => {
           {toggleAll ? "Collapse" : "Expand"} all section
         </span>
       </div>
-      {Array(4)
-        .fill(null)
-        .map((index) => (
-          <CourseContentList
-            toggleAll={toggleAll}
-            key={index}
-          ></CourseContentList>
-        ))}
+      {videoData?.map((lesson) => (
+        <CourseContentList
+          listData={lesson}
+          key={lesson.id}
+          toggleAll={toggleAll}
+        ></CourseContentList>
+      ))}
     </section>
   );
 };

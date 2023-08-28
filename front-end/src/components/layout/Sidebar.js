@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
-import { ConvertUsernameShortly } from "../../utils/processing-string";
 import { strapiPathBE } from "../../utils/constants";
 import { handleLogout } from "../../redux-toolkit/auth/authHandlerThunk";
 
@@ -18,7 +17,9 @@ const Sidebar = ({ hovered }) => {
   const { courses } = myCart;
   const logoutHandler = async () => {
     try {
-      dispatch(handleLogout());
+      dispatch(handleLogout())
+        .unwrap()
+        .then(() => navigate("/log-in"));
       navigate("/log-in");
     } catch (error) {
       console.log(error);
@@ -32,7 +33,7 @@ const Sidebar = ({ hovered }) => {
       >
         <ButtonUserAvatar
           avatar={avatar && `${strapiPathBE}${avatar?.url}`}
-          shortName={ConvertUsernameShortly(userData?.username)}
+          shortName={userData?.username}
           size={66}
           className="text-2xl"
         ></ButtonUserAvatar>

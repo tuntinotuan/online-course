@@ -1,4 +1,4 @@
-export function ConvertUsernameShortly(name = "Tuan Nguyen") {
+export function convertUsernameShortly(name = "Tuan Nguyen") {
   if (!name)
     throw new Error(
       "ConvertUsernameShortly function must be have 'name' property"

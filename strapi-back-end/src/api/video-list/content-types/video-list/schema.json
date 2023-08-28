@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "video_lists",
+  "info": {
+    "singularName": "video-list",
+    "pluralName": "video-lists",
+    "displayName": "VideoList",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "lesson": {
+      "type": "string",
+      "required": true
+    },
+    "video_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video-course.video-course",
+      "mappedBy": "video_list"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "video_lists"
+    }
+  }
+}

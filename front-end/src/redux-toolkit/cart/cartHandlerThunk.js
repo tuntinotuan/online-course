@@ -12,6 +12,8 @@ import {
   requestGetSingleCourse,
 } from "../course/courseRequests";
 import { setCourseList } from "../course/courseSlice";
+import { requestGetUserData } from "../user/userRequests";
+import { setUserData } from "../user/userSlice";
 
 export const handleGetMyCart = createAsyncThunk(
   "cart/handleGetMyCart",
@@ -50,7 +52,7 @@ export const handleAddToCart = createAsyncThunk(
     const state = getState();
     const { userData } = state.user;
     const { myCartLocal } = state.cart;
-    const { jwt } = state.auth;
+    const { jwt, currentUserId } = state.auth;
     dispatch(setLoadingAddCart(true));
     try {
       // Cart save on localStorage
@@ -69,9 +71,11 @@ export const handleAddToCart = createAsyncThunk(
           ? await requestCreateCart(userData.id, courseId)
           : await requestAddToCart(userData?.cart?.id, courseId);
         console.log("response", response);
+        const newUseData = await requestGetUserData(currentUserId);
+        dispatch(setUserData(newUseData));
         const courseData = await requestGetCourseData();
-        const cartList = await requestGetMyCart(userData?.cart?.id);
         dispatch(setCourseList(courseData.data));
+        const cartList = await requestGetMyCart(userData?.cart?.id);
         dispatch(setMyCart(cartList.data));
       }
       dispatch(setLoadingAddCart(false));
