@@ -36,6 +36,14 @@
       "relation": "manyToOne",
       "target": "api::video-list.video-list",
       "inversedBy": "video_courses"
+    },
+    "preview_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
     }
   }
 }

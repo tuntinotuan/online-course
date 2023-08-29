@@ -17,7 +17,7 @@ export function requestGetSingleCourse(courseId) {
         populate: "*",
       },
       video_lists: {
-        populate: "video_courses.video",
+        populate: ["video_courses.video", "video_courses.preview_image"],
       },
       user: {
         populate: "*",

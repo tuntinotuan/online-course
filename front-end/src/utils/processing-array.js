@@ -13,3 +13,11 @@ export function processQuantityOfLectures(arrLectures) {
   arrLectures.forEach((item) => (amount += item?.video_courses?.length));
   return amount;
 }
+
+export function processAllVideoPreview(arrSections) {
+  let newArr = [];
+  arrSections?.forEach((section) =>
+    section?.video_courses?.forEach((lecture) => newArr.push(lecture))
+  );
+  return newArr;
+}

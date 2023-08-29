@@ -6,6 +6,11 @@ import CheckoutOrderDetails from "../modules/checkout/CheckoutOrderDetails";
 import CheckoutTitle from "../modules/checkout/CheckoutTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetMyCart } from "../redux-toolkit/cart/cartHandlerThunk";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51MwSqkEqTHVX4ukZmvtphvtHggeYSSNWklI1cgHc010ZyWPC6Esr5fFt8DNMHHxJ4kLh9tGfH6oz8mDFsO6GwACJ00AMfFHWuv"
+);
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -29,7 +34,9 @@ const CheckoutPage = () => {
           <CheckoutOrderDetails></CheckoutOrderDetails>
         </div>
         <div className="pr-52 col-span-5 w-full h-full bg-grayF7 pb-56">
-          <CheckoutSummary></CheckoutSummary>
+          <Elements stripe={stripePromise}>
+            <CheckoutSummary></CheckoutSummary>
+          </Elements>
         </div>
       </div>
     </div>

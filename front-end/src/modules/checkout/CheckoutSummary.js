@@ -2,15 +2,21 @@ import React from "react";
 import { Button } from "../../components/button";
 import CoursePrice from "../../components/course/CoursePrice";
 import CheckoutTitle from "./CheckoutTitle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   totalCourseOriginnalPrice,
   totalCoursePrice,
 } from "../../utils/processing-number";
+import { handlePayment } from "../../redux-toolkit/order/orderHandlerThunk";
 
 const CheckoutSummary = () => {
+  const dispatch = useDispatch();
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
+
+  const handleCheckout = async () => {
+    dispatch(handlePayment(courses));
+  };
   return (
     <div className="sticky top-5 bg-grayF7 mt-24 pl-12">
       <CheckoutTitle className="mb-5">Summary</CheckoutTitle>
@@ -57,6 +63,7 @@ const CheckoutSummary = () => {
         borderNone
         full
         to=""
+        onClick={handleCheckout}
       >
         Complete Checkout
       </Button>

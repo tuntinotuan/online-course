@@ -3,6 +3,7 @@ import Image from "../image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { setUrlPreviewVideo } from "../../redux-toolkit/course/courseSlice";
+import { IconPlayCircle } from "../icon";
 
 const VideoItem = ({ data, title }) => {
   const dispatch = useDispatch();
@@ -26,7 +27,12 @@ const VideoItem = ({ data, title }) => {
             }
           ></Image>
         </div>
-        <h1>{title}</h1>
+        <h1 className="flex items-center">
+          {data?.video?.url === urlPreviewVideo && (
+            <IconPlayCircle className="mr-2"></IconPlayCircle>
+          )}
+          {data?.title || title}
+        </h1>
       </div>
       <span>{data?.duration || "02:33"}</span>
     </div>

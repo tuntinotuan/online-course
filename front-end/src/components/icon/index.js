@@ -29,6 +29,7 @@ import IconEyeClose from "./IconEyeClose";
 import IconPen from "./IconPen";
 import IconFilter from "./IconFilter";
 import IconClose from "./IconClose";
+import IconPlayCircle from "./IconPlayCircle";
 
 export {
   IconArrowLeft,
@@ -55,6 +56,7 @@ export {
   IconDevice,
   IconTrophy,
   IconCursor,
+  IconPlayCircle,
   IconBell,
   IconLock,
   IconWarningSolid,
