@@ -7,6 +7,7 @@ const initialState = {
   showPopupSignUp: false,
   showPopupSignIn: false,
   showPopupForgotPassword: false,
+  showPopupReview: false,
 };
 
 const globalSlice = createSlice({
@@ -37,6 +38,10 @@ const globalSlice = createSlice({
       ...state,
       showPopupForgotPassword: action.payload,
     }),
+    toggleShowPopupReview: (state, action) => ({
+      ...state,
+      showPopupReview: action.payload,
+    }),
   },
 });
 
@@ -47,6 +52,7 @@ export const {
   toggleShowPopupSignUp,
   toggleShowPopupSignIn,
   toggleShowPopupForgotPassword,
+  toggleShowPopupReview,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

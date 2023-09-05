@@ -80,6 +80,21 @@
       "relation": "oneToOne",
       "target": "api::video-intro.video-intro",
       "inversedBy": "course"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "course"
+    },
+    "purchased_courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::purchased-course.purchased-course",
+      "inversedBy": "courses"
+    },
+    "total_reviews": {
+      "type": "integer"
     }
   }
 }

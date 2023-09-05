@@ -4,7 +4,7 @@ import CourseHeading from "./CourseHeading";
 import { SpecialCircle } from "../../components/special";
 import ReviewCard from "../../components/review/ReviewCard";
 
-const CourseReviewList = () => {
+const CourseReviewList = ({ course }) => {
   return (
     <section className="my-5">
       <div className="flex items-center gap-2">
@@ -13,18 +13,24 @@ const CourseReviewList = () => {
           alt=""
           className="w-5 h-5 mb-5"
         />
-        <CourseHeading>4.3 course rating</CourseHeading>
+        <CourseHeading>
+          {course?.star?.toFixed(1) || "4.3"} course rating
+        </CourseHeading>
         <SpecialCircle className="bg-grayA6 mb-5" size={7}></SpecialCircle>
-        <CourseHeading>19K ratings</CourseHeading>
+        <CourseHeading>
+          {course?.reviews?.length || "19K"} ratings
+        </CourseHeading>
       </div>
       <div className="grid grid-cols-2 gap-8">
-        {dataLocal.map((items) => (
+        {course?.reviews?.map((review) => (
           <ReviewCard
-            key={items.name}
-            name={items.name}
-            shortName={items.name}
-            time={items.time}
-            content={items.text}
+            key={review.id}
+            avatar={review.user?.avatar}
+            shortName={review?.user?.username}
+            name={review?.user?.username}
+            time={review?.createdAt}
+            rating={review?.rating}
+            content={review?.content}
           ></ReviewCard>
         ))}
       </div>

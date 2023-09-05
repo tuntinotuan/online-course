@@ -21,6 +21,7 @@ const CourseCard = ({
   updatedAt,
   instructor,
   star,
+  reviews,
   originalPrice,
   currentPrice,
   bestSeller = false,
@@ -69,7 +70,10 @@ const CourseCard = ({
           <p className="course-instructer text-xs text-grayA6 truncate">
             {instructor?.username}
           </p>
-          <CourseRating rating={star}></CourseRating>
+          <CourseRating
+            rating={star}
+            totalRating={reviews?.length}
+          ></CourseRating>
           <div className="flex items-center text-base gap-2 mb-2">
             <span className="font-bold">
               <CoursePrice

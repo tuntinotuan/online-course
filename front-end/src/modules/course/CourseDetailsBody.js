@@ -47,7 +47,7 @@ function Left() {
       )}
       <CourseDescription></CourseDescription>
       <CourseFeaturedReview></CourseFeaturedReview>
-      <CourseReviewList></CourseReviewList>
+      <CourseReviewList course={course}></CourseReviewList>
       <CourseInstructor></CourseInstructor>
     </Fragment>
   );

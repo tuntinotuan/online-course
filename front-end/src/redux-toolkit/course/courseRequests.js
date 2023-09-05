@@ -25,6 +25,9 @@ export function requestGetSingleCourse(courseId) {
       video_intro: {
         populate: "*",
       },
+      reviews: {
+        populate: ["user.avatar"],
+      },
     },
     // populate: ["overview_image", "user.courses"],
   });
@@ -64,4 +67,7 @@ export function requestSearchCourse(filter) {
     sort: [sortBy],
     populate: "*",
   });
+}
+export function requestUpdateTotalReviewsCourse() {
+  return strapi.update("courses", {});
 }

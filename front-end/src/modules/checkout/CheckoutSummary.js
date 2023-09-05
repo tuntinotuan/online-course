@@ -16,6 +16,18 @@ const CheckoutSummary = () => {
 
   const handleCheckout = async () => {
     dispatch(handlePayment(courses));
+    // try {
+    //   const stripe = await stripePromise;
+    //   const response = await makePaymentRequest.post("/orders", {
+    //     courses: courses,
+    //   });
+    //   console.log("response", response);
+    //   await stripe.redirectToCheckout({
+    //     sessionId: response.data.stripeSession.id,
+    //   });
+    // } catch (err) {
+    //   console.log("err", err);
+    // }
   };
   return (
     <div className="sticky top-5 bg-grayF7 mt-24 pl-12">

@@ -39,7 +39,7 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
           ))}
       </div>
       {pathname !== "/my-course/wishlist" && (
-        <div className="p-4">
+        <div className="p-4 shadow-[0_-15px_20px_-15px_rgba(0,0,0,0.3)]">
           <Button
             className="bg-primaryBlack text-white font-bold py-4"
             borderNone

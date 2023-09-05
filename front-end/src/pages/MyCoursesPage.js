@@ -1,6 +1,7 @@
 import React from "react";
 import NavigateMyCourses from "../components/layout/NavigateMyCourses";
 import { Outlet } from "react-router-dom";
+import PopupReview from "../components/popup/PopupReview";
 
 const MyCoursesPage = () => {
   return (
@@ -14,6 +15,7 @@ const MyCoursesPage = () => {
       <div className="page-container-my-course mb-8">
         <Outlet></Outlet>
       </div>
+      <PopupReview></PopupReview>
     </section>
   );
 };

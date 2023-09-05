@@ -33,7 +33,10 @@ const CourseCardRow = ({ data }) => {
           <p className="course-instructer text-xs text-grayA6 truncate">
             {data?.user?.username}
           </p>
-          <CourseRating rating={data.star}></CourseRating>
+          <CourseRating
+            rating={data.star}
+            totalRating={data?.reviews?.length}
+          ></CourseRating>
           <CourseSumary></CourseSumary>
         </div>
       </div>

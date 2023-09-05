@@ -18,7 +18,7 @@ const FilterSortBy = () => {
       value={sortBy || "most-relevant"}
     >
       <option value="most-relevant">Most Relevant</option>
-      <option value="most-reviewed">Most Reviewed</option>
+      <option value="total_reviews:desc">Most Reviewed</option>
       <option value="star:desc">Highest Rated</option>
       <option value="createdAt:desc">Newest</option>
     </select>

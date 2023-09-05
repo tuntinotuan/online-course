@@ -9,7 +9,7 @@ const CourseRating = ({ className, rating, totalRating = 0, secondary }) => {
           secondary ? "text-[#F69C08]" : "text-starColor"
         }`}
       >
-        {rating || 0}
+        {rating?.toFixed(1) || 0}
       </h2>
       <CourseStar rating={rating} readOnly secondary={secondary}></CourseStar>
       <span className="text-xs">({totalRating || 0})</span>

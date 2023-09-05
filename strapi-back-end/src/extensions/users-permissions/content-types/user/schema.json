@@ -102,6 +102,24 @@
       "relation": "oneToOne",
       "target": "api::favorite.favorite",
       "inversedBy": "user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "user"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "user"
+    },
+    "purchased_course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::purchased-course.purchased-course",
+      "inversedBy": "user"
     }
   }
 }

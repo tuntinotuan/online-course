@@ -20,6 +20,9 @@ import courseSlice from "./course/courseSlice";
 import cartSlice from "./cart/cartSlice";
 import wishlistSlice from "./wishlist/wishlistSlice";
 import authorSlice from "./author/authorSlice";
+import orderSlice from "./order/orderSlice";
+import reviewSlice from "./review/reviewSlice";
+import purchasedSlice from "./purchased/purchasedSlice";
 
 const reducer = combineReducers({
   global: globalSlice,
@@ -29,6 +32,9 @@ const reducer = combineReducers({
   cart: cartSlice,
   wishlist: wishlistSlice,
   author: authorSlice,
+  order: orderSlice,
+  purchased: purchasedSlice,
+  review: reviewSlice,
 });
 
 const persistConfig = {

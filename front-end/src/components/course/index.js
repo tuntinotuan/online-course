@@ -4,6 +4,7 @@ import CourseSumary from "./CourseSumary";
 import CourseSumaryItems from "./CourseSumaryItems";
 import CoursePrice from "./CoursePrice";
 import CourseCard from "./CourseCard";
+import CourseCardHasReview from "./CourseCardHasReview";
 import CourseCardRow from "./CourseCardRow";
 import CourseList from "./CourseList";
 import CourseTooltip from "./CourseTooltip";
@@ -16,6 +17,7 @@ export {
   CourseSumaryItems,
   CoursePrice,
   CourseCard,
+  CourseCardHasReview,
   CourseCardRow,
   CourseList,
   CourseTooltip,

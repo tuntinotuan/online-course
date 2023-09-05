@@ -1,14 +1,13 @@
 {
   "kind": "collectionType",
-  "collectionName": "favorites",
+  "collectionName": "purchased_courses",
   "info": {
-    "singularName": "favorite",
-    "pluralName": "favorites",
-    "displayName": "Favorite",
-    "description": ""
+    "singularName": "purchased-course",
+    "pluralName": "purchased-courses",
+    "displayName": "PurchasedCourse"
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -16,13 +15,13 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::course.course",
-      "inversedBy": "favorites"
+      "mappedBy": "purchased_courses"
     },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "favorite"
+      "mappedBy": "purchased_course"
     }
   }
 }

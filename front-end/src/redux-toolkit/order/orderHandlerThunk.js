@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loadStripe } from "@stripe/stripe-js";
-import { requestCreateOrder } from "./orderRequests";
-import axios from "axios";
-import { strapiPathBE } from "../../utils/constants";
+import { makePaymentRequest } from "./orderRequests";
+import {
+  requestCreatePurchasedCourses,
+  requestUpdatePurchasedCourses,
+} from "../purchased/purchasedRequests";
 
 const stripePromise = loadStripe(
   "pk_test_51MwSqkEqTHVX4ukZmvtphvtHggeYSSNWklI1cgHc010ZyWPC6Esr5fFt8DNMHHxJ4kLh9tGfH6oz8mDFsO6GwACJ00AMfFHWuv"
@@ -10,12 +12,27 @@ const stripePromise = loadStripe(
 
 export const handlePayment = createAsyncThunk(
   "order/hanlePayment",
-  async (data, ThunkAPI) => {
+  async (courses, { dispatch, getState }) => {
+    let getFullIdCourses = [];
+    const state = getState();
+    const { currentUserId } = state.auth;
+    const { userData } = state.user;
     try {
       const stripe = await stripePromise;
-      // const response = await requestCreateOrder(data);
-      const response = await axios.create(`${strapiPathBE}/order`, { data });
-      console.log("response payment", response);
+      const response = await makePaymentRequest.post(`/orders`, {
+        courses: courses,
+        userId: currentUserId,
+      });
+      await courses.map((item) => {
+        getFullIdCourses.push({ id: item.id });
+        return getFullIdCourses;
+      });
+      !userData?.purchased_course?.id
+        ? await requestCreatePurchasedCourses(currentUserId, getFullIdCourses)
+        : await requestUpdatePurchasedCourses(
+            userData?.purchased_course?.id,
+            getFullIdCourses
+          );
       await stripe.redirectToCheckout({
         sessionId: response.data.stripeSession.id,
       });

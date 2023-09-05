@@ -8,13 +8,20 @@ const StyledRating = styled(Rating)(({ secondary }) => ({
     color: secondary ? "#F69C08" : "#B4690E",
   },
   "& .MuiRating-iconHover": {
-    color: "#ff3d47",
+    color: secondary ? "#F69C08" : "#B4690E",
   },
   "& .MuiRating-iconEmpty": {
     color: secondary ? "#F69C08" : "#B4690E",
   },
 }));
-const CourseStar = ({ rating, readOnly = false, secondary = false }) => {
+const CourseStar = ({
+  rating,
+  readOnly = false,
+  size = "small",
+  secondary = false,
+  onChange = () => {},
+  onChangeActive = () => {},
+}) => {
   const options = {
     value: rating,
     readOnly: readOnly,
@@ -22,8 +29,10 @@ const CourseStar = ({ rating, readOnly = false, secondary = false }) => {
   };
   return (
     <StyledRating
-      size="small"
+      size={size}
       name="half-rating"
+      onChange={onChange}
+      onChangeActive={onChangeActive}
       secondary={secondary}
       icon={<StarRoundedIcon fontSize="inherit" />}
       emptyIcon={<StarOutlineRoundedIcon fontSize="inherit" />}
