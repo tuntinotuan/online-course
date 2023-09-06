@@ -71,7 +71,7 @@ const CourseCard = ({
             {instructor?.username}
           </p>
           <CourseRating
-            rating={star}
+            rating={reviews?.length > 0 && reviews}
             totalRating={reviews?.length}
           ></CourseRating>
           <div className="flex items-center text-base gap-2 mb-2">

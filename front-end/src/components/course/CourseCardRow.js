@@ -34,7 +34,7 @@ const CourseCardRow = ({ data }) => {
             {data?.user?.username}
           </p>
           <CourseRating
-            rating={data.star}
+            rating={data?.reviews}
             totalRating={data?.reviews?.length}
           ></CourseRating>
           <CourseSumary></CourseSumary>

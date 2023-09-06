@@ -17,7 +17,7 @@ const StyledRating = styled(Rating)(({ secondary }) => ({
 const CourseStar = ({
   rating,
   readOnly = false,
-  size = "small",
+  size = 18,
   secondary = false,
   onChange = () => {},
   onChangeActive = () => {},
@@ -29,13 +29,15 @@ const CourseStar = ({
   };
   return (
     <StyledRating
-      size={size}
       name="half-rating"
       onChange={onChange}
       onChangeActive={onChangeActive}
       secondary={secondary}
       icon={<StarRoundedIcon fontSize="inherit" />}
       emptyIcon={<StarOutlineRoundedIcon fontSize="inherit" />}
+      sx={{
+        fontSize: size,
+      }}
       {...options}
     ></StyledRating>
   );

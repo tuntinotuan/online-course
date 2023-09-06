@@ -34,7 +34,7 @@ const CourseDetailsOverview = ({ data }) => {
                 Bestseller
               </ButtonStatusTag>
               <CourseRating
-                rating={data.star}
+                rating={data?.reviews}
                 className="text-purpleTextC0"
                 secondary
               ></CourseRating>

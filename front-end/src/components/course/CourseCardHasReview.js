@@ -23,7 +23,10 @@ const CourseCardHasReview = ({ data }) => {
       className="course-card relative h-full select-none -z-1 cursor-pointer group"
       ref={nodeRef}
     >
-      <Link to={`/course/${data?.id}`} className={`block ${data?.imageHeight}`}>
+      <Link
+        to={`/course-dashboard-redirect/${data?.id}`}
+        className={`block ${data?.imageHeight}`}
+      >
         <Image
           url={
             `${strapiPathBE}${data?.overview_image?.url}` ||
@@ -36,7 +39,7 @@ const CourseCardHasReview = ({ data }) => {
           <ButtonPlayVideo size={25}></ButtonPlayVideo>
         </Image>
       </Link>
-      <Link to={`/course/${data?.id}`}>
+      <Link to={`/course-dashboard-redirect/${data?.id}`}>
         <h3
           className="text-base course-title font-bold line-clamp-2"
           title={data?.title}
@@ -52,7 +55,7 @@ const CourseCardHasReview = ({ data }) => {
         className="flex flex-col items-end text-xs ml-auto"
         onClick={() => handleShowPopupReview(data?.id)}
       >
-        <CourseStar readOnly></CourseStar>
+        <CourseStar size={14} readOnly></CourseStar>
         <span>Leave a rating</span>
       </div>
     </div>

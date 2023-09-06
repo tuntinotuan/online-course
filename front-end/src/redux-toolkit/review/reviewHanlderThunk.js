@@ -5,6 +5,11 @@ import {
   requestUpdateCurrentReview,
 } from "./reviewRequests";
 import { toggleShowPopupReview } from "../globalSlice";
+import {
+  requestGetSingleCourse,
+  requestUpdateTotalReviewsCourse,
+} from "../course/courseRequests";
+import { mediumRatingsCourse } from "../../utils/processing-number";
 
 export const handleGetMySingleReview = createAsyncThunk(
   "review/handleGetMySingleReview",
@@ -30,15 +35,36 @@ export const handleCreateReview = createAsyncThunk(
     const { value, content } = data;
     try {
       if (jwt) {
-        const response = !mySingleReview
-          ? await requestCreateReview(
-              currentCourseId,
-              currentUserId,
-              value,
-              content
-            )
-          : await requestUpdateCurrentReview(mySingleReview, value, content);
-        console.log("response", response);
+        if (!mySingleReview) {
+          await requestCreateReview(
+            currentCourseId,
+            currentUserId,
+            value,
+            content
+          );
+          // Update: star & total_reviews of course
+          const { data } = await requestGetSingleCourse(currentCourseId);
+          const resSingleCourse = data;
+          const newValue = mediumRatingsCourse(resSingleCourse?.reviews);
+          const newStar =
+            resSingleCourse?.reviews?.length > 1 ? newValue : value;
+          await requestUpdateTotalReviewsCourse(
+            currentCourseId,
+            newStar,
+            resSingleCourse.total_reviews + 1
+          );
+        } else {
+          await requestUpdateCurrentReview(mySingleReview, value, content);
+          // Update: star & total_reviews of course
+          const { data } = await requestGetSingleCourse(currentCourseId);
+          const resSingleCourse = data;
+          const newStar = mediumRatingsCourse(resSingleCourse?.reviews);
+          await requestUpdateTotalReviewsCourse(
+            currentCourseId,
+            newStar,
+            resSingleCourse.total_reviews
+          );
+        }
         dispatch(toggleShowPopupReview(false));
       }
     } catch (error) {

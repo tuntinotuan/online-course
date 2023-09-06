@@ -47,8 +47,10 @@ function Left() {
       )}
       <CourseDescription></CourseDescription>
       <CourseFeaturedReview></CourseFeaturedReview>
-      <CourseReviewList course={course}></CourseReviewList>
       <CourseInstructor></CourseInstructor>
+      {course?.reviews?.length > 0 && (
+        <CourseReviewList course={course}></CourseReviewList>
+      )}
     </Fragment>
   );
 }

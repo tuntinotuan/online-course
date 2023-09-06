@@ -15,7 +15,7 @@ const Button = ({
 }) => {
   if (to)
     return (
-      <Link to={to}>
+      <Link to={to} className={full ? "w-full" : ""}>
         <button
           type={type}
           onClick={onClick}

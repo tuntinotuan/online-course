@@ -2,7 +2,7 @@ import { strapi } from "../../utils/strapi-config";
 
 export function requestGetMyCart(cartId) {
   return strapi.findOne("carts", cartId, {
-    populate: ["courses.overview_image", "courses.user"],
+    populate: ["courses.overview_image", "courses.user", "courses.reviews"],
   });
 }
 export function requestCreateCart(userId, courseId) {

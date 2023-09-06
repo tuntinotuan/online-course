@@ -19,6 +19,7 @@ import CartToggle from "../../cart/CartToggle";
 import HeaderBtnUserAvatar from "./HeaderBtnUserAvatar";
 import HeaderBtnNotification from "./HeaderBtnNotification";
 import HeaderBtnWishlist from "./HeaderBtnWishlist";
+import HeaderBtnMyLearning from "./HeaderBtnMyLearning";
 
 const Header = ({
   hiddenMultiple = false,
@@ -102,9 +103,7 @@ const Header = ({
       )}
       {jwt && (
         <>
-          <NavLink to="/my-course/learning" className="hover:text-purpleText56">
-            My learning
-          </NavLink>
+          <HeaderBtnMyLearning></HeaderBtnMyLearning>
           <HeaderBtnWishlist></HeaderBtnWishlist>
         </>
       )}

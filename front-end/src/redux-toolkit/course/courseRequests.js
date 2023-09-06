@@ -68,6 +68,13 @@ export function requestSearchCourse(filter) {
     populate: "*",
   });
 }
-export function requestUpdateTotalReviewsCourse() {
-  return strapi.update("courses", {});
+export function requestUpdateTotalReviewsCourse(
+  currentCourseId,
+  newStar,
+  amountReview
+) {
+  return strapi.update("courses", currentCourseId, {
+    star: newStar,
+    total_reviews: amountReview,
+  });
 }

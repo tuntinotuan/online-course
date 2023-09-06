@@ -54,7 +54,7 @@ const PopupReview = () => {
       </p>
       <CourseStar
         rating={value}
-        size="large"
+        size={50}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}

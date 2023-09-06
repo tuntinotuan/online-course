@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 import { IconEarth } from "../icon";
+import LogoUdemyDark from "../logo/LogoUdemyDark";
 
 const Footer = ({
   mobileSmaller = "flex justify-between items-start",
@@ -57,13 +57,7 @@ const Footer = ({
         </Button>
       </div>
       <div className="flex justify-between items-center">
-        <NavLink to="/">
-          <img
-            src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg"
-            alt=""
-            className="w-[90px] cursor-pointer"
-          />
-        </NavLink>
+        <LogoUdemyDark></LogoUdemyDark>
         <span className="text-xs">© 2023 Udemy, Inc.</span>
       </div>
     </footer>

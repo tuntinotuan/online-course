@@ -1,15 +1,15 @@
 import React from "react";
 
-const IconClose = ({ className, onClick = () => {} }) => {
+const IconClose = ({ className, size = 24, onClick = () => {} }) => {
   return (
-    <span className={className} onClick={onClick}>
+    <span className={`cursor-pointer ${className}`} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-6 h-6"
+        style={{ width: size, height: size }}
       >
         <path
           strokeLinecap="round"

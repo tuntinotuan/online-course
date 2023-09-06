@@ -9,7 +9,7 @@ const ReviewCard = ({ name, avatar, shortName, time, rating, content }) => {
       <div className="flex items-center justify-between border border-transparent border-t-gray-300 py-5">
         <div className="flex items-center gap-5">
           <ButtonUserAvatar
-            avatar={`${strapiPathBE}${avatar?.url}`}
+            avatar={avatar && `${strapiPathBE}${avatar?.url}`}
             shortName={shortName}
             size={40}
             className="cursor-text"

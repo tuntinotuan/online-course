@@ -31,6 +31,7 @@ import PopupForgotPassword from "./components/popup/PopupForgotPassword";
 import { handleGetMyWishlist } from "./redux-toolkit/wishlist/wishlistHandlerThunk";
 import { setWishlistSearch } from "./redux-toolkit/wishlist/wishlistSlice";
 import UserDetailsPage from "./pages/UserDetailsPage";
+import LearnOnlinePage from "./pages/LearnOnlinePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -141,6 +142,10 @@ function App() {
         <Route
           path="/cart/checkout"
           element={<CheckoutPage></CheckoutPage>}
+        ></Route>
+        <Route
+          path="/course-dashboard-redirect/:courseId"
+          element={<LearnOnlinePage></LearnOnlinePage>}
         ></Route>
       </Routes>
       {!jwt && (

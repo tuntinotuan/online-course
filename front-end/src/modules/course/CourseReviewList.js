@@ -3,6 +3,7 @@ import Button from "../../components/button/Button";
 import CourseHeading from "./CourseHeading";
 import { SpecialCircle } from "../../components/special";
 import ReviewCard from "../../components/review/ReviewCard";
+import { mediumRatingsCourse } from "../../utils/processing-number";
 
 const CourseReviewList = ({ course }) => {
   return (
@@ -14,7 +15,8 @@ const CourseReviewList = ({ course }) => {
           className="w-5 h-5 mb-5"
         />
         <CourseHeading>
-          {course?.star?.toFixed(1) || "4.3"} course rating
+          {mediumRatingsCourse(course?.reviews)?.toFixed(1) || "5"} course
+          rating
         </CourseHeading>
         <SpecialCircle className="bg-grayA6 mb-5" size={7}></SpecialCircle>
         <CourseHeading>
