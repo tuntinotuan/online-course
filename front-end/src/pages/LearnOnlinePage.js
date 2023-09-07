@@ -19,7 +19,7 @@ const LearnOnlinePage = () => {
   }, []);
   return (
     <div>
-      <HeaderLearnOnline title={singleLearnOnline.title}></HeaderLearnOnline>
+      <HeaderLearnOnline data={singleLearnOnline}></HeaderLearnOnline>
       <LearnOnlineBody data={singleLearnOnline}></LearnOnlineBody>
       <Footer></Footer>
     </div>

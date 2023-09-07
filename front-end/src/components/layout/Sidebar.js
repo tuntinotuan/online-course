@@ -37,11 +37,14 @@ const Sidebar = ({ hovered }) => {
           size={66}
           className="text-2xl"
         ></ButtonUserAvatar>
-        <div>
-          <h1 className="text-base font-bold transition-all group-hover:text-purpleText56">
+        <div className="overflow-hidden">
+          <h1
+            className="text-base font-bold transition-all group-hover:text-purpleText56 truncate"
+            title={userData?.username}
+          >
             {userData?.username || "Tuan Nguyen"}
           </h1>
-          <p className="text-xs text-grayA6">
+          <p className="text-xs text-grayA6 truncate" title={userData?.email}>
             {userData?.email || "tuan48594@donga.edu.vn"}
           </p>
         </div>

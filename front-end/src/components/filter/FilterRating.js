@@ -75,7 +75,7 @@ function RatingItem({ on, value, total = 2707, onClick = () => {} }) {
       onClick={onClick}
     >
       <RadioCustom on={on}></RadioCustom>
-      <CourseStar rating={value} readOnly></CourseStar>
+      <CourseStar rating={value} size={15} readOnly></CourseStar>
       <span>
         {value === 3 || value === 4 ? `${value}.0` : value} & up{" "}
         <span className="text-grayA6">{`(${total.toLocaleString(

@@ -31,7 +31,10 @@ const UserSidebar = () => {
           size={120}
           to="/user/edit-profile"
         ></ButtonUserAvatar>
-        <h1 className="text-base font-bold">
+        <h1
+          className="text-base font-bold max-w-[180px] truncate"
+          title={userData?.username}
+        >
           {userData?.username || "Tuan Nguyen"}
         </h1>
       </div>

@@ -13,12 +13,13 @@ const CartToggleItems = ({
   currentPrice,
   children,
   lineClamp = "line-clamp-2",
+  toSlug = "course",
   onClick = () => {},
 }) => {
   return (
     <div className="border border-transparent border-b-gray-200 p-3">
       <Link
-        to={`/course/${id}`}
+        to={`/${toSlug}/${id}`}
         className="grid grid-cols-10"
         onClick={onClick}
       >

@@ -37,8 +37,8 @@ const CourseContent = ({
       </div>
       {videoData?.map((lesson) => (
         <CourseContentList
-          listData={lesson}
           key={lesson.id}
+          listData={lesson}
           toggleAll={toggleAll}
         ></CourseContentList>
       ))}

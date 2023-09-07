@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from "../image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import useHover from "../../hooks/useHover";
 import ButtonPlayVideo from "../button/ButtonPlayVideo";
 import CourseStar from "./CourseStar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleShowPopupReview } from "../../redux-toolkit/globalSlice";
 import { setCurrentCourseId } from "../../redux-toolkit/review/reviewSlice";
 import { handleGetMySingleReview } from "../../redux-toolkit/review/reviewHanlderThunk";
+import { requestGetMySingleReview } from "../../redux-toolkit/review/reviewRequests";
 
 const CourseCardHasReview = ({ data }) => {
   const dispatch = useDispatch();
+  const { reviewLoading } = useSelector((state) => state.review);
+  const { currentUserId } = useSelector((state) => state.auth);
+  const [singleReview, setSingReview] = useState();
   const { nodeRef, hovered } = useHover();
   const handleShowPopupReview = (courseId) => {
     dispatch(toggleShowPopupReview(true));
     dispatch(setCurrentCourseId(courseId));
     dispatch(handleGetMySingleReview(courseId));
   };
+  useEffect(() => {
+    async function fetchReview() {
+      try {
+        const response = await requestGetMySingleReview(
+          currentUserId,
+          data?.id
+        );
+        setSingReview(response.data[0]);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    fetchReview();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviewLoading]);
+
   return (
     <div
-      className="course-card relative h-full select-none -z-1 cursor-pointer group"
+      className="course-card relative h-full select-none -z-1 cursor-pointer"
       ref={nodeRef}
     >
       <Link
@@ -52,11 +72,21 @@ const CourseCardHasReview = ({ data }) => {
         </p>
       </Link>
       <div
-        className="flex flex-col items-end text-xs ml-auto"
+        className="flex flex-col items-end text-xs group"
         onClick={() => handleShowPopupReview(data?.id)}
       >
-        <CourseStar size={14} readOnly></CourseStar>
-        <span>Leave a rating</span>
+        <CourseStar
+          rating={singleReview?.rating || 0}
+          size={14}
+          readOnly
+        ></CourseStar>
+        {!singleReview && <span>Leave a rating</span>}
+        {singleReview && (
+          <span>
+            <span className="group-hover:hidden">Your</span>
+            <span className="hidden group-hover:inline">Edit</span> rating
+          </span>
+        )}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const ReviewCard = ({ name, avatar, shortName, time, rating, content }) => {
           </div>
         </div>
       </div>
-      <p className="course-rating text-grayA6 line-clamp-5">{content}</p>
+      <p className="course-rating text-base line-clamp-5">{content}</p>
       {content?.length > 260 && (
         <button className="font-bold border border-transparent border-b-primaryBlack cursor-pointer mt-2">
           Show more

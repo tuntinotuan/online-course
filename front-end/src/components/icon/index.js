@@ -30,6 +30,7 @@ import IconPen from "./IconPen";
 import IconFilter from "./IconFilter";
 import IconClose from "./IconClose";
 import IconPlayCircle from "./IconPlayCircle";
+import IconChevronLeft from "./IconChevronLeft";
 
 export {
   IconArrowLeft,
@@ -41,6 +42,7 @@ export {
   IconExclamation,
   IconEarth,
   IconCard,
+  IconChevronLeft,
   IconTag,
   IconGoogle,
   IconFacebook,

@@ -3,6 +3,7 @@ import { handleGetSingleLearnOnline } from "./learnHandlerThunk";
 
 const initialState = {
   singleLearnOnline: {},
+  urlPlayVideo: "",
   toggleLearnOnlineSidebar: true,
 };
 
@@ -14,6 +15,10 @@ const learnSlice = createSlice({
       ...state,
       toggleLearnOnlineSidebar: action.payload,
     }),
+    setUrlPlayVideo: (state, action) => ({
+      ...state,
+      urlPlayVideo: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(handleGetSingleLearnOnline.fulfilled, (state, action) => {
@@ -22,6 +27,7 @@ const learnSlice = createSlice({
   },
 });
 
-export const { setToggleLearnOnlineSidebar } = learnSlice.actions;
+export const { setToggleLearnOnlineSidebar, setUrlPlayVideo } =
+  learnSlice.actions;
 
 export default learnSlice.reducer;

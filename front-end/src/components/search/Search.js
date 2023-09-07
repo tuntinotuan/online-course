@@ -17,6 +17,7 @@ const Search = ({
   let keyword = params.get("keyword");
   const { handleSubmit } = useForm({ mode: "onChange" });
   const [filter, setFilter] = useState("");
+  const [borderSearch, setBorderSearch] = useState(false);
   const handleChangeInput = (e) => {
     setFilter(e.target.value);
   };
@@ -29,9 +30,11 @@ const Search = ({
   return (
     <form
       onSubmit={handleSubmit(handleSubmitSearch)}
-      className={`flex items-center ${width} h-[48px] ${
+      className={`flex items-center h-[48px] px-3 py-2 ${width} ${
         borderNone ? "" : "border border-primaryBlack"
-      } ${rounded} ${bgColor} px-3 py-2`}
+      } ${rounded} ${bgColor} ${
+        borderSearch ? "border border-purpleTextA4" : ""
+      }`}
     >
       <IconSearch
         className={filter !== "" ? "cursor-pointer" : "text-grayA6 cursor-wait"}
@@ -43,6 +46,8 @@ const Search = ({
         defaultValue={keyword}
         className={`w-full h-full px-4 placeholder:text-grayA6 ${bgColor} outline-none`}
         onChange={handleChangeInput}
+        onFocus={() => setBorderSearch(true)}
+        onBlurCapture={() => setBorderSearch(false)}
       />
     </form>
   );

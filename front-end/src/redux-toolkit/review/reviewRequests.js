@@ -1,7 +1,6 @@
 import { strapi } from "../../utils/strapi-config";
 
 export function requestGetMySingleReview(userId, courseId) {
-  console.log("userId,courseId", userId, courseId);
   return strapi.find("reviews", {
     filters: {
       $and: [

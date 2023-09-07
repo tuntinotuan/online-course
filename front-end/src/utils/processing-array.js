@@ -17,7 +17,9 @@ export function processQuantityOfLectures(arrLectures) {
 export function processAllVideoPreview(arrSections) {
   let newArr = [];
   arrSections?.forEach((section) =>
-    section?.video_courses?.forEach((lecture) => newArr.push(lecture))
+    section?.video_courses?.forEach(
+      (lecture) => lecture?.preview && newArr.push(lecture)
+    )
   );
   return newArr;
 }

@@ -35,6 +35,7 @@ const CourseDetailsOverview = ({ data }) => {
               </ButtonStatusTag>
               <CourseRating
                 rating={data?.reviews}
+                totalRating={data?.reviews?.length}
                 className="text-purpleTextC0"
                 secondary
               ></CourseRating>

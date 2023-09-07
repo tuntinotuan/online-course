@@ -19,6 +19,7 @@ const LearningToggleNoEmpty = ({ onClick = () => {} }) => {
               image={items?.overview_image?.url}
               title={items.title}
               lineClamp2="line-clamp-3"
+              toSlug="course-dashboard-redirect"
               onClick={onClick}
             ></CartToggleItems>
           ))}

@@ -32,13 +32,14 @@ import { handleGetMyWishlist } from "./redux-toolkit/wishlist/wishlistHandlerThu
 import { setWishlistSearch } from "./redux-toolkit/wishlist/wishlistSlice";
 import UserDetailsPage from "./pages/UserDetailsPage";
 import LearnOnlinePage from "./pages/LearnOnlinePage";
+import { handleGetMyPurchasedCourses } from "./redux-toolkit/purchased/purchasedHandlerThunk";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { jwt, currentUserId } = useSelector((state) => state.auth);
   const { userData } = useSelector((state) => state.user);
-  const { favorite } = userData;
+  const { favorite, purchased_course } = userData;
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
   useEffect(() => {
@@ -50,6 +51,9 @@ function App() {
   useEffect(() => {
     dispatch(handleGetMyWishlist(favorite?.id));
   }, [favorite, dispatch]);
+  useEffect(() => {
+    dispatch(handleGetMyPurchasedCourses(purchased_course?.id));
+  }, [purchased_course, dispatch]);
   useEffect(() => {
     if (location.pathname !== "/my-course/wishlist") {
       dispatch(setWishlistSearch(null));

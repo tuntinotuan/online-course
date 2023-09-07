@@ -9,7 +9,7 @@ const LearnOnlineBody = () => {
     (state) => state.learn
   );
   return (
-    <div className="relative flex items-start">
+    <div className="relative flex items-start gap-5 p-5">
       <div className="w-full">
         <LearnOnlineVideo></LearnOnlineVideo>
         <LearnOnlineBelow></LearnOnlineBelow>

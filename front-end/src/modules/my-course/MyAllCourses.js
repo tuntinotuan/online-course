@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CourseCardHasReview } from "../../components/course";
-import { useDispatch, useSelector } from "react-redux";
-import { handleGetMyPurchasedCourses } from "../../redux-toolkit/purchased/purchasedHandlerThunk";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const MyAllCourses = () => {
-  const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
   const { myPurchasedCourses } = useSelector((state) => state.purchased);
   const { courses } = myPurchasedCourses;
-  useEffect(() => {
-    dispatch(handleGetMyPurchasedCourses(userData?.purchased_course?.id));
-  }, [userData, dispatch]);
-
   return (
     <div className="py-5">
       {courses?.length > 0 ? (
