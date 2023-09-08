@@ -44,9 +44,11 @@ const FilterRating = () => {
   const rating = params.get("ratings");
   const sortBy = params.get("sort-by");
   const [searchParams, setSearchParams] = useSearchParams();
-
   useEffect(() => {
     dispatch(handleSearchCourseOnly({ keyword }));
+  }, [keyword, dispatch]);
+
+  useEffect(() => {
     dispatch(handleSearchCourse({ keyword, sortBy, rating }));
   }, [keyword, sortBy, rating, dispatch]);
   const handleClickFilterStar = (value) => {

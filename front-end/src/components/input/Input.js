@@ -25,7 +25,7 @@ const Input = ({
         id={name}
         type={type}
         placeholder={placeholder}
-        className={`w-full border border-primaryBlack placeholder:text-primaryBlack placeholder:text-opacity-75 ${className}`}
+        className={`w-full border border-primaryBlack placeholder:text-primaryBlack placeholder:text-opacity-75 focus:border focus:border-purpleTextA4 ${className}`}
         onFocus={() => setFocus(true)}
         onChangeCapture={(e) => setValueChange(e.target.value)}
         onBlurCapture={handleBlurCapture}

@@ -5,6 +5,7 @@ import LearnOnlineBody from "../modules/learn-online/LearnOnlineBody";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { handleGetSingleLearnOnline } from "../redux-toolkit/learn/learnHandlerThunk";
+import PageNotFound from "../components/notfound/PageNotFound";
 
 const LearnOnlinePage = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,11 @@ const LearnOnlinePage = () => {
   return (
     <div>
       <HeaderLearnOnline data={singleLearnOnline}></HeaderLearnOnline>
-      <LearnOnlineBody data={singleLearnOnline}></LearnOnlineBody>
+      {singleLearnOnline ? (
+        <LearnOnlineBody data={singleLearnOnline}></LearnOnlineBody>
+      ) : (
+        <PageNotFound></PageNotFound>
+      )}
       <Footer></Footer>
     </div>
   );

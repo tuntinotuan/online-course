@@ -10,7 +10,7 @@ const Footer = ({
 }) => {
   return (
     <footer
-      className={`flex flex-col justify-between bg-primaryBg w-full ${mobile} text-white`}
+      className={`flex flex-col justify-between bg-primaryBg w-full ${mobile} text-white overflow-hidden`}
     >
       <div className={`mb-10 ${mobileSmaller}`}>
         <div className={`${grid}`}>

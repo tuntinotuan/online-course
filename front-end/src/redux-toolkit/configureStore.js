@@ -24,6 +24,7 @@ import orderSlice from "./order/orderSlice";
 import reviewSlice from "./review/reviewSlice";
 import purchasedSlice from "./purchased/purchasedSlice";
 import learnSlice from "./learn/learnSlice";
+import categorySlice from "./category/categorySlice";
 
 const reducer = combineReducers({
   global: globalSlice,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   purchased: purchasedSlice,
   review: reviewSlice,
   learn: learnSlice,
+  category: categorySlice,
 });
 
 const persistConfig = {

@@ -1,8 +1,41 @@
 import { strapi } from "../../utils/strapi-config";
 
-export function requestGetCourseData() {
+export function requestGetCourseData(topic) {
   return strapi.find("courses", {
-    populate: "*",
+    filters: {
+      $or: [
+        {
+          topic: {
+            name: {
+              $contains: topic || "Unity",
+            },
+          },
+        },
+        {
+          topic: {
+            industry: {
+              name: {
+                $contains: topic,
+              },
+            },
+          },
+        },
+      ],
+    },
+    populate: {
+      overview_image: {
+        populate: "*",
+      },
+      user: {
+        populate: "*",
+      },
+      reviews: {
+        populate: "*",
+      },
+      topic: {
+        populate: "*",
+      },
+    },
     // pagination: {
     //   page: 1,
     //   pageSize: 5,
@@ -27,6 +60,9 @@ export function requestGetSingleCourse(courseId) {
       },
       reviews: {
         populate: ["user.avatar"],
+      },
+      topic: {
+        populate: ["industry.category"],
       },
     },
     // populate: ["overview_image", "user.courses"],

@@ -26,7 +26,7 @@ const SearchControl = () => {
           onClick={handleShowFilter}
         >
           <IconFilter></IconFilter>
-          Filter {params.size > 1 ? `(${params.size - 1})` : ""}
+          Filter {params.size > 1 ? `(${params.size - 1})` : "(0)"}
         </Button>
         <FilterSortBy></FilterSortBy>
         {params.size > 1 && (

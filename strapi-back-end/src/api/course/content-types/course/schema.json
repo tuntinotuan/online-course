@@ -95,6 +95,12 @@
     },
     "total_reviews": {
       "type": "integer"
+    },
+    "topic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "courses"
     }
   }
 }

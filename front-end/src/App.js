@@ -8,7 +8,6 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import HomePage from "./pages/HomePage";
 import HomeCourseSelection from "./modules/home/HomeCourseSelection";
 import HomeSelectionItem from "./modules/home/HomeSelectionItem";
-import { dataViewingStudents } from "./data/dataConfig";
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import MyCoursesPage from "./pages/MyCoursesPage";
 import MyAllCourses from "./modules/my-course/MyAllCourses";
@@ -23,7 +22,6 @@ import UserEditAccount from "./modules/user/UserEditAccount";
 import UserEditPhoto from "./modules/user/UserEditPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetUserData } from "./redux-toolkit/user/userHandlerThunk";
-import { handleGetCourseData } from "./redux-toolkit/course/courseHandlerThunk";
 import SearchPage from "./pages/SearchPage";
 import PopupSignUp from "./components/popup/PopupSignUp";
 import PopupSignIn from "./components/popup/PopupSignIn";
@@ -46,7 +44,6 @@ function App() {
     if (currentUserId) {
       dispatch(handleGetUserData(currentUserId));
     }
-    dispatch(handleGetCourseData());
   }, [dispatch, currentUserId]);
   useEffect(() => {
     dispatch(handleGetMyWishlist(favorite?.id));
@@ -73,24 +70,8 @@ function App() {
                 element={<HomeSelectionItem></HomeSelectionItem>}
               ></Route>
               <Route
-                path="excel"
-                element={
-                  <HomeSelectionItem
-                    data={dataViewingStudents}
-                  ></HomeSelectionItem>
-                }
-              ></Route>
-              <Route
-                path="/web-development"
+                path="topics/:topicName"
                 element={<HomeSelectionItem></HomeSelectionItem>}
-              ></Route>
-              <Route
-                path="javascript"
-                element={
-                  <HomeSelectionItem
-                    data={dataViewingStudents}
-                  ></HomeSelectionItem>
-                }
               ></Route>
             </Route>
           </Route>

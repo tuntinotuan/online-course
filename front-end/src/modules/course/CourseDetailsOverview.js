@@ -10,13 +10,14 @@ import CourseRating from "../../components/course/CourseRating";
 import { Link } from "react-router-dom";
 
 const CourseDetailsOverview = ({ data }) => {
+  const newTopic = data?.topic;
   return (
     <section className="bg-primaryBlack text-white py-8 overflow-hidden">
       <div className="page-container-fluid">
         <div className="max-w-[690px]">
           <NavigateCourse
-            active="Development"
-            array={["Programming Languages", "Data Analysis"]}
+            active={newTopic?.industry?.category?.name}
+            array={[newTopic?.industry?.name, newTopic?.name]}
             arrow
           ></NavigateCourse>
           <CourseVideo className="my-5 hidden"></CourseVideo>

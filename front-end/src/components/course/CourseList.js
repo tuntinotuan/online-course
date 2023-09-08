@@ -60,14 +60,16 @@ function CourseListMain({ autoPlay, items }) {
               ></CourseCard>
             </SwiperSlide>
           ))}
-        {/* {courseList.length > items && ( */}
-        <ButtonControlSwiper
-          sizeButton="w-12 h-12"
-          // className={
-          //   courseList.length > items ? "opacity-100 visible" : "opacity-0 invisible"
-          // }
-        ></ButtonControlSwiper>
-        {/* )} */}
+        {courseList.length > items && (
+          <ButtonControlSwiper
+            sizeButton="w-12 h-12"
+            // className={
+            //   courseList.length > items
+            //     ? "opacity-100 visible"
+            //     : "opacity-0 invisible"
+            // }
+          ></ButtonControlSwiper>
+        )}
       </Swiper>
     </div>
   );

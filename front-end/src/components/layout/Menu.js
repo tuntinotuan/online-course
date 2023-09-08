@@ -2,13 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const menuList = [
-  { title: "Python", path: "/" },
-  { title: "Excel", path: "/excel" },
-  { title: "Web Development", path: "/web-development" },
-  { title: "JavaScript", path: "/javascript" },
-  { title: "Data Science", path: "/data-science" },
-  { title: "Amazon AWS", path: "/amazon-aws" },
-  { title: "Drawing", path: "/drawing" },
+  { title: "Unity", path: "/" },
+  { title: "React JS", path: "/topics/React JS" },
+  { title: "JavaScript", path: "/topics/JavaScript" },
+  { title: "Web Development", path: "/topics/Web Development" },
+  { title: "Data Science", path: "/topics/Data Science" },
+  { title: "Amazon AWS", path: "/topics/amazon-aws" },
+  { title: "Excel", path: "/topics/excel" },
+  { title: "Drawing", path: "/topics/drawing" },
 ];
 
 const Menu = () => {

@@ -3,6 +3,7 @@ import { IconArrowDown } from "../../components/icon";
 import { useSelector } from "react-redux";
 import ButtonUserAvatar from "../../components/button/ButtonUserAvatar";
 import { Link } from "react-router-dom";
+import { strapiPathBE } from "../../utils/constants";
 
 const CourseInstructor = () => {
   const [showMore, setShowMore] = useState(false);
@@ -26,6 +27,7 @@ const CourseInstructor = () => {
       <div className="profile flex items-center gap-5 py-2">
         <div className="w-28 h-28">
           <ButtonUserAvatar
+            avatar={user?.avatar && `${strapiPathBE}${user?.avatar?.url}`}
             shortName={user?.username}
             size={112}
             to={`/user/${user?.id}`}

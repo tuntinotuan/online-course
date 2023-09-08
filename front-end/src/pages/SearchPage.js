@@ -20,11 +20,14 @@ const SearchPage = () => {
   return (
     <section className={`page-container my-12 overflow-hidden`}>
       {courseLoading && (
-        <div className="flex items-start justify-center w-full h-[100vh] mx-auto">
+        <div
+          className="absolute left-0 flex items-start justify-center w-full bg-white bg-opacity-60 mx-auto z-10"
+          style={{ height: document.body.offsetHeight }}
+        >
           <LoadingSpineQuarter></LoadingSpineQuarter>
         </div>
       )}
-      {coursesSearch?.length > 0 ? (
+      {coursesSearch?.length > 0 && (
         <>
           <h1 className="text-3xl font-bold mb-4">
             {(coursesSearch && coursesSearch?.length.toLocaleString("en-US")) ||
@@ -34,7 +37,8 @@ const SearchPage = () => {
           <SearchControl></SearchControl>
           <SearchBody></SearchBody>
         </>
-      ) : (
+      )}
+      {!coursesSearch?.length > 0 && (
         <>
           <h1 className="text-2xl font-bold mb-4">
             Sorry, we couldn't find any results for {`“${keyword}”`}

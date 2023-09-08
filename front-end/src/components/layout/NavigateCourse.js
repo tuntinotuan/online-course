@@ -1,5 +1,5 @@
 import React from "react";
-import IconArrowLeft from "../icon/IconArrowLeft";
+import { IconArrowRight } from "../icon";
 
 const NavigateCourse = ({
   active = "Most popular",
@@ -13,11 +13,11 @@ const NavigateCourse = ({
         {array.map((items) => (
           <li className={`flex items-center cursor-pointer`} key={items}>
             {arrow && (
-              <IconArrowLeft
+              <IconArrowRight
                 className="mx-2 text-white"
                 size={12}
                 stroke={2.5}
-              ></IconArrowLeft>
+              ></IconArrowRight>
             )}
             {items}
           </li>

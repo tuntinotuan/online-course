@@ -51,7 +51,7 @@ const UserDetailsPage = () => {
               instructor={items?.user}
               currentPrice={items?.current_price}
               originalPrice={items?.original_price}
-              star={items.star}
+              reviews={items?.reviews}
               bestSeller={items?.best_seller}
               blockTooltip
               imageHeight="h-[165px]"
