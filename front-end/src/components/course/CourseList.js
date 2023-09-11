@@ -12,18 +12,21 @@ import {
 import CourseCardSkeleton from "./CourseCardSkeleton";
 import { useSelector } from "react-redux";
 
-const CourseList = ({ autoPlay = false, items = 5 }) => {
+const CourseList = ({ data, autoPlay = false, items = 5 }) => {
   return (
     <SwiperProvider>
-      <CourseListMain autoPlay={autoPlay} items={items}></CourseListMain>
+      <CourseListMain
+        data={data}
+        autoPlay={autoPlay}
+        items={items}
+      ></CourseListMain>
     </SwiperProvider>
   );
 };
 
-function CourseListMain({ autoPlay, items }) {
+function CourseListMain({ data, autoPlay, items }) {
   const { nodeRef } = useSwiperContext();
   const { loading } = useSelector((state) => state.global);
-  const { courseList } = useSelector((state) => state.course);
   return (
     <div className={`relative course-list`} ref={nodeRef}>
       <Swiper
@@ -43,7 +46,7 @@ function CourseListMain({ autoPlay, items }) {
               </SwiperSlide>
             ))}
         {!loading &&
-          courseList?.map((course) => (
+          data?.map((course) => (
             <SwiperSlide key={course.id}>
               <CourseCard
                 id={course.id}
@@ -60,15 +63,8 @@ function CourseListMain({ autoPlay, items }) {
               ></CourseCard>
             </SwiperSlide>
           ))}
-        {courseList.length > items && (
-          <ButtonControlSwiper
-            sizeButton="w-12 h-12"
-            // className={
-            //   courseList.length > items
-            //     ? "opacity-100 visible"
-            //     : "opacity-0 invisible"
-            // }
-          ></ButtonControlSwiper>
+        {!loading && data?.length > items && (
+          <ButtonControlSwiper sizeButton="w-12 h-12"></ButtonControlSwiper>
         )}
       </Swiper>
     </div>

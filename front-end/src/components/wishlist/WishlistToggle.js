@@ -4,13 +4,13 @@ import TooltipEmpty from "../tooltip/TooltipEmpty";
 import WishlistToggleNoEmpty from "./WishlistToggleNoEmpty";
 import { useSelector } from "react-redux";
 
-const WishlistToggle = ({ hovered }) => {
+const WishlistToggle = ({ hovered, onClick }) => {
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
   return (
     <TooltipCover hovered={hovered}>
       {courses?.length > 0 ? (
-        <WishlistToggleNoEmpty></WishlistToggleNoEmpty>
+        <WishlistToggleNoEmpty onClick={onClick}></WishlistToggleNoEmpty>
       ) : (
         <TooltipEmpty
           title="Your wishlist is empty."

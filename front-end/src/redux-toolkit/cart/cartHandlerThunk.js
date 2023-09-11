@@ -8,7 +8,7 @@ import {
 } from "./cartRequests";
 import { setLoadingAddCart, setMyCart, setMyCartLocal } from "./cartSlice";
 import {
-  requestGetCourseData,
+  requestGetTopicOfCourse,
   requestGetSingleCourse,
 } from "../course/courseRequests";
 import { setCourseList } from "../course/courseSlice";
@@ -73,7 +73,7 @@ export const handleAddToCart = createAsyncThunk(
         console.log("response", response);
         const newUseData = await requestGetUserData(currentUserId);
         dispatch(setUserData(newUseData));
-        const courseData = await requestGetCourseData();
+        const courseData = await requestGetTopicOfCourse();
         dispatch(setCourseList(courseData.data));
         const cartList = await requestGetMyCart(userData?.cart?.id);
         dispatch(setMyCart(cartList.data));

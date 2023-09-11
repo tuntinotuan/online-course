@@ -29,7 +29,7 @@ const CategoryItem = ({
 
   return (
     <NavLink
-      to={`/courses/${to}`}
+      to={`/topic/${to}`}
       className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56"
       ref={nodeRef}
       {...props}

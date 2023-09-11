@@ -26,6 +26,7 @@ const CartToggleNoEmpty = ({ onClick = () => {} }) => {
             instructor={items?.user?.username}
             originalPrice={items.original_price}
             currentPrice={items.current_price}
+            onClick={onClick}
             key={items.id}
           ></CartToggleItems>
         ))}

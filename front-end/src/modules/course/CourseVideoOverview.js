@@ -75,7 +75,12 @@ const CourseVideoOverview = ({ offset }) => {
           )}
           {!loadingAdd && (intoCart ? "Go to cart" : "Add to cart")}
         </Button>
-        <Button className="font-bold" square="py-3" full>
+        <Button
+          className="font-bold"
+          square="py-3"
+          full
+          to={`/cart/checkout?payment-now=${courseId}`}
+        >
           Buy now
         </Button>
         <p className="text-xs text-center mt-3 opacity-80">

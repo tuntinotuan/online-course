@@ -8,6 +8,11 @@ import { strapiPathBE } from "../../utils/constants";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { handleRemoveItemFromCart } from "../../redux-toolkit/cart/cartHandlerThunk";
+import {
+  handleAddToWishlist,
+  handleMoveItemToCart,
+  handleRemoveItemFromWishlist,
+} from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
 
 const CartItems = ({
   id,
@@ -17,10 +22,20 @@ const CartItems = ({
   rating,
   originalPrice,
   currentPrice,
+  forWishlist = false,
 }) => {
   const dispatch = useDispatch();
-  const removeItemFromCart = () => {
-    dispatch(handleRemoveItemFromCart(id));
+  const removeItem = () => {
+    !forWishlist && dispatch(handleRemoveItemFromCart(id));
+    forWishlist && dispatch(handleRemoveItemFromWishlist(id));
+  };
+  const moveItem = () => {
+    if (!forWishlist) {
+      dispatch(handleRemoveItemFromCart(id));
+      dispatch(handleAddToWishlist(id));
+    } else {
+      dispatch(handleMoveItemToCart(id));
+    }
   };
   return (
     <div className="flex items-start border border-transparent border-t-gray-200 py-4">
@@ -45,10 +60,12 @@ const CartItems = ({
         <CourseSumary></CourseSumary>
       </div>
       <div className="flex flex-col items-end gap-2 ml-auto">
-        <button className="text-purpleText56" onClick={removeItemFromCart}>
+        <button className="text-purpleText56" onClick={removeItem}>
           Remove
         </button>
-        <button className="text-purpleText56">Save for Later</button>
+        <button className="text-purpleText56" onClick={moveItem}>
+          {forWishlist ? "Move to Cart" : "Move to Wishlist"}
+        </button>
       </div>
       <div className="text-base ml-10">
         <CoursePrice

@@ -11,6 +11,7 @@ const ButtonUserAvatar = ({
   cartHasCourse = false,
   size = 32,
   to = "",
+  ...props
 }) => {
   const renderElement = () => (
     <div
@@ -18,6 +19,7 @@ const ButtonUserAvatar = ({
         avatar ? "" : "bg-primaryBlack"
       } ${className}`}
       style={{ width: size, height: size, fontSize: (size * 2) / 5 }}
+      {...props}
     >
       {avatar ? (
         <Image url={avatar} className="rounded-full"></Image>

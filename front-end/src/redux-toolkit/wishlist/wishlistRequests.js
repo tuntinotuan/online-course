@@ -2,7 +2,7 @@ import { strapi } from "../../utils/strapi-config";
 
 export function requestGetMyWishlist(wishlistId) {
   return strapi.findOne("favorites", wishlistId, {
-    populate: ["courses.overview_image", "courses.user"],
+    populate: ["courses.overview_image", "courses.user", "courses.reviews"],
   });
 }
 export function requestCreateWishlist(userId, courseId) {

@@ -27,6 +27,7 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
               instructor={items?.user?.username}
               originalPrice={items.original_price}
               currentPrice={items.current_price}
+              onClick={onClick}
             >
               <Button
                 className="font-bold mt-2"

@@ -21,7 +21,7 @@ export function mediumRatingsCourse(arrData) {
   if (!arrData) return 0;
   let result = 0;
   arrData?.forEach((item) => {
-    result += item.rating;
+    result += item.rating || item?.star;
   });
   return result / arrData.length;
 }

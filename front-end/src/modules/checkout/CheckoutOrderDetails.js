@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckoutTitle from "./CheckoutTitle";
 import CheckoutItem from "./CheckoutItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { handleGetSingleCourse } from "../../redux-toolkit/course/courseHandlerThunk";
 
 // const listItem = [
 //   {
@@ -17,14 +19,24 @@ import { useSelector } from "react-redux";
 // ];
 
 const CheckoutOrderDetails = () => {
+  const dispatch = useDispatch();
+  const [param] = useSearchParams();
+  const paymentNow = param.get("payment-now");
+  const { course } = useSelector((state) => state.course);
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
+  useEffect(() => {
+    dispatch(handleGetSingleCourse(paymentNow));
+  }, [paymentNow, dispatch]);
+
   return (
     <div>
       <CheckoutTitle className="mb-5">Order Details</CheckoutTitle>
-      {courses?.map((courses) => (
-        <CheckoutItem courses={courses}></CheckoutItem>
-      ))}
+      {!paymentNow
+        ? courses?.map((courses) => (
+            <CheckoutItem courses={courses}></CheckoutItem>
+          ))
+        : course && <CheckoutItem courses={course}></CheckoutItem>}
     </div>
   );
 };

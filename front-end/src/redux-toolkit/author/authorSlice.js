@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleGetSingleAuthor } from "./authorHandlerThunk";
+import {
+  handleGetAuthorList,
+  handleGetSingleAuthor,
+} from "./authorHandlerThunk";
 
 const initialState = {
   authorList: [],
@@ -11,9 +14,13 @@ const authorSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(handleGetSingleAuthor.fulfilled, (state, action) => {
-      state.authorSingle = action.payload;
-    });
+    builder
+      .addCase(handleGetAuthorList.fulfilled, (state, action) => {
+        state.authorList = action.payload;
+      })
+      .addCase(handleGetSingleAuthor.fulfilled, (state, action) => {
+        state.authorSingle = action.payload;
+      });
   },
 });
 

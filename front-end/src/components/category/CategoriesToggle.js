@@ -4,7 +4,7 @@ import CategoriesSkeleton from "./CategoriesSkeleton";
 import { useSelector } from "react-redux";
 import CategoryItem from "./CategoryItem";
 
-const CategoriesToggle = ({ hovered }) => {
+const CategoriesToggle = ({ hovered, onClick }) => {
   const {
     listCategories,
     listIndustries,
@@ -27,6 +27,7 @@ const CategoriesToggle = ({ hovered }) => {
               to={category.name}
               title={category.name}
               industries={category.industries}
+              onClick={onClick}
             ></CategoryItem>
           ))}
         </ul>
@@ -39,6 +40,7 @@ const CategoriesToggle = ({ hovered }) => {
               title={industry.name}
               industries={industry}
               topics
+              onClick={onClick}
             ></CategoryItem>
           ))}
           {listTopics && (
@@ -60,6 +62,7 @@ const CategoriesToggle = ({ hovered }) => {
                         to={topic.name}
                         title={topic.name}
                         arrowNone
+                        onClick={onClick}
                       ></CategoryItem>
                     ))
                   ) : (

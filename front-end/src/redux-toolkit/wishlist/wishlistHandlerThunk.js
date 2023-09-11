@@ -7,7 +7,7 @@ import {
   requestSearchWishlist,
 } from "./wishlistRequests";
 import { setMyWishlist } from "./wishlistSlice";
-import { requestGetCourseData } from "../course/courseRequests";
+import { requestGetTopicOfCourse } from "../course/courseRequests";
 import { setCourseList } from "../course/courseSlice";
 import { requestAddToCart, requestGetMyCart } from "../cart/cartRequests";
 import { setMyCart } from "../cart/cartSlice";
@@ -40,7 +40,7 @@ export const handleAddToWishlist = createAsyncThunk(
         : await requestAddToWishlist(userData?.favorite?.id, courseId);
       const newUseData = await requestGetUserData(currentUserId);
       dispatch(setUserData(newUseData));
-      const courseData = await requestGetCourseData();
+      const courseData = await requestGetTopicOfCourse();
       dispatch(setCourseList(courseData.data));
       const wishList = await requestGetMyWishlist(userData?.favorite?.id);
       dispatch(setMyWishlist(wishList.data));

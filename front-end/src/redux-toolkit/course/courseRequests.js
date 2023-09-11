@@ -1,6 +1,6 @@
 import { strapi } from "../../utils/strapi-config";
 
-export function requestGetCourseData(topic) {
+export function requestGetTopicOfCourse(topic, filter) {
   return strapi.find("courses", {
     filters: {
       $or: [
@@ -22,6 +22,7 @@ export function requestGetCourseData(topic) {
         },
       ],
     },
+    sort: [filter],
     populate: {
       overview_image: {
         populate: "*",
@@ -40,6 +41,11 @@ export function requestGetCourseData(topic) {
     //   page: 1,
     //   pageSize: 5,
     // },
+  });
+}
+export function requestGetAllCourses() {
+  return strapi.find("courses", {
+    populate: "*",
   });
 }
 

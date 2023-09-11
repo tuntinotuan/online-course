@@ -1,13 +1,18 @@
 import React from "react";
 
-const IconSearch = ({ className, onClick = () => {}, size = 24 }) => {
+const IconSearch = ({
+  className,
+  onClick = () => {},
+  size = 24,
+  stroke = 1.5,
+}) => {
   return (
     <span className={className} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        strokeWidth="1.5"
+        strokeWidth={stroke}
         stroke="currentColor"
         style={{ width: size, height: size }}
       >

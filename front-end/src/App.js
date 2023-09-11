@@ -31,6 +31,7 @@ import { setWishlistSearch } from "./redux-toolkit/wishlist/wishlistSlice";
 import UserDetailsPage from "./pages/UserDetailsPage";
 import LearnOnlinePage from "./pages/LearnOnlinePage";
 import { handleGetMyPurchasedCourses } from "./redux-toolkit/purchased/purchasedHandlerThunk";
+import TopicPage from "./pages/TopicPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,10 @@ function App() {
           <Route
             path="/course/:courseId"
             element={<CourseDetailsPage></CourseDetailsPage>}
+          ></Route>
+          <Route
+            path="/topic/:topicName"
+            element={<TopicPage></TopicPage>}
           ></Route>
           <Route path="/cart" element={<CartPage></CartPage>}></Route>
           <Route path="my-course" element={<MyCoursesPage></MyCoursesPage>}>

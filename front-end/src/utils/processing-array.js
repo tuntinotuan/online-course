@@ -23,3 +23,14 @@ export function processAllVideoPreview(arrSections) {
   );
   return newArr;
 }
+
+export function totalStudents(arrCourses) {
+  let total = 0;
+  arrCourses?.forEach((course) => (total += course?.purchased_courses?.length));
+  return total;
+}
+export function totalReviews(arrCourses) {
+  let total = 0;
+  arrCourses?.forEach((course) => (total += course?.reviews?.length));
+  return total;
+}

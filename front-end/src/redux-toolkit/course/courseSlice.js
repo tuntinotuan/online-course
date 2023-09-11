@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  handleGetCourseData,
+  handleGetTopicOfCourse,
   handleGetSingleCourse,
   handleSearchCourse,
   handleSearchCourseOnly,
+  handleGetAllCourses,
 } from "./courseHandlerThunk";
 
 const initialState = {
   courseList: [],
+  allCourses: [],
   course: "",
   coursesSearch: [],
   coursesSearchOnly: [],
@@ -35,8 +37,11 @@ const courseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(handleGetCourseData.fulfilled, (state, action) => {
+      .addCase(handleGetTopicOfCourse.fulfilled, (state, action) => {
         state.courseList = action.payload;
+      })
+      .addCase(handleGetAllCourses.fulfilled, (state, action) => {
+        state.allCourses = action.payload;
       })
       .addCase(handleGetSingleCourse.fulfilled, (state, action) => {
         state.course = action.payload;

@@ -33,12 +33,15 @@ const Search = ({
       className={`flex items-center h-[48px] px-3 py-2 ${width} ${
         borderNone ? "" : "border border-primaryBlack"
       } ${rounded} ${bgColor} ${
-        borderSearch ? "border border-purpleTextA4" : ""
+        borderSearch
+          ? "border border-purpleTextA4 shadow-sm shadow-purpleTextA4"
+          : ""
       }`}
     >
       <IconSearch
         className={filter !== "" ? "cursor-pointer" : "text-grayA6 cursor-wait"}
         onClick={handleSubmitSearch}
+        stroke={filter && 2}
       ></IconSearch>
       <input
         type="text"

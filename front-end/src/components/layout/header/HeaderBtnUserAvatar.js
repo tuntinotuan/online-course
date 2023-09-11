@@ -6,7 +6,7 @@ import useHover from "../../../hooks/useHover";
 import { useSelector } from "react-redux";
 
 const HeaderBtnUserAvatar = () => {
-  const { hovered, nodeRef } = useHover();
+  const { hovered, setHovered, nodeRef } = useHover();
   const { userData } = useSelector((state) => state.user);
   const { avatar } = userData;
   const { myCart } = useSelector((state) => state.cart);
@@ -18,8 +18,9 @@ const HeaderBtnUserAvatar = () => {
         shortName={userData.username}
         to="/user/edit-profile"
         cartHasCourse={courses?.length > 0}
+        onClick={() => setHovered(false)}
       ></ButtonUserAvatar>
-      <Sidebar hovered={hovered}></Sidebar>
+      <Sidebar hovered={hovered} onClick={() => setHovered(false)}></Sidebar>
     </div>
   );
 };

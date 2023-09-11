@@ -8,7 +8,7 @@ import { SpecialCountCircle } from "../special";
 import { strapiPathBE } from "../../utils/constants";
 import { handleLogout } from "../../redux-toolkit/auth/authHandlerThunk";
 
-const Sidebar = ({ hovered }) => {
+const Sidebar = ({ hovered, onClick }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
@@ -30,6 +30,7 @@ const Sidebar = ({ hovered }) => {
       <Link
         to="/user/edit-profile"
         className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group"
+        onClick={onClick}
       >
         <ButtonUserAvatar
           avatar={avatar && `${strapiPathBE}${avatar?.url}`}
@@ -53,12 +54,14 @@ const Sidebar = ({ hovered }) => {
         <Link
           to="/my-course/learning"
           className="w-full transition-all hover:text-purpleText56"
+          onClick={onClick}
         >
           My learning
         </Link>
         <Link
           to="/cart"
           className="flex items-center justify-between w-full transition-all hover:text-purpleText56"
+          onClick={onClick}
         >
           My cart
           {courses?.length > 0 && <SpecialCountCircle></SpecialCountCircle>}
@@ -66,17 +69,22 @@ const Sidebar = ({ hovered }) => {
         <Link
           to="/my-course/wishlist"
           className="w-full transition-all hover:text-purpleText56"
+          onClick={onClick}
         >
           My wishlist
         </Link>
         <Link
           to="/user/edit-profile"
           className="w-full transition-all hover:text-purpleText56"
+          onClick={onClick}
         >
           Edit profile
         </Link>
       </div>
-      <Link className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 p-4 group">
+      <Link
+        className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 p-4 group"
+        onClick={onClick}
+      >
         <span className="transition-all group-hover:text-purpleText56">
           Language
         </span>
@@ -85,7 +93,10 @@ const Sidebar = ({ hovered }) => {
         </div>
       </Link>
       <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">
-        <Link className="w-full transition-all hover:text-purpleText56">
+        <Link
+          className="w-full transition-all hover:text-purpleText56"
+          onClick={onClick}
+        >
           Help
         </Link>
         <Link

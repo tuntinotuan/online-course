@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Button } from "../../components/button";
 import { CourseList } from "../../components/course";
 import { useDispatch, useSelector } from "react-redux";
-import { handleGetCourseData } from "../../redux-toolkit/course/courseHandlerThunk";
+import { handleGetTopicOfCourse } from "../../redux-toolkit/course/courseHandlerThunk";
 import { useParams } from "react-router-dom";
+import DataNotFound from "../../components/notfound/DataNotFound";
 
 const HomeSelectionItem = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const HomeSelectionItem = () => {
       : topicName || "Unity";
   const newDescription = courseList[0]?.topic?.description;
   useEffect(() => {
-    dispatch(handleGetCourseData(topicName));
+    dispatch(handleGetTopicOfCourse({ topicName }));
   }, [topicName, dispatch]);
   return (
     <div className="p-8 border border-slate-200 overflow-hidden">
@@ -28,7 +29,11 @@ const HomeSelectionItem = () => {
         </p>
       )}
       <Button className="font-bold mb-8">Explore {newTopic}</Button>
-      <CourseList></CourseList>
+      {courseList.length > 0 ? (
+        <CourseList data={courseList}></CourseList>
+      ) : (
+        <DataNotFound></DataNotFound>
+      )}
     </div>
   );
 };

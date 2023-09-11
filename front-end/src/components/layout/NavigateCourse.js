@@ -1,5 +1,6 @@
 import React from "react";
 import { IconArrowRight } from "../icon";
+import { Link } from "react-router-dom";
 
 const NavigateCourse = ({
   active = "Most popular",
@@ -9,9 +10,15 @@ const NavigateCourse = ({
   return (
     <nav className={`mb-4`}>
       <ul className={`flex items-center text-purpleTextC0 font-bold`}>
-        <li className={`cursor-pointer`}>{active}</li>
+        <Link to={`/topic/${active}`} className={`cursor-pointer`}>
+          {active}
+        </Link>
         {array.map((items) => (
-          <li className={`flex items-center cursor-pointer`} key={items}>
+          <Link
+            to={`/topic/${items}`}
+            className={`flex items-center cursor-pointer`}
+            key={items}
+          >
             {arrow && (
               <IconArrowRight
                 className="mx-2 text-white"
@@ -20,7 +27,7 @@ const NavigateCourse = ({
               ></IconArrowRight>
             )}
             {items}
-          </li>
+          </Link>
         ))}
       </ul>
     </nav>

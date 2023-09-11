@@ -8,14 +8,18 @@ import {
   totalCoursePrice,
 } from "../../utils/processing-number";
 import { handlePayment } from "../../redux-toolkit/order/orderHandlerThunk";
+import { useSearchParams } from "react-router-dom";
 
 const CheckoutSummary = () => {
   const dispatch = useDispatch();
+  const [param] = useSearchParams();
+  const paymentNow = param.get("payment-now");
+  const { course } = useSelector((state) => state.course);
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
 
   const handleCheckout = async () => {
-    dispatch(handlePayment(courses));
+    dispatch(handlePayment(!paymentNow ? courses : [course]));
     // try {
     //   const stripe = await stripePromise;
     //   const response = await makePaymentRequest.post("/orders", {
@@ -36,14 +40,14 @@ const CheckoutSummary = () => {
         <div className="flex items justify-between">
           <span>Original Price:</span>
           <CoursePrice
-            price={totalCourseOriginnalPrice(courses || []).toLocaleString(
-              "en-US"
-            )}
+            price={totalCourseOriginnalPrice(
+              !paymentNow ? courses : [course]
+            ).toLocaleString("en-US")}
             className="font-normal"
           ></CoursePrice>
         </div>
-        {totalCourseOriginnalPrice(courses || []) -
-          totalCoursePrice(courses || []) >
+        {totalCourseOriginnalPrice(!paymentNow ? courses : [course]) -
+          totalCoursePrice(!paymentNow ? courses : [course]) >
           0 && (
           <div className="flex items justify-between">
             <span>Discounts:</span>
@@ -51,8 +55,8 @@ const CheckoutSummary = () => {
               {"-"}
               <CoursePrice
                 price={(
-                  totalCourseOriginnalPrice(courses || []) -
-                  totalCoursePrice(courses || [])
+                  totalCourseOriginnalPrice(!paymentNow ? courses : [course]) -
+                  totalCoursePrice(!paymentNow ? courses : [course])
                 ).toLocaleString("en-US")}
                 className="font-normal"
               ></CoursePrice>
@@ -63,7 +67,9 @@ const CheckoutSummary = () => {
       <div className="flex items-center justify-between text-base font-bold pt-3 mb-5">
         <span>Total:</span>
         <CoursePrice
-          price={totalCoursePrice(courses || []).toLocaleString("en-US")}
+          price={totalCoursePrice(
+            !paymentNow ? courses : [course]
+          ).toLocaleString("en-US")}
         ></CoursePrice>
       </div>
       <span className="text-xs text-grayA6">

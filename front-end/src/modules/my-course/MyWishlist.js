@@ -60,7 +60,7 @@ const MyWishlist = () => {
                     img={course.overview_image?.url}
                     title={course.title}
                     instructor={course?.user}
-                    star={course.star}
+                    reviews={course.reviews}
                     currentPrice={course.current_price}
                     originalPrice={course.original_price}
                     blockTooltip

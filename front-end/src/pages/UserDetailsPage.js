@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { handleGetSingleAuthor } from "../redux-toolkit/author/authorHandlerThunk";
 import { ButtonUserAvatar } from "../components/button";
 import { strapiPathBE } from "../utils/constants";
+import { totalReviews, totalStudents } from "../utils/processing-array";
 
 const UserDetailsPage = () => {
   const dispatch = useDispatch();
@@ -26,12 +27,14 @@ const UserDetailsPage = () => {
           <div>
             <h4 className="font-bold text-grayA6 mb-1">Total students</h4>
             <h2 className="text-2xl font-bold">
-              {(3999).toLocaleString("en-US")}
+              {totalStudents(authorSingle?.courses).toLocaleString("en-US")}
             </h2>
           </div>
           <div>
             <h4 className="font-bold text-grayA6 mb-1">Reviews</h4>
-            <h2 className="text-2xl font-bold">379</h2>
+            <h2 className="text-2xl font-bold">
+              {totalReviews(authorSingle?.courses) || "379"}
+            </h2>
           </div>
         </div>
         <h2 className="text-xl font-bold mb-4">About me</h2>
