@@ -20,6 +20,17 @@ export function requestGetTopicOfCourse(topic, filter) {
             },
           },
         },
+        {
+          topic: {
+            industry: {
+              category: {
+                name: {
+                  $contains: topic,
+                },
+              },
+            },
+          },
+        },
       ],
     },
     sort: [filter],

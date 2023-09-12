@@ -17,6 +17,10 @@ const categorySlice = createSlice({
       ...state,
       listIndustries: action.payload,
     }),
+    setListTopics: (state, action) => ({
+      ...state,
+      listTopics: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -43,6 +47,6 @@ const categorySlice = createSlice({
   },
 });
 
-export const { setListIndustries } = categorySlice.actions;
+export const { setListIndustries, setListTopics } = categorySlice.actions;
 
 export default categorySlice.reducer;

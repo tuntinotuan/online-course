@@ -55,7 +55,10 @@ const CartItems = ({
           <ButtonStatusTag className="bg-tagSky">
             Updated Recently
           </ButtonStatusTag>
-          <CourseRating rating={rating}></CourseRating>
+          <CourseRating
+            rating={rating}
+            totalRating={rating.length}
+          ></CourseRating>
         </div>
         <CourseSumary></CourseSumary>
       </div>

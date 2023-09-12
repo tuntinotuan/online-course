@@ -2,7 +2,11 @@ import { strapi } from "../../utils/strapi-config";
 
 export function requestGetCategories() {
   return strapi.find("categories", {
-    populate: "*",
+    populate: {
+      industries: {
+        populate: "topics",
+      },
+    },
   });
 }
 export function requestGetTopics(industryId) {

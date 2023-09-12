@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useHover from "../../../hooks/useHover";
 import Search from "../../search/Search";
 import Button from "../../button/Button";
@@ -15,6 +15,8 @@ import HeaderBtnNotification from "./HeaderBtnNotification";
 import HeaderBtnWishlist from "./HeaderBtnWishlist";
 import HeaderBtnMyLearning from "./HeaderBtnMyLearning";
 import HeaderBtnCategories from "./HeaderBtnCategories";
+import { toggleShowPopupChooseLanguage } from "../../../redux-toolkit/globalSlice";
+import { useTranslation } from "react-i18next";
 
 const Header = ({
   hiddenMultiple = false,
@@ -22,12 +24,17 @@ const Header = ({
   between = false,
   widthSearch,
 }) => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { show: showSearchMobile, setShow: setShowSearchMobile } =
     useClickOutSide();
   const { hovered, nodeRef: nodeRefHover, setHovered } = useHover();
   const { jwt } = useSelector((state) => state.auth);
   const { myCart, myCartLocal } = useSelector((state) => state.cart);
   const { courses } = myCart;
+  const handleShowChooseLanguage = () => {
+    dispatch(toggleShowPopupChooseLanguage(true));
+  };
   return (
     <header
       className={`header relative flex items-center ${
@@ -44,7 +51,7 @@ const Header = ({
       )}
       {!hiddenMultiple && (
         <NavLink to="/teaching" className="hover:text-purpleText56">
-          Teach on Udemy
+          {t("teach on udemy")}
         </NavLink>
       )}
       {jwt && (
@@ -81,16 +88,20 @@ const Header = ({
       {!jwt ? (
         <div className="flex items-center gap-2">
           <Button className="font-bold px-4" to="log-in">
-            Log in
+            {t("log in")}
           </Button>
           <Button
             className="bg-primaryBlack text-white font-bold border border-primaryBlack"
             borderNone
             to="sign-up"
           >
-            Sign up
+            {t("sign up")}
           </Button>
-          <Button className="" square="py-2 px-2">
+          <Button
+            className=""
+            square="py-2 px-2"
+            onClick={handleShowChooseLanguage}
+          >
             <IconEarth></IconEarth>
           </Button>
         </div>

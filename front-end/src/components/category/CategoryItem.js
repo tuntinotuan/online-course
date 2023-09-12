@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IconArrowRight } from "../icon";
 import useHover from "../../hooks/useHover";
-import { useDispatch } from "react-redux";
-import { setListIndustries } from "../../redux-toolkit/category/categorySlice";
-import { handleGetTopics } from "../../redux-toolkit/category/categoryHanlderThunk";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setListIndustries,
+  setListTopics,
+} from "../../redux-toolkit/category/categorySlice";
 
 const CategoryItem = ({
   title,
@@ -12,10 +14,12 @@ const CategoryItem = ({
   industries,
   topics = false,
   arrowNone = false,
+  category = false,
   ...props
 }) => {
   const dispatch = useDispatch();
   const { hovered, nodeRef } = useHover();
+  const { listIndustries, listTopics } = useSelector((state) => state.category);
   useEffect(() => {
     if (industries && !topics) {
       hovered && dispatch(setListIndustries(industries));
@@ -23,20 +27,29 @@ const CategoryItem = ({
   }, [hovered, industries, topics, dispatch]);
   useEffect(() => {
     if (topics) {
-      hovered && dispatch(handleGetTopics(industries?.id));
+      // hovered && dispatch(handleGetTopics(industries?.id));
+      hovered && dispatch(setListTopics(industries?.topics));
     }
   }, [industries, topics, hovered, dispatch]);
-
+  useEffect(() => {
+    if (category && hovered) {
+      dispatch(setListTopics(null));
+    }
+  }, [category, industries, listIndustries, hovered, dispatch]);
   return (
-    <NavLink
+    <Link
       to={`/topic/${to}`}
-      className="flex items-center justify-between cursor-pointer px-4 py-2 hover:text-purpleText56"
+      className={`flex items-center justify-between hover:text-purpleText56 cursor-pointer px-4 py-2 ${
+        industries === listIndustries || industries?.topics === listTopics
+          ? "text-purpleText56"
+          : ""
+      }`}
       ref={nodeRef}
       {...props}
     >
       {title}
       {!arrowNone && <IconArrowRight size={10} stroke={3}></IconArrowRight>}
-    </NavLink>
+    </Link>
   );
 };
 

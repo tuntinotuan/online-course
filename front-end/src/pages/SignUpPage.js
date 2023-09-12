@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../redux-toolkit/auth/authHandlerThunk";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
   fullname: yup
@@ -29,6 +30,7 @@ const schema = yup.object({
 
 const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { error } = useSelector((state) => state.auth);
   const {
     control,
@@ -83,7 +85,7 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
           borderNone
           full
         >
-          Sign up
+          {t("sign up")}
         </Button>
         <p className="text-xs mt-3">
           By signing up, you agree to our

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { handleSearchCourse } from "../../redux-toolkit/course/courseHandlerThunk";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Search = ({
   width = "w-[562px]",
@@ -16,6 +17,7 @@ const Search = ({
   const [params] = useSearchParams();
   let keyword = params.get("keyword");
   const { handleSubmit } = useForm({ mode: "onChange" });
+  const { t } = useTranslation();
   const [filter, setFilter] = useState("");
   const [borderSearch, setBorderSearch] = useState(false);
   const handleChangeInput = (e) => {
@@ -45,7 +47,7 @@ const Search = ({
       ></IconSearch>
       <input
         type="text"
-        placeholder="Search for anything"
+        placeholder={t("search for anything")}
         defaultValue={keyword}
         className={`w-full h-full px-4 placeholder:text-grayA6 ${bgColor} outline-none`}
         onChange={handleChangeInput}

@@ -27,6 +27,7 @@ const CategoriesToggle = ({ hovered, onClick }) => {
               to={category.name}
               title={category.name}
               industries={category.industries}
+              category
               onClick={onClick}
             ></CategoryItem>
           ))}

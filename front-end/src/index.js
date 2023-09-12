@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import store from "./redux-toolkit/configureStore";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import "./i18n/i18n";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -21,8 +22,10 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App />
-          <ToastContainer></ToastContainer>
+          <Suspense fallback="loading">
+            <App />
+            <ToastContainer></ToastContainer>
+          </Suspense>
         </BrowserRouter>
       </PersistGate>
     </Provider>

@@ -7,14 +7,19 @@ import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
 import { strapiPathBE } from "../../utils/constants";
 import { handleLogout } from "../../redux-toolkit/auth/authHandlerThunk";
+import { toggleShowPopupChooseLanguage } from "../../redux-toolkit/globalSlice";
+import { locales } from "../../i18n/i18n";
+import { useTranslation } from "react-i18next";
 
-const Sidebar = ({ hovered, onClick }) => {
+const Sidebar = ({ hovered, onClick = () => {} }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
   const { avatar } = userData;
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
+  const { i18n } = useTranslation();
+  const currentLanguage = locales[i18n.language];
   const logoutHandler = async () => {
     try {
       dispatch(handleLogout())
@@ -24,6 +29,10 @@ const Sidebar = ({ hovered, onClick }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleShowChooseLanguage = () => {
+    dispatch(toggleShowPopupChooseLanguage(true));
+    onClick();
   };
   return (
     <TooltipCover hovered={hovered} className="!top-[106%] w-[260px]">
@@ -83,13 +92,14 @@ const Sidebar = ({ hovered, onClick }) => {
       </div>
       <Link
         className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 p-4 group"
-        onClick={onClick}
+        onClick={handleShowChooseLanguage}
       >
         <span className="transition-all group-hover:text-purpleText56">
           Language
         </span>
         <div className="flex items-center gap-2">
-          English<IconEarth size={18}></IconEarth>
+          {currentLanguage}
+          <IconEarth size={18}></IconEarth>
         </div>
       </Link>
       <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">

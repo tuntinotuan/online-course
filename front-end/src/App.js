@@ -32,6 +32,7 @@ import UserDetailsPage from "./pages/UserDetailsPage";
 import LearnOnlinePage from "./pages/LearnOnlinePage";
 import { handleGetMyPurchasedCourses } from "./redux-toolkit/purchased/purchasedHandlerThunk";
 import TopicPage from "./pages/TopicPage";
+import PopupChooseLanguage from "./components/popup/PopupChooseLanguage";
 
 function App() {
   const dispatch = useDispatch();
@@ -145,6 +146,7 @@ function App() {
           <PopupForgotPassword></PopupForgotPassword>
         </>
       )}
+      <PopupChooseLanguage></PopupChooseLanguage>
     </div>
   );
 }
