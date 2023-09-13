@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChangePassword } from "../../redux-toolkit/auth/authHandlerThunk";
 import LoadingSpine from "../../components/loading/LoadingSpine";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
   currentPassword: yup.string().required("Please enter your current password"),
@@ -26,6 +27,7 @@ const schema = yup.object({
 
 const UserEditAccount = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("profile");
   const { error } = useSelector((state) => state.auth);
   const { loadingUser } = useSelector((state) => state.user);
   const {
@@ -55,8 +57,8 @@ const UserEditAccount = () => {
   return (
     <div>
       <UserTopContent
-        title="Account"
-        sub="Edit your account setting and change your password here."
+        title={t("account")}
+        sub={t("edit your account setting and change your password here.")}
       ></UserTopContent>
       <UserTopBlock className="!items-start !justify-start text-start !py-6">
         <form className="flex flex-col items-start gap-3 w-[600px] mx-auto">
@@ -68,23 +70,23 @@ const UserEditAccount = () => {
         onSubmit={handleSubmit(changePasswordHanlder)}
         className="flex flex-col items-start gap-3 w-[600px] mx-auto py-6"
       >
-        <h3 className="font-bold">Password:</h3>
+        <h3 className="font-bold">{t("password")}:</h3>
         <InputTogglePassword
           control={control}
           name="currentPassword"
-          placeholder="Enter current password"
+          placeholder={t("enter current password")}
           size={36}
         ></InputTogglePassword>
         <InputTogglePassword
           control={control}
           name="newPassword"
-          placeholder="Enter new password"
+          placeholder={t("enter new password")}
           size={36}
         ></InputTogglePassword>
         <InputTogglePassword
           control={control}
           name="reTypePassword"
-          placeholder="Re-type new password"
+          placeholder={t("re-type new password")}
           size={36}
         ></InputTogglePassword>
         <Button
@@ -101,7 +103,7 @@ const UserEditAccount = () => {
           {loadingUser ? (
             <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
           ) : (
-            "Change password"
+            t("change password")
           )}
         </Button>
       </form>

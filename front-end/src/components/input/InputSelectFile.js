@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Button } from "../button";
+import { useTranslation } from "react-i18next";
 // import { useDispatch, useSelector } from "react-redux";
 // import { setUrlImage } from "../../redux-toolkit/globalSlice";
 
@@ -10,6 +11,7 @@ const InputSelectFile = ({
 }) => {
   // const dispatch = useDispatch();
   // const { urlChosenImage } = useSelector((state) => state.global);
+  const { t } = useTranslation("profile");
   const ref = useRef();
   const chosenFile = () => {
     const file = ref.current.files[0];
@@ -33,13 +35,13 @@ const InputSelectFile = ({
         className="flex items-center justify-between bg-grayF7 text-base border border-primaryBlack cursor-pointer pl-4"
       >
         <p className="max-w-[450px] truncate">
-          {urlChosenImage?.name || "No file selected"}
+          {urlChosenImage?.name || t("no file selected")}
         </p>
         <Button
           className="text-base font-bold bg-white border-transparent border-l-primaryBlack"
           onClick={() => ref.current.click()}
         >
-          Upload image
+          {t("upload image")}
         </Button>
       </label>
     </div>

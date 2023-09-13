@@ -1,18 +1,20 @@
 import React from "react";
 import RadioCustom from "../radio/RadioCustom";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const FilterPrice = () => {
   const [params] = useSearchParams();
   const sortBy = params.get("sort-by");
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation("search");
   const defineValue = [
     {
-      title: "Ascending price",
+      title: "ascending price",
       value: "original_price:asc",
     },
     {
-      title: "Descending price",
+      title: "descending price",
       value: "original_price:desc",
     },
   ];
@@ -24,7 +26,7 @@ const FilterPrice = () => {
     <div>
       {defineValue.map((item) => (
         <SortPriceItem
-          title={item.title}
+          title={t(item.title)}
           on={item.value === sortBy}
           onClick={() => handleClickFilterPrice(item.value)}
         />

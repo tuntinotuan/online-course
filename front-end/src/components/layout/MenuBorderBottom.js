@@ -1,17 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 
 const defaultValue = [
   {
-    title: "Most popular",
+    title: "most popular",
     to: "",
   },
   {
-    title: "New",
+    title: "new",
     to: "createdAt:desc",
   },
   {
-    title: "Beginner Favorites",
+    title: "beginner favorites",
     to: "total_reviews:desc",
   },
 ];
@@ -20,6 +21,7 @@ const MenuBorderBottom = ({ defineValue = defaultValue }) => {
   const { topicName } = useParams();
   const [param] = useSearchParams();
   const filter = param.get("filter");
+  const { t } = useTranslation("category");
   return (
     <div className="flex items-center gap-5 border border-transparent border-b-gray-300 mb-4">
       {defineValue.map((item, index) => (
@@ -36,7 +38,7 @@ const MenuBorderBottom = ({ defineValue = defaultValue }) => {
           }}
           key={item.title}
         >
-          {item.title}
+          {t(item.title)}
         </Link>
       ))}
     </div>

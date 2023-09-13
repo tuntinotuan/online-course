@@ -7,6 +7,7 @@ import {
   handleSearchCourse,
   handleSearchCourseOnly,
 } from "../../redux-toolkit/course/courseHandlerThunk";
+import { useTranslation } from "react-i18next";
 
 const FilterRating = () => {
   const { coursesSearchOnly } = useSelector((state) => state.course);
@@ -71,6 +72,7 @@ const FilterRating = () => {
 };
 
 function RatingItem({ on, value, total = 2707, onClick = () => {} }) {
+  const { t } = useTranslation("search");
   return (
     <div
       className="flex items-center gap-2 cursor-pointer py-2"
@@ -79,7 +81,7 @@ function RatingItem({ on, value, total = 2707, onClick = () => {} }) {
       <RadioCustom on={on}></RadioCustom>
       <CourseStar rating={value} size={15} readOnly></CourseStar>
       <span>
-        {value === 3 || value === 4 ? `${value}.0` : value} & up{" "}
+        {value === 3 || value === 4 ? `${value}.0` : value} & {t("up")}{" "}
         <span className="text-grayA6">{`(${total.toLocaleString(
           "en-US"
         )})`}</span>

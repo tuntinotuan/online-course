@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { handleUpdateUserProfile } from "../../redux-toolkit/user/userHandlerThunk";
 import LoadingSpine from "../../components/loading/LoadingSpine";
+import { useTranslation } from "react-i18next";
 
 const UserEditProfile = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("profile");
   const { userData, loadingUser } = useSelector((state) => state.user);
   const {
     control,
@@ -31,30 +33,30 @@ const UserEditProfile = () => {
   return (
     <div>
       <UserTopContent
-        title="Public profile"
-        sub="Add information about yourself"
+        title={t("public profile")}
+        sub={t("add information about yourself")}
       ></UserTopContent>
       <form
         onSubmit={handleSubmit(editProfileHandler)}
         className="max-w-[600px] mx-auto flex flex-col items-start gap-2 py-5"
       >
-        <h3 className="font-bold">Basics:</h3>
+        <h3 className="font-bold">{t("basics")}:</h3>
         <Input
           control={control}
           name="fullname"
-          placeholder="Fullname"
+          placeholder={t("full name")}
           size={36}
         ></Input>
         <Input
           control={control}
           name="address"
-          placeholder="Address"
+          placeholder={t("address")}
           size={36}
         ></Input>
         <Input
           control={control}
           name="phone"
-          placeholder="Phone Number"
+          placeholder={t("phone number")}
           size={36}
         ></Input>
         <Input
@@ -78,7 +80,7 @@ const UserEditProfile = () => {
           {loadingUser ? (
             <LoadingSpine size="22px" borderSize="2px"></LoadingSpine>
           ) : (
-            "Save"
+            t("save")
           )}
         </Button>
       </form>

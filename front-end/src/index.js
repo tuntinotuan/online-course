@@ -11,6 +11,7 @@ import store from "./redux-toolkit/configureStore";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import "./i18n/i18n";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -21,12 +22,14 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Suspense fallback="loading">
-            <App />
-            <ToastContainer></ToastContainer>
-          </Suspense>
-        </BrowserRouter>
+        <GoogleOAuthProvider clientId="859313211078-j0hmj977fcs56n7l62jugtsut18h8app.apps.googleusercontent.com">
+          <BrowserRouter>
+            <Suspense fallback="loading">
+              <App />
+              <ToastContainer></ToastContainer>
+            </Suspense>
+          </BrowserRouter>
+        </GoogleOAuthProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

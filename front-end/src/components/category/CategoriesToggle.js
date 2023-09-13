@@ -3,6 +3,7 @@ import TooltipCover from "../tooltip/TooltipCover";
 import CategoriesSkeleton from "./CategoriesSkeleton";
 import { useSelector } from "react-redux";
 import CategoryItem from "./CategoryItem";
+import { useTranslation } from "react-i18next";
 
 const CategoriesToggle = ({ hovered, onClick }) => {
   const {
@@ -12,6 +13,7 @@ const CategoriesToggle = ({ hovered, onClick }) => {
     loadingCategories,
     loadingTopics,
   } = useSelector((state) => state.category);
+  const { t } = useTranslation("category");
   return (
     <TooltipCover hovered={hovered} className="-left-1/4 top-[108%] !w-[260px]">
       {loadingCategories &&
@@ -47,7 +49,7 @@ const CategoriesToggle = ({ hovered, onClick }) => {
           {listTopics && (
             <ul className="absolute top-0 left-full w-[250px] min-h-[500px] bg-white shadow-md border border-gray-300">
               <h3 className="pt-4 px-4 font-bold text-grayA6">
-                Popular topics
+                {t("popular topics")}
               </h3>
               {loadingTopics &&
                 Array(5)
@@ -68,7 +70,7 @@ const CategoriesToggle = ({ hovered, onClick }) => {
                     ))
                   ) : (
                     <p className="text-xs text-grayA6 font-semibold px-4 pt-2">
-                      Nothing topics
+                      {t("nothing topics")}
                     </p>
                   )}
                 </div>

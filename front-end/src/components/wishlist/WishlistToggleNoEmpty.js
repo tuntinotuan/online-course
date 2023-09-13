@@ -4,10 +4,12 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CartToggleItems from "../cart/CartToggleItems";
 import { handleMoveItemToCart } from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
+import { useTranslation } from "react-i18next";
 
 const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
   const wishlistMoveToCart = (id) => {
@@ -34,7 +36,7 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
                 full
                 onClick={() => wishlistMoveToCart(items.id)}
               >
-                Add to cart
+                {t("add to cart")}
               </Button>
             </CartToggleItems>
           ))}
@@ -48,7 +50,7 @@ const WishlistToggleNoEmpty = ({ onClick = () => {} }) => {
             to="/my-course/wishlist"
             onClick={onClick}
           >
-            Go to wishlist
+            {t("go to wishlist")}
           </Button>
         </div>
       )}

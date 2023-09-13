@@ -4,8 +4,10 @@ import { ButtonUserAvatar } from "../button";
 import { Link } from "react-router-dom";
 import { mediumRatingsCourse } from "../../utils/processing-number";
 import { totalStudents } from "../../utils/processing-array";
+import { useTranslation } from "react-i18next";
 
 const InstructorCard = ({ data }) => {
+  const { t } = useTranslation("category");
   return (
     <Link
       to={`/user/${data.id}`}
@@ -30,15 +32,15 @@ const InstructorCard = ({ data }) => {
             alt=""
             className="w-3 h-3"
           />
-          <p className="text-xs text-textstart">Instructor Rating</p>
+          <p className="text-xs text-textstart">{t("instructor rating")}</p>
         </div>
         <div className="flex items-center gap-1 text-xs">
           <p className="font-bold">{totalStudents(data?.courses) || "1280"}</p>
-          <p className="text-slate-800">students</p>
+          <p className="text-slate-800">{t("students")}</p>
         </div>
         <div className="flex items-center gap-1 text-xs">
           <p className="font-bold">{data?.courses?.length}</p>
-          <p className="text-slate-800">courses</p>
+          <p className="text-slate-800">{t("courses")}</p>
         </div>
       </div>
     </Link>

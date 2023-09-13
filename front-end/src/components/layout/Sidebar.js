@@ -15,10 +15,10 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
-  const { avatar } = userData;
+  const { avatar, url_google_avatar } = userData;
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLanguage = locales[i18n.language];
   const logoutHandler = async () => {
     try {
@@ -42,7 +42,9 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
         onClick={onClick}
       >
         <ButtonUserAvatar
-          avatar={avatar && `${strapiPathBE}${avatar?.url}`}
+          avatar={
+            (avatar && `${strapiPathBE}${avatar?.url}`) || url_google_avatar
+          }
           shortName={userData?.username}
           size={66}
           className="text-2xl"
@@ -65,14 +67,14 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           className="w-full transition-all hover:text-purpleText56"
           onClick={onClick}
         >
-          My learning
+          {t("my learning")}
         </Link>
         <Link
           to="/cart"
           className="flex items-center justify-between w-full transition-all hover:text-purpleText56"
           onClick={onClick}
         >
-          My cart
+          {t("my cart")}
           {courses?.length > 0 && <SpecialCountCircle></SpecialCountCircle>}
         </Link>
         <Link
@@ -80,14 +82,14 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           className="w-full transition-all hover:text-purpleText56"
           onClick={onClick}
         >
-          My wishlist
+          {t("my wishlist")}
         </Link>
         <Link
           to="/user/edit-profile"
           className="w-full transition-all hover:text-purpleText56"
           onClick={onClick}
         >
-          Edit profile
+          {t("edit profile")}
         </Link>
       </div>
       <Link
@@ -95,7 +97,7 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
         onClick={handleShowChooseLanguage}
       >
         <span className="transition-all group-hover:text-purpleText56">
-          Language
+          {t("language")}
         </span>
         <div className="flex items-center gap-2">
           {currentLanguage}
@@ -107,13 +109,13 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           className="w-full transition-all hover:text-purpleText56"
           onClick={onClick}
         >
-          Help
+          {t("help")}
         </Link>
         <Link
           className="w-full transition-all hover:text-purpleText56"
           onClick={logoutHandler}
         >
-          Log out
+          {t("log out")}
         </Link>
       </div>
     </TooltipCover>

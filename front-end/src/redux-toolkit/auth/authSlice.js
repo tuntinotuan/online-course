@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
-import { handleLogin, handleLogout, handleRegister } from "./authHandlerThunk";
+import {
+  handleLogin,
+  handleLoginWithGoogle,
+  handleLogout,
+  handleRegister,
+} from "./authHandlerThunk";
 
 const initialState = {
   jwt: "",
@@ -25,6 +30,10 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(handleLogin.fulfilled, (state, action) => {
+        state.jwt = action.payload;
+        state.error = "";
+      })
+      .addCase(handleLoginWithGoogle.fulfilled, (state, action) => {
         state.jwt = action.payload;
         state.error = "";
       })

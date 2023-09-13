@@ -7,6 +7,15 @@ export function requestGetUserData(userId) {
     populate: "*",
   });
 }
+export function requestFindEmail(email) {
+  return strapi.find("users", {
+    filters: {
+      email: {
+        $eq: email,
+      },
+    },
+  });
+}
 export function requestUpdateUserProfile(userId, jwt, data) {
   const { fullname, address, phone, birthDay } = data;
   // return strapi.update("users", userId, {
@@ -24,6 +33,20 @@ export function requestUpdateUserProfile(userId, jwt, data) {
       address: address,
       phonenumber: phone,
       birthday: birthDay,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+export function requestUpdateUrlGoogleAvatar({ jwt, userId, url }) {
+  return axios.put(
+    `${strapiPathBE}/api/users/${userId}`,
+    {
+      url_google_avatar: url,
     },
     {
       headers: {

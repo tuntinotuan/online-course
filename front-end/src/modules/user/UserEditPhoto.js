@@ -8,9 +8,11 @@ import { strapiPathBE } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { handleUpdateUserAvatar } from "../../redux-toolkit/user/userHandlerThunk";
 import LoadingSpine from "../../components/loading/LoadingSpine";
+import { useTranslation } from "react-i18next";
 
 const UserEditPhoto = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("profile");
   const { userData, loadingUser } = useSelector((state) => state.user);
   const [urlChosenImage, setUrlChosenImage] = useState();
   // const { urlChosenImage } = useSelector((state) => state.global);
@@ -22,14 +24,14 @@ const UserEditPhoto = () => {
   return (
     <div>
       <UserTopContent
-        title="Photo"
-        sub="Add a nice photo of yourself for your profile."
+        title={t("photo")}
+        sub={t("add a nice photo of yourself for your profile.")}
       ></UserTopContent>
       <form
         onSubmit={handleSubmit(handleChosenAvatarImage)}
         className="max-w-[600px] mx-auto py-6"
       >
-        <h3 className="font-bold">Image preview</h3>
+        <h3 className="font-bold">{t("image preview")}</h3>
         <div className="border border-primaryBlack p-4 mt-2 mb-4">
           <div className="flex items-center justify-center mx-auto bg-grayF7">
             <div className="h-52 w-52">
@@ -46,7 +48,7 @@ const UserEditPhoto = () => {
             </div>
           </div>
         </div>
-        <h3 className="font-bold mb-2">Add / Change Image</h3>
+        <h3 className="font-bold mb-2">{t("add change image")}</h3>
         <InputSelectFile
           name="files"
           urlChosenImage={urlChosenImage}
@@ -61,7 +63,7 @@ const UserEditPhoto = () => {
           {loadingUser ? (
             <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
           ) : (
-            "Save"
+            t("save")
           )}
         </Button>
       </form>

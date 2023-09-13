@@ -4,9 +4,11 @@ import CartToggleNoEmpty from "./CartToggleNoEmpty";
 import TooltipEmpty from "../tooltip/TooltipEmpty";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetMyCart } from "../../redux-toolkit/cart/cartHandlerThunk";
+import { useTranslation } from "react-i18next";
 
 const CartToggle = ({ hovered, onClick = () => {} }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { myCart, myCartLocal } = useSelector((state) => state.cart);
   const { courses } = myCart;
   const { userData } = useSelector((state) => state.user);
@@ -20,8 +22,8 @@ const CartToggle = ({ hovered, onClick = () => {} }) => {
         <CartToggleNoEmpty onClick={onClick}></CartToggleNoEmpty>
       ) : (
         <TooltipEmpty
-          title="Your cart is empty."
-          go="Keep shopping"
+          title={t("your cart is empty.")}
+          go={t("keep shopping")}
           onClick={onClick}
         ></TooltipEmpty>
       )}

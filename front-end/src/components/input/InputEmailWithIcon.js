@@ -2,14 +2,16 @@ import React from "react";
 import { Button } from "../button";
 import { useSelector } from "react-redux";
 import { IconPen } from "../icon";
+import { useTranslation } from "react-i18next";
 
 const InputEmailWithIcon = () => {
+  const { t } = useTranslation("profile");
   const { userData } = useSelector((state) => state.user);
   return (
     <div className="relative w-full">
       <label className="flex items-center justify-between text-base border border-primaryBlack pl-4">
         <span className="max-w-[450px] truncate">
-          Your email address is{" "}
+          {t("your email address is")}{" "}
           <span className="font-bold">
             {userData?.email || "ACB@gmail.com"}
           </span>

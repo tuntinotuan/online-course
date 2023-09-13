@@ -8,12 +8,20 @@ import {
   totalCourseOriginnalPrice,
   totalCoursePrice,
 } from "../../utils/processing-number";
+import { useTranslation } from "react-i18next";
 
 const CartToggleNoEmpty = ({ onClick = () => {} }) => {
   const nodeRef = useRef();
   const { pathname } = useLocation();
   const { myCart, myCartLocal } = useSelector((state) => state.cart);
   const { courses } = myCart;
+  const { t } = useTranslation();
+  const totalPrice = totalCoursePrice(courses || myCartLocal).toLocaleString(
+    "en-US"
+  );
+  const totalOriginal = totalCourseOriginnalPrice(
+    courses || myCartLocal
+  ).toLocaleString("en-US");
   return (
     <div className="w-full">
       <div className="max-h-[420px] overflow-y-auto" ref={nodeRef}>
@@ -33,18 +41,13 @@ const CartToggleNoEmpty = ({ onClick = () => {} }) => {
       </div>
       <div className="p-4">
         <div className="flex items-center gap-2 text-xl font-bold">
-          Total:
-          <CoursePrice
-            price={totalCoursePrice(courses || myCartLocal).toLocaleString(
-              "en-US"
-            )}
-          ></CoursePrice>
-          <CoursePrice
-            price={totalCourseOriginnalPrice(
-              courses || myCartLocal
-            ).toLocaleString("en-US")}
-            className="text-base text-grayA6 font-normal line-through"
-          ></CoursePrice>
+          {t("total")}:<CoursePrice price={totalPrice}></CoursePrice>
+          {totalOriginal > totalPrice && (
+            <CoursePrice
+              price={totalOriginal}
+              className="text-base text-grayA6 font-normal line-through"
+            ></CoursePrice>
+          )}
         </div>
         {pathname !== "/cart" && (
           <Button
@@ -54,7 +57,7 @@ const CartToggleNoEmpty = ({ onClick = () => {} }) => {
             to="cart"
             onClick={onClick}
           >
-            Go to cart
+            {t("go to cart")}
           </Button>
         )}
       </div>

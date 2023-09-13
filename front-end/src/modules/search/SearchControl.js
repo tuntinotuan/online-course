@@ -5,11 +5,13 @@ import FilterSortBy from "../../components/filter/FilterSortBy";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowFilter } from "../../redux-toolkit/globalSlice";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SearchControl = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const { t } = useTranslation("search");
   const { coursesSearch } = useSelector((state) => state.course);
   const { showFilter } = useSelector((state) => state.global);
   const handleShowFilter = () => {
@@ -26,7 +28,7 @@ const SearchControl = () => {
           onClick={handleShowFilter}
         >
           <IconFilter></IconFilter>
-          Filter {params.size > 1 ? `(${params.size - 1})` : "(0)"}
+          {t("filter")} {params.size > 1 ? `(${params.size - 1})` : "(0)"}
         </Button>
         <FilterSortBy></FilterSortBy>
         {params.size > 1 && (
@@ -34,12 +36,12 @@ const SearchControl = () => {
             className="text-base font-bold cursor-pointer"
             onClick={handleClearFilters}
           >
-            Clear filters
+            {t("clear filters")}
           </span>
         )}
       </div>
       <h1 className="text-base font-bold text-grayA6">
-        {coursesSearch.length.toLocaleString("en-US") || 0} results
+        {coursesSearch.length.toLocaleString("en-US") || 0} {t("results")}
       </h1>
     </div>
   );

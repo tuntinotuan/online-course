@@ -16,11 +16,15 @@ import { setUserData } from "../user/userSlice";
 
 export const handleGetMyWishlist = createAsyncThunk(
   "wishlist/handleGetMyWishlist",
-  async (wishlistId, ThunkAPI) => {
+  async (wishlistId, { getState }) => {
     let results = [];
+    const state = getState();
+    const { jwt } = state.auth;
     try {
-      const response = await requestGetMyWishlist(wishlistId);
-      results = response.data;
+      if (jwt) {
+        const response = await requestGetMyWishlist(wishlistId);
+        results = response.data;
+      }
     } catch (error) {
       console.log(error);
     }

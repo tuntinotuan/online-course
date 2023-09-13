@@ -3,8 +3,10 @@ import TooltipCover from "../tooltip/TooltipCover";
 import TooltipEmpty from "../tooltip/TooltipEmpty";
 import WishlistToggleNoEmpty from "./WishlistToggleNoEmpty";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const WishlistToggle = ({ hovered, onClick }) => {
+  const { t } = useTranslation();
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
   return (
@@ -13,8 +15,8 @@ const WishlistToggle = ({ hovered, onClick }) => {
         <WishlistToggleNoEmpty onClick={onClick}></WishlistToggleNoEmpty>
       ) : (
         <TooltipEmpty
-          title="Your wishlist is empty."
-          go="Explore courses"
+          title={t("your wishlist is empty.")}
+          go={t("explore courses")}
         ></TooltipEmpty>
       )}
     </TooltipCover>

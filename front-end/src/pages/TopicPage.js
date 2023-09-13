@@ -8,12 +8,14 @@ import MenuBorderBottom from "../components/layout/MenuBorderBottom";
 import CourseLayoutHeading from "../components/layout/CourseLayoutHeading";
 import InstructorList from "../components/instructor/InstructorList";
 import { handleGetAuthorList } from "../redux-toolkit/author/authorHandlerThunk";
+import { useTranslation } from "react-i18next";
 
 const TopicPage = () => {
   const { topicName } = useParams();
   const [param] = useSearchParams();
   const filter = param.get("filter");
   const dispatch = useDispatch();
+  const { t } = useTranslation("category");
   const { courseList } = useSelector((state) => state.course);
   const { authorList } = useSelector((state) => state.author);
   useEffect(() => {
@@ -26,7 +28,7 @@ const TopicPage = () => {
       {courseList.length > 0 ? (
         <>
           <h2 className="text-2xl font-bold my-5">
-            Courses to get you started
+            {t("courses to get you started")}
           </h2>
           <MenuBorderBottom></MenuBorderBottom>
           <CourseList data={courseList}></CourseList>
@@ -34,7 +36,7 @@ const TopicPage = () => {
       ) : (
         <DataNotFound></DataNotFound>
       )}
-      <CourseLayoutHeading title="Popular Instructors">
+      <CourseLayoutHeading title={t("popular instructors")}>
         <InstructorList data={authorList}></InstructorList>
       </CourseLayoutHeading>
     </div>

@@ -3,11 +3,13 @@ import { Button } from "../button";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartToggleItems from "../cart/CartToggleItems";
+import { useTranslation } from "react-i18next";
 
 const LearningToggleNoEmpty = ({ onClick = () => {} }) => {
   const { pathname } = useLocation();
   const { myPurchasedCourses } = useSelector((state) => state.purchased);
   const { courses } = myPurchasedCourses;
+  const { t } = useTranslation();
   return (
     <div className="w-full">
       <div className="max-h-[420px] overflow-y-auto">
@@ -33,7 +35,7 @@ const LearningToggleNoEmpty = ({ onClick = () => {} }) => {
             to="/my-course/learning"
             onClick={onClick}
           >
-            Go to My learning
+            {t("go to my learning")}
           </Button>
         </div>
       )}

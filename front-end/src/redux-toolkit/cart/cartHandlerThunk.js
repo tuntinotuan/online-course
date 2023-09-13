@@ -38,8 +38,10 @@ export const handleGetMyCart = createAsyncThunk(
           dispatch(setMyCartLocal([]));
         }
       }
-      const response = await requestGetMyCart(cartId);
-      results = response.data;
+      if (jwt) {
+        const response = await requestGetMyCart(cartId);
+        results = response.data;
+      }
     } catch (error) {
       console.log(error);
     }

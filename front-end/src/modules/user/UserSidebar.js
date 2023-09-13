@@ -3,30 +3,34 @@ import { ButtonUserAvatar } from "../../components/button";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { strapiPathBE } from "../../utils/constants";
+import { useTranslation } from "react-i18next";
 
 const listLink = [
   {
-    title: "Profile",
+    title: "profile",
     path: "/user/edit-profile",
   },
   {
-    title: "Photo",
+    title: "photo",
     path: "/user/edit-photo",
   },
   {
-    title: "Account Security",
+    title: "account security",
     path: "/user/edit-account",
   },
 ];
 
 const UserSidebar = () => {
+  const { t } = useTranslation("profile");
   const { userData } = useSelector((state) => state.user);
-  const { avatar } = userData;
+  const { avatar, url_google_avatar } = userData;
   return (
     <div className="col-span-2 border border-transparent border-r-gray-300 pb-52">
       <div className="flex flex-col items-center gap-2 p-4">
         <ButtonUserAvatar
-          avatar={avatar && `${strapiPathBE}${avatar?.url}`}
+          avatar={
+            (avatar && `${strapiPathBE}${avatar?.url}`) || url_google_avatar
+          }
           shortName={userData?.username}
           size={120}
           to="/user/edit-profile"
@@ -44,7 +48,7 @@ const UserSidebar = () => {
           key={item.title}
           className="user-sidebar-link block w-full hover:bg-grayA6 hover:text-white transition-all hover:font-semibold px-4 py-1"
         >
-          {item.title}
+          {t(item.title)}
         </NavLink>
       ))}
     </div>

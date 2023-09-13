@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { handleForgotPassword } from "../redux-toolkit/auth/authHandlerThunk";
 import LoadingSpine from "../components/loading/LoadingSpine";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
   email: yup
@@ -24,6 +25,7 @@ const ForgotPasswordPage = ({
   onClickSignIn,
 }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("authen");
   const {
     control,
     handleSubmit,
@@ -49,7 +51,7 @@ const ForgotPasswordPage = ({
   }, [errors]);
 
   return (
-    <AuthenticationPage title="Forgot Password" className={className}>
+    <AuthenticationPage title={t("forgot password")} className={className}>
       <form onSubmit={handleSubmit(submitForgotPassword)}>
         <div className="my-3">
           <Input
@@ -68,14 +70,14 @@ const ForgotPasswordPage = ({
           {loading ? (
             <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
           ) : (
-            "Reset Password"
+            t("reset password")
           )}
         </Button>
       </form>
       <AuthenAnotherOption
         className="text-center my-3"
-        textNormal="or"
-        textUnderline="Log in"
+        textNormal={t("or")}
+        textUnderline={t("log in")}
         textUnderlineClassName="text-base"
         to={unToSignIn ? false : "/log-in"}
         onClick={onClickSignIn}

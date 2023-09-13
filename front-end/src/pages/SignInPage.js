@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
 import AuthenticationPage from "./AuthenticationPage";
@@ -12,7 +12,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { InputTogglePassword } from "../components/input";
 import PageNotFound from "../components/notfound/PageNotFound";
-import { handleLogin } from "../redux-toolkit/auth/authHandlerThunk";
+import {
+  handleLogin,
+  handleLoginWithGoogle,
+} from "../redux-toolkit/auth/authHandlerThunk";
+import { useTranslation } from "react-i18next";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const schema = yup.object({
   email: yup
@@ -34,6 +39,7 @@ const SignInPage = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation("authen");
   const {
     control,
     handleSubmit,
@@ -70,24 +76,41 @@ const SignInPage = ({
         });
     }
   }, [errors, error]);
-
+  // Login with Google account
+  const [userGoogle, setUserGoogle] = useState();
+  const loginGoogleHandler = useGoogleLogin({
+    onSuccess: (codeResponse) => setUserGoogle(codeResponse),
+    onError: (error) => {
+      toast.error(error);
+      console.log("Login Failed:", error);
+    },
+  });
+  useEffect(() => {
+    if (userGoogle) {
+      dispatch(handleLoginWithGoogle({ userGoogle, navigate }));
+    }
+  }, [userGoogle, dispatch, navigate]);
   if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
-      title="Log in to your Udemy account"
+      title={t("log in to your udemy account")}
       className={className}
     >
       <form
         onSubmit={handleSubmit(loginHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
       >
-        <Button className="flex items-center gap-3 text-base font-bold" full>
+        <Button
+          className="flex items-center gap-3 text-base font-bold"
+          onClick={loginGoogleHandler}
+          full
+        >
           <IconGoogle></IconGoogle>
-          Continue with Google
+          {t("continue with google")}
         </Button>
         <Button className="flex items-center gap-3 text-base font-bold" full>
           <IconFacebook></IconFacebook>
-          Continue with Facebook
+          {t("continue with facebook")}
         </Button>
         <Input
           control={control}
@@ -95,19 +118,22 @@ const SignInPage = ({
           type="email"
           label="Email"
         ></Input>
-        <InputTogglePassword control={control}></InputTogglePassword>
+        <InputTogglePassword
+          control={control}
+          label={t("password")}
+        ></InputTogglePassword>
         <Button
           type="submit"
           className="bg-purpleTextA4 text-base text-white font-bold py-3"
           borderNone
           full
         >
-          Log in
+          {t("log in")}
         </Button>
         <AuthenAnotherOption
           className="text-center my-2"
-          textNormal="or"
-          textUnderline="Forgot Password"
+          textNormal={t("or")}
+          textUnderline={t("forgot password")}
           textUnderlineClassName="text-base"
           to={unToForgotPassword ? false : "/forgot-password"}
           onClick={onClickForgotPassword}
@@ -115,8 +141,8 @@ const SignInPage = ({
       </form>
       <AuthenAnotherOption
         className="text-center mt-3"
-        textNormal="Don't have an account?"
-        textUnderline="Sign up"
+        textNormal={t("don't have an account?")}
+        textUnderline={t("sign up")}
         to={unToSignUp ? false : "/sign-up"}
         onClick={onClickSignUp}
       ></AuthenAnotherOption>

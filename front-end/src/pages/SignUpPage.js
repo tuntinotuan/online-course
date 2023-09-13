@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../redux-toolkit/auth/authHandlerThunk";
 import { useTranslation } from "react-i18next";
+import PageNotFound from "../components/notfound/PageNotFound";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   fullname: yup
@@ -30,8 +32,9 @@ const schema = yup.object({
 
 const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const { error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { t } = useTranslation(["authen", "header"]);
+  const { jwt, error } = useSelector((state) => state.auth);
   const {
     control,
     handleSubmit,
@@ -48,7 +51,7 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   const registerHandler = (values) => {
     if (!isValid) return;
     console.log("values", values);
-    dispatch(handleRegister(values));
+    dispatch(handleRegister({ values, navigate }));
   };
   useEffect(() => {
     const arrErrors = Object.values(errors);
@@ -62,23 +65,27 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   useEffect(() => {
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
+  if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
-      title="Sign up and start learning"
+      title={t("sign up and start learning")}
       className={className}
     >
       <form
         onSubmit={handleSubmit(registerHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
       >
-        <Input control={control} name="fullname" label="Full name"></Input>
+        <Input control={control} name="fullname" label={t("fullname")}></Input>
         <Input
           control={control}
           name="email"
           type="email"
           label="Email"
         ></Input>
-        <InputTogglePassword control={control}></InputTogglePassword>
+        <InputTogglePassword
+          control={control}
+          label={t("password")}
+        ></InputTogglePassword>
         <Button
           type="submit"
           className="bg-purpleTextA4 text-base text-white font-bold py-3"
@@ -88,16 +95,16 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
           {t("sign up")}
         </Button>
         <p className="text-xs mt-3">
-          By signing up, you agree to our
-          <SpecialTextUnderline text="Terms of Use"></SpecialTextUnderline>
-          and
-          <SpecialTextUnderline text="Privacy Policy."></SpecialTextUnderline>
+          {t("by signing")}
+          <SpecialTextUnderline text={t("terms")}></SpecialTextUnderline>
+          {t("and")}
+          <SpecialTextUnderline text={t("policy")}></SpecialTextUnderline>
         </p>
       </form>
       <AuthenAnotherOption
         className="text-center mt-3"
-        textNormal="Already have an account?"
-        textUnderline="Log in"
+        textNormal={t("already have an account?")}
+        textUnderline={t("log in")}
         to={unToSignIn ? false : "/log-in"}
         onClick={onClickSignIn}
       ></AuthenAnotherOption>
