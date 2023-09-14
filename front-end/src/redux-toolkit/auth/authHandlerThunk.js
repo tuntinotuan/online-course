@@ -4,6 +4,7 @@ import {
   requestForgotPassword,
   requestGetProfileOfGoogle,
   requestLogin,
+  requestLoginWithGoogleAccount,
   requestLogout,
   requestRegister,
 } from "./authRequests";
@@ -14,10 +15,7 @@ import {
   toggleShowPopupSignIn,
   toggleShowPopupSignUp,
 } from "../globalSlice";
-import {
-  requestFindEmail,
-  requestUpdateUrlGoogleAvatar,
-} from "../user/userRequests";
+import { requestUpdateUrlGoogleAvatar } from "../user/userRequests";
 
 export const handleLogin = createAsyncThunk(
   "login/handleLoginThunk",
@@ -45,47 +43,24 @@ export const handleLoginWithGoogle = createAsyncThunk(
   "login/handleLoginWithGoogle",
   async (query, { dispatch }) => {
     let results = null;
-    const { userGoogle, navigate } = query;
-    const passwordDefault = "12345678@";
+    const { search, navigate } = query;
     try {
-      const resGoogle = await requestGetProfileOfGoogle(userGoogle);
-      const profile = resGoogle.data;
-      console.log("profile", profile);
-      const resFindEmail = await requestFindEmail(profile.email);
-      const existedEmail = resFindEmail.length > 0;
-      console.log("existedEmail", existedEmail);
-      if (!existedEmail) {
-        const newValuesRegister = {
-          fullname: profile.name,
-          email: profile.email,
-          password: passwordDefault,
-        };
-        const response = await requestRegister(newValuesRegister);
-        const { jwt, user } = response;
-        console.log("response", response);
-        results = jwt;
-        dispatch(setCurrentUserId(user?.id));
+      const resLoginGoogle = await requestLoginWithGoogleAccount(search);
+      const useData = resLoginGoogle.data;
+      const { jwt, user } = useData;
+      results = jwt;
+      dispatch(setCurrentUserId(user?.id));
+      if (!user?.url_google_avatar) {
+        const resGoogle = await requestGetProfileOfGoogle(search);
+        const profile = resGoogle.data;
         const newValuesGoogleAvatar = {
           jwt,
           userId: user?.id,
           url: profile.picture,
         };
         await requestUpdateUrlGoogleAvatar(newValuesGoogleAvatar);
-        navigate("/");
       }
-      if (existedEmail) {
-        const newValuesLogin = {
-          email: profile.email,
-          password: passwordDefault,
-        };
-        const response = await requestLogin(newValuesLogin);
-        const { jwt, user } = response;
-        console.log("response", response);
-        results = jwt;
-        console.log("results", results);
-        dispatch(setCurrentUserId(user?.id));
-        navigate("/");
-      }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
 import AuthenticationPage from "./AuthenticationPage";
@@ -6,7 +6,7 @@ import Button from "../components/button/Button";
 import { IconFacebook, IconGoogle } from "../components/icon";
 import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -17,7 +17,10 @@ import {
   handleLoginWithGoogle,
 } from "../redux-toolkit/auth/authHandlerThunk";
 import { useTranslation } from "react-i18next";
-import { useGoogleLogin } from "@react-oauth/google";
+import { ButtonUserAvatar } from "../components/button";
+import { setInfoForReLogin } from "../redux-toolkit/auth/authSlice";
+import { strapiPathBE } from "../utils/constants";
+import LoadingSpine from "../components/loading/LoadingSpine";
 
 const schema = yup.object({
   email: yup
@@ -39,20 +42,25 @@ const SignInPage = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [param] = useSearchParams();
+  const idToken = param.get("id_token");
   const { t } = useTranslation("authen");
+  const { jwt, infoForReLogin, authLoading, error } = useSelector(
+    (state) => state.auth
+  );
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
     defaultValues: {
-      email: "",
+      email: infoForReLogin ? infoForReLogin?.email : "",
       password: "",
     },
   });
-  const { jwt, error } = useSelector((state) => state.auth);
   const loginHandler = async (values) => {
     if (!isValid) return;
     try {
@@ -76,20 +84,20 @@ const SignInPage = ({
         });
     }
   }, [errors, error]);
-  // Login with Google account
-  const [userGoogle, setUserGoogle] = useState();
-  const loginGoogleHandler = useGoogleLogin({
-    onSuccess: (codeResponse) => setUserGoogle(codeResponse),
-    onError: (error) => {
-      toast.error(error);
-      console.log("Login Failed:", error);
-    },
-  });
+  const loginGoogleHandler = () => {
+    window.location = `${strapiPathBE}/api/connect/google`;
+  };
+  const location = useLocation();
+  const handleClickDifferentAccount = () => {
+    dispatch(setInfoForReLogin(null));
+    setValue("email", "");
+  };
+  const { search } = location;
   useEffect(() => {
-    if (userGoogle) {
-      dispatch(handleLoginWithGoogle({ userGoogle, navigate }));
-    }
-  }, [userGoogle, dispatch, navigate]);
+    if (!idToken) return;
+    dispatch(handleLoginWithGoogle({ search, navigate }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idToken]);
   if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
@@ -100,36 +108,68 @@ const SignInPage = ({
         onSubmit={handleSubmit(loginHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
       >
-        <Button
-          className="flex items-center gap-3 text-base font-bold"
-          onClick={loginGoogleHandler}
-          full
-        >
-          <IconGoogle></IconGoogle>
-          {t("continue with google")}
-        </Button>
-        <Button className="flex items-center gap-3 text-base font-bold" full>
-          <IconFacebook></IconFacebook>
-          {t("continue with facebook")}
-        </Button>
-        <Input
-          control={control}
-          name="email"
-          type="email"
-          label="Email"
-        ></Input>
-        <InputTogglePassword
-          control={control}
-          label={t("password")}
-        ></InputTogglePassword>
-        <Button
-          type="submit"
-          className="bg-purpleTextA4 text-base text-white font-bold py-3"
-          borderNone
-          full
-        >
-          {t("log in")}
-        </Button>
+        {infoForReLogin && (
+          <div className="flex flex-col items-center justify-center gap-2">
+            <ButtonUserAvatar
+              avatar={infoForReLogin?.avatar && infoForReLogin?.avatar}
+              shortName={infoForReLogin?.username}
+              size={62}
+            ></ButtonUserAvatar>
+            <span>
+              {t("welcome back")}, {infoForReLogin?.username}
+            </span>
+          </div>
+        )}
+        {(!infoForReLogin || infoForReLogin?.provider !== "local") && (
+          <Button
+            className="flex items-center gap-3 text-base font-bold"
+            onClick={loginGoogleHandler}
+            full
+          >
+            <IconGoogle></IconGoogle>
+            {authLoading && (
+              <LoadingSpine
+                borderColor="#000"
+                borderSize="2px"
+                size="26px"
+              ></LoadingSpine>
+            )}
+            {!authLoading && t("continue with google")}
+          </Button>
+        )}
+        {!infoForReLogin && (
+          <>
+            <Button
+              className="flex items-center gap-3 text-base font-bold"
+              full
+            >
+              <IconFacebook></IconFacebook>
+              {t("continue with facebook")}
+            </Button>
+            <Input
+              control={control}
+              name="email"
+              type="email"
+              label="Email"
+            ></Input>
+          </>
+        )}
+        {(!infoForReLogin || infoForReLogin?.provider === "local") && (
+          <>
+            <InputTogglePassword
+              control={control}
+              label={t("password")}
+            ></InputTogglePassword>
+            <Button
+              type="submit"
+              className="bg-purpleTextA4 text-base text-white font-bold py-3"
+              borderNone
+              full
+            >
+              {t("log in")}
+            </Button>
+          </>
+        )}
         <AuthenAnotherOption
           className="text-center my-2"
           textNormal={t("or")}
@@ -139,6 +179,13 @@ const SignInPage = ({
           onClick={onClickForgotPassword}
         ></AuthenAnotherOption>
       </form>
+      {infoForReLogin && (
+        <AuthenAnotherOption
+          className="text-center mt-3"
+          textUnderline={t("log in to a different account")}
+          onClick={handleClickDifferentAccount}
+        ></AuthenAnotherOption>
+      )}
       <AuthenAnotherOption
         className="text-center mt-3"
         textNormal={t("don't have an account?")}

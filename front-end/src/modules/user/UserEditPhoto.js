@@ -16,7 +16,7 @@ const UserEditPhoto = () => {
   const { userData, loadingUser } = useSelector((state) => state.user);
   const [urlChosenImage, setUrlChosenImage] = useState();
   // const { urlChosenImage } = useSelector((state) => state.global);
-  const { avatar } = userData;
+  const { avatar, url_google_avatar } = userData;
   const { handleSubmit } = useForm({ mode: "onChange" });
   const handleChosenAvatarImage = () => {
     dispatch(handleUpdateUserAvatar(urlChosenImage));
@@ -41,7 +41,7 @@ const UserEditPhoto = () => {
                     ? urlChosenImage.preview
                     : avatar
                     ? `${strapiPathBE}${avatar?.url}`
-                    : `/user-image.png 2x`
+                    : url_google_avatar || `/user-image.png 2x`
                 }
                 className="border-none"
               ></Image>

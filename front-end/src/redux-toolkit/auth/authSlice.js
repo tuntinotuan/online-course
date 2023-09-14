@@ -11,6 +11,8 @@ import {
 const initialState = {
   jwt: "",
   currentUserId: "",
+  infoForReLogin: null,
+  authLoading: false,
   error: "",
 };
 
@@ -21,6 +23,10 @@ const authSlice = createSlice({
     setCurrentUserId: (state, action) => ({
       ...state,
       currentUserId: action.payload,
+    }),
+    setInfoForReLogin: (state, action) => ({
+      ...state,
+      infoForReLogin: action.payload,
     }),
     setError: (state, action) => ({
       ...state,
@@ -35,6 +41,14 @@ const authSlice = createSlice({
       })
       .addCase(handleLoginWithGoogle.fulfilled, (state, action) => {
         state.jwt = action.payload;
+        state.authLoading = false;
+        state.error = "";
+      })
+      .addCase(handleLoginWithGoogle.pending, (state, action) => {
+        state.authLoading = true;
+      })
+      .addCase(handleLoginWithGoogle.rejected, (state, action) => {
+        state.authLoading = false;
         state.error = "";
       })
       .addCase(handleLogout.fulfilled, (state, action) => {
@@ -52,9 +66,10 @@ const authSlice = createSlice({
 const authPersistConfig = {
   key: "auth",
   storage: storage,
-  whitelist: ["jwt", "currentUserId"],
+  whitelist: ["jwt", "currentUserId", "infoForReLogin"],
 };
 
-export const { setCurrentUserId, setError } = authSlice.actions;
+export const { setCurrentUserId, setInfoForReLogin, setError } =
+  authSlice.actions;
 
 export default persistReducer(authPersistConfig, authSlice.reducer);

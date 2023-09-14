@@ -3,7 +3,7 @@ import { SpecialTextUnderline } from "../special";
 
 const AuthenAnotherOption = ({
   className,
-  textNormal = "This is normal text",
+  textNormal = false,
   textUnderline = "This is underline text",
   textUnderlineClassName,
   to = "",
@@ -11,7 +11,7 @@ const AuthenAnotherOption = ({
 }) => {
   return (
     <h3 className={className}>
-      {textNormal}
+      {textNormal && textNormal}
       <SpecialTextUnderline
         className={`text-purpleText56 font-bold ${textUnderlineClassName}`}
         text={textUnderline}

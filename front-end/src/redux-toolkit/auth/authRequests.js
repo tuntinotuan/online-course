@@ -1,7 +1,9 @@
 import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
+import { strapiPathBE } from "../../utils/constants";
 
 export function requestLogin({ email, password }) {
+  console.log("email, password", email, password);
   return strapi.login(
     { identifier: email, password: password },
     {
@@ -10,15 +12,12 @@ export function requestLogin({ email, password }) {
     }
   );
 }
-export function requestGetProfileOfGoogle(user) {
+export function requestLoginWithGoogleAccount(tokens) {
+  return axios.get(`${strapiPathBE}/api/auth/google/callback${tokens}`);
+}
+export function requestGetProfileOfGoogle(idToken) {
   return axios.get(
-    `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-    {
-      headers: {
-        Authorization: `Bearer ${user.access_token}`,
-        Accept: "application/json",
-      },
-    }
+    `https://www.googleapis.com/oauth2/v1/userinfo?id_token=${idToken}`
   );
 }
 export function requestLogout() {

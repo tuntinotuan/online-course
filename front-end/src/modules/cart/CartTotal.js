@@ -40,7 +40,7 @@ const CartTotal = ({ data }) => {
           className="bg-purpleTextA4 py-3 text-white text-base font-bold"
           borderNone
           full
-          onClick={() => dispatch(toggleShowPopupSignUp(true))}
+          onClick={() => (!jwt ? dispatch(toggleShowPopupSignUp(true)) : {})}
           to={jwt ? "checkout" : false}
         >
           Checkout

@@ -33,6 +33,8 @@ import LearnOnlinePage from "./pages/LearnOnlinePage";
 import { handleGetMyPurchasedCourses } from "./redux-toolkit/purchased/purchasedHandlerThunk";
 import TopicPage from "./pages/TopicPage";
 import PopupChooseLanguage from "./components/popup/PopupChooseLanguage";
+import { setInfoForReLogin } from "./redux-toolkit/auth/authSlice";
+import { strapiPathBE } from "./utils/constants";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +55,18 @@ function App() {
   useEffect(() => {
     dispatch(handleGetMyPurchasedCourses(purchased_course?.id));
   }, [purchased_course, dispatch]);
+  useEffect(() => {
+    const { username, email, url_google_avatar, avatar, provider } = userData;
+    const newValues = {
+      username,
+      email,
+      avatar: (avatar && `${strapiPathBE}${avatar?.url}`) || url_google_avatar,
+      provider,
+    };
+    userData?.id && dispatch(setInfoForReLogin(newValues));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData, dispatch]);
+
   useEffect(() => {
     if (location.pathname !== "/my-course/wishlist") {
       dispatch(setWishlistSearch(null));
