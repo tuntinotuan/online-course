@@ -40,7 +40,7 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(schema),
     defaultValues: {
       fullname: "",

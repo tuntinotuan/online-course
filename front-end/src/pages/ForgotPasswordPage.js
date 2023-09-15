@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AuthenticationPage from "./AuthenticationPage";
 import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
-import { Button } from "../components/button";
+import { Button, ButtonUserAvatar } from "../components/button";
 import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
@@ -26,15 +26,18 @@ const ForgotPasswordPage = ({
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation("authen");
+  const { infoForReLogin } = useSelector((state) => state.auth);
+
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
     defaultValues: {
-      email: "",
+      email: infoForReLogin ? infoForReLogin?.email : "",
     },
   });
   const { loading } = useSelector((state) => state.global);
@@ -52,10 +55,21 @@ const ForgotPasswordPage = ({
 
   return (
     <AuthenticationPage title={t("forgot password")} className={className}>
+      {infoForReLogin && infoForReLogin?.email === watch("email") && (
+        <div className="flex flex-col items-center justify-center gap-2">
+          <ButtonUserAvatar
+            avatar={infoForReLogin?.avatar && infoForReLogin?.avatar}
+            shortName={infoForReLogin?.username}
+            size={62}
+          ></ButtonUserAvatar>
+          <span>{infoForReLogin?.username}</span>
+        </div>
+      )}
       <form onSubmit={handleSubmit(submitForgotPassword)}>
         <div className="my-3">
           <Input
             control={control}
+            autoFocus
             name="email"
             type="email"
             label="Email"

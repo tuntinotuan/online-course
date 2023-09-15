@@ -3,10 +3,15 @@ import Input from "../components/input/Input";
 import { useForm } from "react-hook-form";
 import AuthenticationPage from "./AuthenticationPage";
 import Button from "../components/button/Button";
-import { IconFacebook, IconGoogle } from "../components/icon";
+import { IconFacebook, IconGithub, IconGoogle } from "../components/icon";
 import AuthenAnotherOption from "../components/authen/AuthenAnotherOption";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -14,6 +19,7 @@ import { InputTogglePassword } from "../components/input";
 import PageNotFound from "../components/notfound/PageNotFound";
 import {
   handleLogin,
+  handleLoginWithGithub,
   handleLoginWithGoogle,
 } from "../redux-toolkit/auth/authHandlerThunk";
 import { useTranslation } from "react-i18next";
@@ -42,8 +48,9 @@ const SignInPage = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { authProvider } = useParams();
   const [param] = useSearchParams();
-  const idToken = param.get("id_token");
+  const accessToken = param.get("access_token");
   const { t } = useTranslation("authen");
   const { jwt, infoForReLogin, authLoading, error } = useSelector(
     (state) => state.auth
@@ -54,7 +61,7 @@ const SignInPage = ({
     setValue,
     formState: { errors, isValid },
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(schema),
     defaultValues: {
       email: infoForReLogin ? infoForReLogin?.email : "",
@@ -87,6 +94,9 @@ const SignInPage = ({
   const loginGoogleHandler = () => {
     window.location = `${strapiPathBE}/api/connect/google`;
   };
+  const loginGithubHandler = () => {
+    window.location = `${strapiPathBE}/api/connect/github`;
+  };
   const location = useLocation();
   const handleClickDifferentAccount = () => {
     dispatch(setInfoForReLogin(null));
@@ -94,16 +104,30 @@ const SignInPage = ({
   };
   const { search } = location;
   useEffect(() => {
-    if (!idToken) return;
+    if (authProvider !== "google") return;
     dispatch(handleLoginWithGoogle({ search, navigate }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idToken]);
+  }, [authProvider]);
+  useEffect(() => {
+    if (authProvider !== "github") return;
+    dispatch(handleLoginWithGithub({ search, accessToken, navigate }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authProvider]);
   if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
       title={t("log in to your udemy account")}
       className={className}
     >
+      {authLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-60 z-50">
+          <LoadingSpine
+            borderColor="#000"
+            borderSize="2px"
+            size="62px"
+          ></LoadingSpine>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(loginHandler)}
         className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
@@ -120,21 +144,24 @@ const SignInPage = ({
             </span>
           </div>
         )}
-        {(!infoForReLogin || infoForReLogin?.provider !== "local") && (
+        {(!infoForReLogin || infoForReLogin?.provider === "google") && (
           <Button
             className="flex items-center gap-3 text-base font-bold"
             onClick={loginGoogleHandler}
             full
           >
             <IconGoogle></IconGoogle>
-            {authLoading && (
-              <LoadingSpine
-                borderColor="#000"
-                borderSize="2px"
-                size="26px"
-              ></LoadingSpine>
-            )}
-            {!authLoading && t("continue with google")}
+            {t("continue with google")}
+          </Button>
+        )}
+        {(!infoForReLogin || infoForReLogin?.provider === "github") && (
+          <Button
+            className="flex items-center gap-3 text-base font-bold"
+            onClick={loginGithubHandler}
+            full
+          >
+            <IconGithub></IconGithub>
+            {t("continue with github")}
           </Button>
         )}
         {!infoForReLogin && (

@@ -9,6 +9,7 @@ import IconCard from "./IconCard";
 import IconTag from "./IconTag";
 import IconGoogle from "./IconGoogle";
 import IconFacebook from "./IconFacebook";
+import IconGithub from "./IconGithub";
 import IconHeart from "./IconHeart";
 import IconHeartSolid from "./IconHeartSolid";
 import IconSearch from "./IconSearch";
@@ -46,6 +47,7 @@ export {
   IconTag,
   IconGoogle,
   IconFacebook,
+  IconGithub,
   IconHeart,
   IconHeartSolid,
   IconSearch,

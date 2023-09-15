@@ -42,7 +42,11 @@ export function requestUpdateUserProfile(userId, jwt, data) {
     }
   );
 }
-export function requestUpdateUrlGoogleAvatar({ jwt, userId, url }) {
+export function requestUpdateUrlAvatarFromThirdPartyProvider({
+  jwt,
+  userId,
+  url,
+}) {
   return axios.put(
     `${strapiPathBE}/api/users/${userId}`,
     {

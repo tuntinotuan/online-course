@@ -3,6 +3,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import {
   handleLogin,
+  handleLoginWithGithub,
   handleLoginWithGoogle,
   handleLogout,
   handleRegister,
@@ -48,6 +49,18 @@ const authSlice = createSlice({
         state.authLoading = true;
       })
       .addCase(handleLoginWithGoogle.rejected, (state, action) => {
+        state.authLoading = false;
+        state.error = "";
+      })
+      .addCase(handleLoginWithGithub.fulfilled, (state, action) => {
+        state.jwt = action.payload;
+        state.authLoading = false;
+        state.error = "";
+      })
+      .addCase(handleLoginWithGithub.pending, (state, action) => {
+        state.authLoading = true;
+      })
+      .addCase(handleLoginWithGithub.rejected, (state, action) => {
         state.authLoading = false;
         state.error = "";
       })

@@ -2,8 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   requestChangePassword,
   requestForgotPassword,
+  requestGetProfileOfGithub,
   requestGetProfileOfGoogle,
   requestLogin,
+  requestLoginWithGithubAccount,
   requestLoginWithGoogleAccount,
   requestLogout,
   requestRegister,
@@ -15,7 +17,7 @@ import {
   toggleShowPopupSignIn,
   toggleShowPopupSignUp,
 } from "../globalSlice";
-import { requestUpdateUrlGoogleAvatar } from "../user/userRequests";
+import { requestUpdateUrlAvatarFromThirdPartyProvider } from "../user/userRequests";
 
 export const handleLogin = createAsyncThunk(
   "login/handleLoginThunk",
@@ -24,6 +26,7 @@ export const handleLogin = createAsyncThunk(
     const { values, navigate } = query;
     try {
       const response = await requestLogin(values);
+      console.log("response", response);
       const { jwt, user } = response;
       results = jwt;
       dispatch(setCurrentUserId(user?.id));
@@ -46,9 +49,10 @@ export const handleLoginWithGoogle = createAsyncThunk(
     const { search, navigate } = query;
     try {
       const resLoginGoogle = await requestLoginWithGoogleAccount(search);
-      const useData = resLoginGoogle.data;
-      const { jwt, user } = useData;
+      const userData = resLoginGoogle.data;
+      const { jwt, user } = userData;
       results = jwt;
+      localStorage.setItem("strapi_jwt", jwt);
       dispatch(setCurrentUserId(user?.id));
       if (!user?.url_google_avatar) {
         const resGoogle = await requestGetProfileOfGoogle(search);
@@ -58,7 +62,40 @@ export const handleLoginWithGoogle = createAsyncThunk(
           userId: user?.id,
           url: profile.picture,
         };
-        await requestUpdateUrlGoogleAvatar(newValuesGoogleAvatar);
+        await requestUpdateUrlAvatarFromThirdPartyProvider(
+          newValuesGoogleAvatar
+        );
+      }
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+    return results;
+  }
+);
+export const handleLoginWithGithub = createAsyncThunk(
+  "login/handleLoginWithGithub",
+  async (query, { dispatch }) => {
+    let results = null;
+    const { search, accessToken, navigate } = query;
+    try {
+      const resLoginGithub = await requestLoginWithGithubAccount(search);
+      const userData = resLoginGithub.data;
+      const { jwt, user } = userData;
+      results = jwt;
+      localStorage.setItem("strapi_jwt", jwt);
+      dispatch(setCurrentUserId(user?.id));
+      if (!user?.url_google_avatar) {
+        const resGithub = await requestGetProfileOfGithub(accessToken);
+        const profile = resGithub.data;
+        const newValuesGithubAvatar = {
+          jwt,
+          userId: user?.id,
+          url: profile.avatar_url,
+        };
+        await requestUpdateUrlAvatarFromThirdPartyProvider(
+          newValuesGithubAvatar
+        );
       }
       navigate("/");
     } catch (error) {
@@ -96,7 +133,7 @@ export const handleRegister = createAsyncThunk(
 );
 
 export const handleForgotPassword = createAsyncThunk(
-  "forgotPassword/hanldForgotPasswordThunk",
+  "forgotPassword/handleForgotPasswordThunk",
   async (value, { dispatch }) => {
     dispatch(setLoading(true));
     try {
@@ -110,7 +147,7 @@ export const handleForgotPassword = createAsyncThunk(
   }
 );
 export const handleChangePassword = createAsyncThunk(
-  "forgotPassword/hanldChangePasswordThunk",
+  "forgotPassword/handleChangePasswordThunk",
   async (value, { dispatch }) => {
     dispatch(setLoading(true));
     try {

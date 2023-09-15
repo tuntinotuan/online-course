@@ -129,6 +129,10 @@ function App() {
             element={<UserDetailsPage></UserDetailsPage>}
           ></Route>
           <Route path="/log-in" element={<SignInPage></SignInPage>}></Route>
+          <Route
+            path="/log-in/:authProvider"
+            element={<SignInPage></SignInPage>}
+          ></Route>
           <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
           <Route
             path="/forgot-password"

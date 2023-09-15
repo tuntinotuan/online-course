@@ -6,7 +6,7 @@ export const strapi = new Strapi({
   prefix: "/api",
   store: {
     key: "strapi_jwt",
-    useLocalStorage: false,
+    useLocalStorage: true,
     cookieOptions: { path: "/" },
   },
   axiosOptions: {},
