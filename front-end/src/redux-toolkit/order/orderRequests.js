@@ -1,8 +1,9 @@
 import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
+import { strapiPathBE } from "../../utils/constants";
 
 export const makePaymentRequest = axios.create({
-  baseURL: "http://localhost:1337/api",
+  baseURL: `${strapiPathBE}/api`,
   mode: "no-cors",
   headers: {
     Authorization:
@@ -10,11 +11,12 @@ export const makePaymentRequest = axios.create({
   },
 });
 
-export function requestCreateOrder(data) {
-  console.log("courses", data);
-  console.log("dât", data);
+export function requestCreateOrder(courses, stripeId, userId) {
   return strapi.create("orders", {
-    courses: data,
-    stripeId: "string",
+    courses,
+    stripeId,
+    user: {
+      connect: [{ id: userId }],
+    },
   });
 }

@@ -7,6 +7,7 @@ import {
   handleLoginWithGoogle,
   handleLogout,
   handleRegister,
+  handleResetPassword,
 } from "./authHandlerThunk";
 
 const initialState = {
@@ -62,6 +63,10 @@ const authSlice = createSlice({
       })
       .addCase(handleLoginWithGithub.rejected, (state, action) => {
         state.authLoading = false;
+        state.error = "";
+      })
+      .addCase(handleResetPassword.fulfilled, (state, action) => {
+        state.jwt = action.payload;
         state.error = "";
       })
       .addCase(handleLogout.fulfilled, (state, action) => {

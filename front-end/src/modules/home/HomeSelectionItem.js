@@ -12,6 +12,7 @@ const HomeSelectionItem = () => {
   const { topicName } = useParams();
   const { t } = useTranslation("home");
   const { courseList } = useSelector((state) => state.course);
+  const { loading } = useSelector((state) => state.global);
   const newTopic =
     !courseList[0]?.topic?.industry?.name === topicName
       ? courseList[0]?.topic?.name
@@ -33,11 +34,8 @@ const HomeSelectionItem = () => {
       <Button className="font-bold mb-8" to={`/topic/${newTopic}`}>
         {t("explore")} {newTopic}
       </Button>
-      {courseList.length > 0 ? (
-        <CourseList data={courseList}></CourseList>
-      ) : (
-        <DataNotFound></DataNotFound>
-      )}
+      <CourseList data={courseList}></CourseList>
+      {!loading && !courseList.length > 0 && <DataNotFound></DataNotFound>}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CheckoutTitle from "./CheckoutTitle";
 import { IconLock, IconWarningSolid } from "../../components/icon";
 import RadioPayment from "../../components/radio/RadioPayment";
@@ -9,7 +9,10 @@ import {
 } from "../../components/radio";
 import Image from "../../components/image/Image";
 import CheckoutCreditForm from "./CheckoutCreditForm";
-
+import { useSearchParams } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
 const creditCardImg = [
   "https://www.udemy.com/staticx/udemy/images/v9/card-amex.svg",
   "https://www.udemy.com/staticx/udemy/images/v9/card-discover.svg",
@@ -18,8 +21,18 @@ const creditCardImg = [
 ];
 
 const CheckoutPaymentMethod = () => {
-  const [on, setOn] = useState();
-  const [on2, setOn2] = useState();
+  const [param] = useSearchParams();
+  const paymentMethod = param.get("payment-method");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const handleClickPayPal = () => {
+    searchParams.set("payment-method", "checkout");
+    setSearchParams(searchParams);
+  };
+  const handleClickCreditCard = () => {
+    searchParams.set("payment-method", "element");
+    setSearchParams(searchParams);
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -32,14 +45,11 @@ const CheckoutPaymentMethod = () => {
       <div>
         <RadioPayment>
           <RadioPaymentInput
-            on={on}
+            on={paymentMethod === "checkout"}
             id="id1"
-            onClick={() => {
-              setOn(true);
-              setOn2(false);
-            }}
+            onClick={handleClickPayPal}
           ></RadioPaymentInput>
-          <RadioPaymentSelect id="id1" on={on}>
+          <RadioPaymentSelect id="id1" on={paymentMethod === "checkout"}>
             <div className="w-10">
               <Image
                 url="https://www.udemy.com/staticx/udemy/images/v9/hpp-paypal.svg"
@@ -48,7 +58,7 @@ const CheckoutPaymentMethod = () => {
             </div>
             <p className="font-bold text-base">PayPal</p>
           </RadioPaymentSelect>
-          <RadioPaymentBody on={on}>
+          <RadioPaymentBody on={paymentMethod === "checkout"}>
             <span className="text-base">
               In order to complete your transaction, we will transfer you over
               to PayPal's secure servers.
@@ -65,17 +75,14 @@ const CheckoutPaymentMethod = () => {
         </RadioPayment>
         <RadioPayment>
           <RadioPaymentInput
-            on={on2}
+            on={paymentMethod === "element"}
             id="id2"
-            onClick={() => {
-              setOn(false);
-              setOn2(true);
-            }}
+            onClick={handleClickCreditCard}
           ></RadioPaymentInput>
           <RadioPaymentSelect
             className="border-t-transparent"
             id="id2"
-            on={on2}
+            on={paymentMethod === "element"}
           >
             <div className="w-10">
               <Image
@@ -92,8 +99,10 @@ const CheckoutPaymentMethod = () => {
               ))}
             </div>
           </RadioPaymentSelect>
-          <RadioPaymentBody on={on2}>
-            <CheckoutCreditForm></CheckoutCreditForm>
+          <RadioPaymentBody on={paymentMethod === "element"}>
+            <Elements stripe={stripePromise}>
+              <CheckoutCreditForm></CheckoutCreditForm>
+            </Elements>
           </RadioPaymentBody>
         </RadioPayment>
       </div>

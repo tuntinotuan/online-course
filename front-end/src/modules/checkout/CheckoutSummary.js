@@ -7,32 +7,94 @@ import {
   totalCourseOriginnalPrice,
   totalCoursePrice,
 } from "../../utils/processing-number";
-import { handlePayment } from "../../redux-toolkit/order/orderHandlerThunk";
+import { handlePaymentWithCheckout } from "../../redux-toolkit/order/orderHandlerThunk";
 import { useSearchParams } from "react-router-dom";
+import LoadingSpine from "../../components/loading/LoadingSpine";
+import { toast } from "react-toastify";
+import { setCardNumber } from "../../redux-toolkit/order/orderSlice";
 
 const CheckoutSummary = () => {
   const dispatch = useDispatch();
   const [param] = useSearchParams();
   const paymentNow = param.get("payment-now");
+  const paymentMethod = param.get("payment-method");
   const { course } = useSelector((state) => state.course);
   const { myCart } = useSelector((state) => state.cart);
+  const { orderLoading } = useSelector((state) => state.order);
   const { courses } = myCart;
-
-  const handleCheckout = async () => {
-    dispatch(handlePayment(!paymentNow ? courses : [course]));
-    // try {
-    //   const stripe = await stripePromise;
-    //   const response = await makePaymentRequest.post("/orders", {
-    //     courses: courses,
-    //   });
-    //   console.log("response", response);
-    //   await stripe.redirectToCheckout({
-    //     sessionId: response.data.stripeSession.id,
-    //   });
-    // } catch (err) {
-    //   console.log("err", err);
-    // }
+  const handlePayment = async () => {
+    if (!paymentMethod) return toast.warning("Please select Payment Method!");
+    if (paymentMethod === "checkout")
+      dispatch(handlePaymentWithCheckout(!paymentNow ? courses : [course]));
+    if (paymentMethod === "element") {
+      dispatch(setCardNumber(true));
+      setTimeout(() => {
+        dispatch(setCardNumber(false));
+      });
+    }
+    // const newValues = {
+    //   navigate,
+    //   stripeElement: stripe,
+    //   elements,
+    //   courses: !paymentNow ? courses : [course],
+    //   cardNumberElement: elements.getElement(CardNumberElement),
+    // };
+    // if (paymentMethod === "element")
+    //   dispatch(handlePaymentWithElement(newValues));
   };
+  // const handlePayment = async () => {
+  //   const newValues = {
+  //     navigate,
+  //     stripeElement: stripe,
+  //     elements,
+  //     courses: !paymentNow ? courses : [course],
+  //     cardNumberElement: elements.getElement(CardNumberElement),
+  //   };
+  //   dispatch(handlePaymentWithElement(newValues));
+
+  //   // try {
+  //   //   if (!stripe || !elements) return;
+  //   //   const { data } = await makePaymentRequest.post(`/custom`, {
+  //   //     amount: paymentData.amount,
+  //   //   });
+  //   //   const client_secret = data.client_secret;
+
+  //   //   const result = await stripe.confirmCardPayment(client_secret, {
+  //   //     payment_method: {
+  //   //       card: elements.getElement(CardNumberElement),
+  //   //       billing_details: {
+  //   //         // name: user.name,
+  //   //         // email: user.email,
+  //   //       },
+  //   //     },
+  //   //   });
+
+  //   //   if (result.error) {
+  //   //     toast.error(result.error.message);
+  //   //     console.log(result.error.message);
+  //   //   } else {
+  //   //     console.log("succeeded payment");
+  //   //     if (result.paymentIntent.status === "succeeded") {
+  //   //       order.paymentInfo = {
+  //   //         id: result.paymentIntent.id,
+  //   //         status: result.paymentIntent.status,
+  //   //       };
+  //   //       // dispatch(createOrder(order));
+  //   //       order &&
+  //   //         order.orderItems.map((item) => {
+  //   //           // dispatch(removeItemsFromCart(item.product));
+  //   //         });
+  //   //       // navigate("/success");
+  //   //     } else {
+  //   //       toast.error("There's some issue while processing payment ");
+  //   //       console.log("There's some issue while processing payment ");
+  //   //     }
+  //   //   }
+  //   // } catch (error) {
+  //   //   toast.error(error);
+  //   //   console.log(error);
+  //   // }
+  // };
   return (
     <div className="sticky top-5 bg-grayF7 mt-24 pl-12">
       <CheckoutTitle className="mb-5">Summary</CheckoutTitle>
@@ -77,13 +139,17 @@ const CheckoutSummary = () => {
         <span className="text-purpleText56 ml-1">Terms of Service</span>
       </span>
       <Button
-        className="bg-purpleTextA4 text-white text-base font-bold py-4 my-3"
+        className="flex items-center justify-center bg-purpleTextA4 text-white text-base font-bold py-4 my-3"
         borderNone
         full
         to=""
-        onClick={handleCheckout}
+        onClick={handlePayment}
+        disabled={orderLoading}
       >
-        Complete Checkout
+        {orderLoading && (
+          <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+        )}
+        {!orderLoading && "Complete Checkout"}
       </Button>
       <span className="block text-center text-xs text-grayA6">
         30-Day Money-Back Guarantee

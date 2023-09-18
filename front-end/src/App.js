@@ -35,13 +35,14 @@ import TopicPage from "./pages/TopicPage";
 import PopupChooseLanguage from "./components/popup/PopupChooseLanguage";
 import { setInfoForReLogin } from "./redux-toolkit/auth/authSlice";
 import { strapiPathBE } from "./utils/constants";
+import { handleGetMyCart } from "./redux-toolkit/cart/cartHandlerThunk";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { jwt, currentUserId } = useSelector((state) => state.auth);
   const { userData } = useSelector((state) => state.user);
-  const { favorite, purchased_course } = userData;
+  const { purchased_course, favorite, cart } = userData;
   const { myWishlist } = useSelector((state) => state.wishlist);
   const { courses } = myWishlist;
   useEffect(() => {
@@ -50,11 +51,14 @@ function App() {
     }
   }, [dispatch, currentUserId]);
   useEffect(() => {
+    dispatch(handleGetMyPurchasedCourses(purchased_course?.id));
+  }, [purchased_course, dispatch]);
+  useEffect(() => {
     dispatch(handleGetMyWishlist(favorite?.id));
   }, [favorite, dispatch]);
   useEffect(() => {
-    dispatch(handleGetMyPurchasedCourses(purchased_course?.id));
-  }, [purchased_course, dispatch]);
+    dispatch(handleGetMyCart(cart?.id));
+  }, [cart, dispatch]);
   useEffect(() => {
     const { username, email, url_google_avatar, avatar, provider } = userData;
     const newValues = {
@@ -148,6 +152,7 @@ function App() {
           ></Route>
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Route>
+        {/* Other routes */}
         <Route
           path="/cart/checkout"
           element={<CheckoutPage></CheckoutPage>}

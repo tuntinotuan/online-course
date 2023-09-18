@@ -19,14 +19,24 @@ module.exports = ({ env }) => ({
   },
   email: {
     config: {
-      provider: "sendgrid", // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
+      provider: "nodemailer",
       providerOptions: {
-        apiKey: env("SENDGRID_API_KEY"),
+        host: env("SMTP_HOST", "smtp.gmail.com"),
+        port: env("SMTP_PORT", 587),
+        secure: false,
+        secureConnection: false,
+        auth: {
+          user: env("SMTP_USERNAME"),
+          pass: env("SMTP_PASSWORD"),
+        },
+        tls: {
+          rejectUnAuthorized: true,
+        },
+        // ... any custom nodemailer options
       },
       settings: {
-        defaultFrom: "juliasedefdjian@strapi.io",
-        defaultReplyTo: "juliasedefdjian@strapi.io",
-        testAddress: "juliasedefdjian@strapi.io",
+        defaultFrom: "hello@example.com",
+        defaultReplyTo: "hello@example.com",
       },
     },
   },

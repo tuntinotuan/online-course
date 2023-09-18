@@ -9,6 +9,7 @@ import {
   requestLoginWithGoogleAccount,
   requestLogout,
   requestRegister,
+  requestResetPassword,
 } from "./authRequests";
 import { setCurrentUserId, setError } from "./authSlice";
 import {
@@ -18,6 +19,8 @@ import {
   toggleShowPopupSignUp,
 } from "../globalSlice";
 import { requestUpdateUrlAvatarFromThirdPartyProvider } from "../user/userRequests";
+import { toast } from "react-toastify";
+import { SpecialToastEmail } from "../../components/special";
 
 export const handleLogin = createAsyncThunk(
   "login/handleLoginThunk",
@@ -139,11 +142,46 @@ export const handleForgotPassword = createAsyncThunk(
     try {
       const response = await requestForgotPassword(value);
       console.log("response", response);
+      if (response?.ok) {
+        toast.success("Send email successfully!");
+        toast(<SpecialToastEmail text="Check email" to="Here" />, {
+          closeOnClick: false,
+        });
+      }
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
     }
+  }
+);
+export const handleResetPassword = createAsyncThunk(
+  "forgotPassword/handleResetPassword",
+  async (value, { dispatch }) => {
+    let results = null;
+    dispatch(setLoading(true));
+    const { code, password, passwordConfirmation, navigate } = value;
+    try {
+      const response = await requestResetPassword(
+        code,
+        password,
+        passwordConfirmation
+      );
+      console.log("response", response);
+      const { jwt, user } = response;
+      results = jwt;
+      dispatch(setCurrentUserId(user?.id));
+      if (jwt) {
+        toast.success("Update password successfully!");
+        navigate("/");
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+      dispatch(setError(error.error.message));
+    }
+    return results;
   }
 );
 export const handleChangePassword = createAsyncThunk(

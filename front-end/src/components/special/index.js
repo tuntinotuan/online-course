@@ -3,6 +3,7 @@ import SpecialTextUnderline from "./SpecialTextUnderline";
 import SpecialTextWithCheckIcon from "./SpecialTextWithCheckIcon";
 import SpecialArrow from "./SpecialArrow";
 import SpecialCountCircle from "./SpecialCountCircle";
+import SpecialToastEmail from "./SpecialToastEmail";
 
 export {
   SpecialCircle,
@@ -10,4 +11,5 @@ export {
   SpecialTextWithCheckIcon,
   SpecialArrow,
   SpecialCountCircle,
+  SpecialToastEmail,
 };

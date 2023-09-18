@@ -17,6 +17,7 @@ const TopicPage = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation("category");
   const { courseList } = useSelector((state) => state.course);
+  const { loading } = useSelector((state) => state.global);
   const { authorList } = useSelector((state) => state.author);
   useEffect(() => {
     dispatch(handleGetTopicOfCourse({ topicName, filter }));
@@ -25,7 +26,7 @@ const TopicPage = () => {
   return (
     <div className="page-container py-10">
       <h1 className="text-3xl font-bold">{`“${topicName}”`} Courses</h1>
-      {courseList.length > 0 ? (
+      {courseList.length > 0 && (
         <>
           <h2 className="text-2xl font-bold my-5">
             {t("courses to get you started")}
@@ -33,9 +34,8 @@ const TopicPage = () => {
           <MenuBorderBottom></MenuBorderBottom>
           <CourseList data={courseList}></CourseList>
         </>
-      ) : (
-        <DataNotFound></DataNotFound>
       )}
+      {!loading && !courseList.length > 0 && <DataNotFound></DataNotFound>}
       <CourseLayoutHeading title={t("popular instructors")}>
         <InstructorList data={authorList}></InstructorList>
       </CourseLayoutHeading>

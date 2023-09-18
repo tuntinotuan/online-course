@@ -37,3 +37,10 @@ export function requestUpdateMyCartLocalToMyCart(cartId, courseId) {
     },
   });
 }
+export function requestRemoveNumerousItemsFromCart(cartId, courseId) {
+  return strapi.update("carts", cartId, {
+    courses: {
+      disconnect: courseId,
+    },
+  });
+}
