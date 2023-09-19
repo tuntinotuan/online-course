@@ -5,10 +5,11 @@
 @import "reset";
 @import "input";
 @import "pagenotfound";
+@import "darkmode";
 
 @layer base {
   body {
-    @apply text-primaryBlack;
+    @apply text-primaryBlack dark:bg-darkMain dark:text-white;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
     // height: 2000px;

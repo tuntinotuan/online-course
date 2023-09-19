@@ -14,14 +14,14 @@ const menuList = [
 
 const Menu = () => {
   const commonCss =
-    "py-4 font-bold transition-all hover:text-primaryBlack cursor-pointer";
+    "py-4 font-bold transition-all hover:text-primaryBlack dark:hover:text-white cursor-pointer";
   return (
     <header className="header flex items-center gap-5 text-base">
       {menuList.map((item) => (
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? `text-primaryBlack ${commonCss}`
+              ? `text-primaryBlack dark:text-white ${commonCss}`
               : `text-grayA6 ${commonCss}`
           }
           to={item.path}

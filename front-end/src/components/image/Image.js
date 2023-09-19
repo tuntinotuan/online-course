@@ -14,7 +14,7 @@ const Image = ({
         srcSet={url}
         alt=""
         className={`w-full h-full object-cover ${
-          borderNone ? "" : "border border-gray-200"
+          borderNone ? "" : "border border-gray-200 dark:border-primaryBlack"
         } ${className}`}
       />
       <div

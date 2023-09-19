@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const HeaderLearnOnline = ({ data }) => {
   return (
-    <header className="flex items-center bg-primaryBlack text-white border border-transparent border-b-gray-600 py-3 px-4">
+    <header className="flex items-center bg-primaryBlack text-white border border-transparent border-b-gray-600 px-4">
       <LogoUdemyDark></LogoUdemyDark>
       <Link
         to={`/course/${data?.id}`}

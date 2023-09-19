@@ -32,7 +32,7 @@ const Search = ({
   return (
     <form
       onSubmit={handleSubmit(handleSubmitSearch)}
-      className={`flex items-center h-[48px] px-3 py-2 ${width} ${
+      className={`flex items-center h-[48px] dark:bg-darkMain px-3 py-2 ${width} ${
         borderNone ? "" : "border border-primaryBlack"
       } ${rounded} ${bgColor} ${
         borderSearch
@@ -49,7 +49,7 @@ const Search = ({
         type="text"
         placeholder={t("search for anything")}
         defaultValue={keyword}
-        className={`w-full h-full px-4 placeholder:text-grayA6 ${bgColor} outline-none`}
+        className={`w-full h-full dark:bg-darkMain px-4 placeholder:text-grayA6 dark:placeholder:text-darkTextCB ${bgColor} outline-none`}
         onChange={handleChangeInput}
         onFocus={() => setBorderSearch(true)}
         onBlurCapture={() => setBorderSearch(false)}

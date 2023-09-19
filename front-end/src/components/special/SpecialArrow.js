@@ -4,7 +4,7 @@ const SpecialArrow = ({ coords, coordinateMiddle = false }) => {
   return (
     <>
       <div
-        className={`bg-front-arrow absolute w-8 h-8 bg-white clip-custom ${
+        className={`bg-front-arrow absolute w-8 h-8 bg-white dark:bg-darkMain clip-custom ${
           coordinateMiddle
             ? coords?.y > window.innerHeight / 2
               ? "-bottom-4 rotate-180"
@@ -20,7 +20,7 @@ const SpecialArrow = ({ coords, coordinateMiddle = false }) => {
         style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
       ></div>
       <div
-        className={`bg-back-arrow absolute w-8 h-8 bg-gray-300 clip-custom -z-10 ${
+        className={`bg-back-arrow absolute w-8 h-8 bg-gray-300 dark:bg-primaryBlack clip-custom -z-10 ${
           coordinateMiddle
             ? coords?.y > window.innerHeight / 2
               ? "-bottom-[18px] rotate-180"
@@ -36,7 +36,7 @@ const SpecialArrow = ({ coords, coordinateMiddle = false }) => {
         style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
       ></div>
       <div
-        className={`bg-overlay-arrow absolute w-4 h-8 bg-white ${
+        className={`bg-overlay-arrow absolute w-4 h-8 bg-white dark:bg-darkMain ${
           coordinateMiddle
             ? coords?.y > window.innerHeight / 2
               ? "bottom-0 w-8 !h-6"

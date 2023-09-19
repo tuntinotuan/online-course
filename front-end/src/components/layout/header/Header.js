@@ -17,6 +17,7 @@ import HeaderBtnMyLearning from "./HeaderBtnMyLearning";
 import HeaderBtnCategories from "./HeaderBtnCategories";
 import { toggleShowPopupChooseLanguage } from "../../../redux-toolkit/globalSlice";
 import { useTranslation } from "react-i18next";
+import LogoUdemyDark from "../../logo/LogoUdemyDark";
 
 const Header = ({
   hiddenMultiple = false,
@@ -31,17 +32,19 @@ const Header = ({
   const { hovered, nodeRef: nodeRefHover, setHovered } = useHover();
   const { jwt } = useSelector((state) => state.auth);
   const { myCart, myCartLocal } = useSelector((state) => state.cart);
+  const { darkMode } = useSelector((state) => state.global);
   const { courses } = myCart;
   const handleShowChooseLanguage = () => {
     dispatch(toggleShowPopupChooseLanguage(true));
   };
+
   return (
     <header
       className={`header relative flex items-center ${
         between ? "justify-between px-5" : ""
-      } justify-center gap-x-5 bg-white shadow-lg z-50`}
+      } justify-center gap-x-5 bg-white dark:bg-primaryBg shadow-lg z-50`}
     >
-      <LogoUdemy></LogoUdemy>
+      {darkMode ? <LogoUdemyDark></LogoUdemyDark> : <LogoUdemy></LogoUdemy>}
       {!hiddenMultiple && <HeaderBtnCategories />}
       {!hiddenMultiple && <Search width={widthSearch}></Search>}
       {!hiddenUdemyBusiness && (

@@ -22,8 +22,10 @@ const Button = ({
           className={`${square ? square : "py-2 px-3"} ${
             borderNone ? "" : "border border-primaryBlack"
           } ${mtAuto ? "mt-auto" : ""} ${full ? "w-full" : ""} ${className} ${
-            borderNone ? "hover:opacity-80" : "hover:bg-[#F5F5F5]"
-          } transition-all disabled:cursor-wait disabled:opacity-60`}
+            borderNone
+              ? "hover:opacity-80"
+              : "hover:bg-[#F5F5F5] dark:hover:bg-transparent dark:hover:opacity-80"
+          } transition-all disabled:cursor-wait disabled:opacity-25`}
           {...props}
         >
           {children}
@@ -37,7 +39,9 @@ const Button = ({
       className={`${square ? square : "py-2 px-3"} ${
         borderNone ? "" : "border border-primaryBlack"
       } ${mtAuto ? "mt-auto" : ""} ${full ? "w-full" : ""} ${className} ${
-        borderNone ? "hover:opacity-80" : "hover:bg-grayF7"
+        borderNone
+          ? "hover:opacity-80"
+          : "hover:bg-grayF7 dark:hover:bg-transparent dark:hover:opacity-80"
       } transition-all disabled:cursor-wait disabled:opacity-60`}
       {...props}
     >

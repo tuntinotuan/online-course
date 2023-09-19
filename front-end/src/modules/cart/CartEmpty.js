@@ -6,7 +6,7 @@ const CartEmpty = () => {
   return (
     <>
       <h2 className="font-bold mb-1">0 Courses in Cart</h2>
-      <div className="flex flex-col items-center justify-center gap-5 w-full border border-gray-100 rounded py-5">
+      <div className="flex flex-col items-center justify-center gap-5 w-full border border-gray-100 dark:border-primaryBlack rounded py-5">
         <div className="w-[240px]">
           <Image url="empty-shopping-cart-v2.jpg" borderNone></Image>
         </div>

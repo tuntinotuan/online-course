@@ -17,7 +17,7 @@ const InputEmailWithIcon = () => {
           </span>
         </span>
         <Button
-          className="text-base font-bold bg-white border-transparent border-l-primaryBlack py-[11px]"
+          className="text-base font-bold bg-white dark:bg-darkMain border-transparent border-l-primaryBlack py-[11px]"
           onClick={() => {}}
         >
           <IconPen></IconPen>

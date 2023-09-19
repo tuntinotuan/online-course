@@ -33,7 +33,7 @@ const UserEditPhoto = () => {
       >
         <h3 className="font-bold">{t("image preview")}</h3>
         <div className="border border-primaryBlack p-4 mt-2 mb-4">
-          <div className="flex items-center justify-center mx-auto bg-grayF7">
+          <div className="flex items-center justify-center mx-auto bg-grayF7 dark:bg-purpleTextDC">
             <div className="h-52 w-52">
               <Image
                 url={

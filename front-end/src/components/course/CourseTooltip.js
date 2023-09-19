@@ -44,6 +44,7 @@ const CourseTooltip = ({
     return item.id === courseId;
   });
   const addToCart = () => {
+    if (intoCart) return;
     dispatch(handleAddToCart(courseId));
   };
   const addToWishlist = () => {
@@ -55,7 +56,7 @@ const CourseTooltip = ({
   };
   return ReactDOM.createPortal(
     <div
-      className={`absolute bg-white w-[340px] h-auto border border-gray-300 p-6 transition-all duration-200 ${
+      className={`absolute w-[340px] h-auto bg-white dark:bg-darkMain border border-gray-300 dark:border-primaryBlack p-6 transition-all duration-200 ${
         hovered
           ? "opacity-100 visible scale-100"
           : "opacity-0 invisible scale-90"

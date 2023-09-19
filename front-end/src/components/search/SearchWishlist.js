@@ -48,7 +48,7 @@ const SearchWishlist = ({ size = 40 }) => {
         placeholder="Search my course"
         defaultValue={query}
         onChange={handleChangeInput}
-        className="w-[200px] h-full placeholder:text-grayA6 border border-primaryBlack py-3 px-4"
+        className="w-[200px] h-full dark:bg-darkMain placeholder:text-grayA6 border border-primaryBlack py-3 px-4"
       />
       <button
         className="flex items-center justify-center h-full bg-primaryBlack text-white disabled:cursor-wait disabled:opacity-60 disabled:blur-[0.5px]"

@@ -36,6 +36,8 @@ import PopupChooseLanguage from "./components/popup/PopupChooseLanguage";
 import { setInfoForReLogin } from "./redux-toolkit/auth/authSlice";
 import { strapiPathBE } from "./utils/constants";
 import { handleGetMyCart } from "./redux-toolkit/cart/cartHandlerThunk";
+import useDarkMode from "./hooks/useDarkMode";
+import { setToggleDarkMode } from "./redux-toolkit/globalSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,6 +78,12 @@ function App() {
       dispatch(setWishlistSearch(null));
     }
   }, [courses, location, dispatch]);
+  const [darkModeHook] = useDarkMode();
+  console.log("darkModeHook", darkModeHook);
+  useEffect(() => {
+    dispatch(setToggleDarkMode(darkModeHook));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="App">
       <Routes>

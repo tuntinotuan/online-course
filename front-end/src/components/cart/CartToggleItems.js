@@ -17,7 +17,7 @@ const CartToggleItems = ({
   onClick = () => {},
 }) => {
   return (
-    <div className="border border-transparent border-b-gray-200 p-3">
+    <div className="border border-transparent border-b-gray-200 dark:border-b-primaryBlack p-3">
       <Link
         to={`/${toSlug}/${id}`}
         className="grid grid-cols-10"

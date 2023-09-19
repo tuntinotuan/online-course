@@ -18,7 +18,10 @@ const CourseReviewList = ({ course }) => {
           {mediumRatingsCourse(course?.reviews)?.toFixed(1) || "5"} course
           rating
         </CourseHeading>
-        <SpecialCircle className="bg-grayA6 mb-5" size={7}></SpecialCircle>
+        <SpecialCircle
+          className="bg-grayA6 dark:bg-starBg mb-5"
+          size={7}
+        ></SpecialCircle>
         <CourseHeading>
           {course?.reviews?.length || "19K"} ratings
         </CourseHeading>

@@ -12,7 +12,7 @@ const CourseCardRow = ({ data }) => {
   const { nodeRef, hovered, setHovered, coords } = useHover();
   return (
     <div
-      className="w-full flex items-start justify-between gap-16 border border-transparent border-b-gray-300 py-4"
+      className="w-full flex items-start justify-between gap-16 border border-transparent border-b-gray-300 dark:border-b-primaryBlack py-4"
       ref={nodeRef}
     >
       <div className="flex items-start gap-4">

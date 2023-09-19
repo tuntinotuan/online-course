@@ -43,7 +43,7 @@ const CourseVideoOverview = ({ offset }) => {
                 : "fixed top-4 z-[49]"
             } max-w-[350px]`
           : `-translate-y-1/3`
-      } bg-white border border-white shadow-lg`}
+      } bg-white dark:bg-darkMain border border-white dark:border-primaryBlack shadow-lg`}
     >
       <CourseVideo className={pointScrollFixed ? "hidden" : ""}></CourseVideo>
       <div className="p-5">
@@ -129,7 +129,7 @@ const CourseVideoOverview = ({ offset }) => {
           </p>
         </div>
       </div>
-      <div className="border border-transparent border-t-slate-200 mt-4 p-5">
+      <div className="border border-transparent border-t-slate-200 dark:border-t-primaryBlack mt-4 p-5">
         <h2 className="text-xl font-bold">Training 5 or more people?</h2>
         <p className="my-2">
           Get your team access to 19,000+ top Udemy courses anytime, anywhere.

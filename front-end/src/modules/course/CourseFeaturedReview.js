@@ -4,7 +4,7 @@ import Image from "../../components/image/Image";
 
 const CourseFeaturedReview = () => {
   return (
-    <div className="border border-gray-300 p-6 my-6">
+    <div className="border border-gray-300 dark:border-primaryBlack p-6 my-6">
       <CourseHeading>Featured review</CourseHeading>
       <div className="flex items-start gap-2">
         <div className="w-16 h-16">

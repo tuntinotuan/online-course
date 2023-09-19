@@ -73,7 +73,7 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
     >
       <form
         onSubmit={handleSubmit(registerHandler)}
-        className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
+        className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 dark:border-b-primaryBlack py-3"
       >
         <Input control={control} name="fullname" label={t("fullname")}></Input>
         <Input

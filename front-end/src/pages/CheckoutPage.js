@@ -28,7 +28,7 @@ const CheckoutPage = () => {
           <CheckoutPaymentMethod></CheckoutPaymentMethod>
           <CheckoutOrderDetails></CheckoutOrderDetails>
         </div>
-        <div className="pr-52 col-span-5 w-full h-full bg-grayF7 pb-56">
+        <div className="pr-52 col-span-5 w-full h-full bg-grayF7 dark:bg-darkMain pb-56">
           <CheckoutSummary></CheckoutSummary>
         </div>
       </div>

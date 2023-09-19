@@ -96,7 +96,7 @@ const CheckoutSummary = () => {
   //   // }
   // };
   return (
-    <div className="sticky top-5 bg-grayF7 mt-24 pl-12">
+    <div className="sticky top-5 mt-24 pl-12">
       <CheckoutTitle className="mb-5">Summary</CheckoutTitle>
       <div className="flex flex-col gap-2 border border-transparent border-b-grayA6 border-opacity-25 pb-3">
         <div className="flex items justify-between">

@@ -100,7 +100,7 @@ const CourseInstructor = () => {
         } overflow-hidden`}
       >
         {!showMore && (
-          <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-[rgba(255,255,255,0.9)]"></div>
+          <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-white dark:from-darkMain"></div>
         )}
         Jose Marcial Portilla has a BS and MS in Mechanical Engineering from
         Santa Clara University and years of experience as a professional

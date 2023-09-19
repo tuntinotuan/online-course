@@ -22,7 +22,7 @@ const HomeSelectionItem = () => {
     dispatch(handleGetTopicOfCourse({ topicName }));
   }, [topicName, dispatch]);
   return (
-    <div className="p-8 border border-slate-200 overflow-hidden">
+    <div className="p-8 border border-gray-300 dark:border-primaryBlack overflow-hidden">
       <h1 className="text-2xl font-bold mb-4">
         {t("expand")} {newTopic}
       </h1>

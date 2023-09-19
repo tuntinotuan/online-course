@@ -23,7 +23,7 @@ const SearchPage = () => {
     <section className={`page-container my-12 overflow-hidden`}>
       {courseLoading && (
         <div
-          className="absolute left-0 flex items-start justify-center w-full bg-white bg-opacity-60 mx-auto z-10"
+          className="absolute top-0 left-0 flex items-start justify-center w-full bg-white bg-opacity-60 mx-auto py-40 z-10"
           style={{ height: document.body.offsetHeight }}
         >
           <LoadingSpineQuarter></LoadingSpineQuarter>

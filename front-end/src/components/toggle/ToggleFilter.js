@@ -9,7 +9,7 @@ const ToggleFilter = ({ initial = false, title, children }) => {
   return (
     <>
       <div
-        className="w-full border border-transparent border-t-gray-300 py-3 cursor-pointer"
+        className="w-full border border-transparent border-t-gray-300 dark:border-t-primaryBlack py-3 cursor-pointer"
         onClick={handleToggle}
       >
         <div className="flex items-center justify-between">

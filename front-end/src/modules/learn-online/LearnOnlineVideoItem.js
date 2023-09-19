@@ -10,8 +10,10 @@ const LearnOnlineVideoItem = ({ video, index }) => {
   };
   return (
     <div
-      className={`block w-full hover:bg-purpleTextDC transition-all py-3 px-4 cursor-pointer ${
-        video?.video?.url === urlPlayVideo ? "bg-purpleTextDC" : ""
+      className={`block w-full hover:bg-purpleTextDC dark:hover:bg-gray-900 dark:text-darkTextCB transition-all py-3 px-4 cursor-pointer ${
+        video?.video?.url === urlPlayVideo
+          ? "bg-purpleTextDC dark:bg-gray-900"
+          : ""
       }`}
       onClick={handleSelectVideoLearn}
     >

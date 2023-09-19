@@ -4,7 +4,7 @@ const RadioPaymentBody = ({ on, children }) => {
   return (
     <>
       {on && (
-        <div className="border border-t-transparent border-gray-300 p-6">
+        <div className="border border-t-transparent border-gray-300 dark:border-primaryBlack p-6">
           {children}
         </div>
       )}

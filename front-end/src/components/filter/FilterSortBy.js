@@ -15,7 +15,7 @@ const FilterSortBy = () => {
     <select
       name="filter-option"
       id="filter"
-      className="h-full text-base border border-primaryBlack px-3 cursor-pointer"
+      className="h-full dark:bg-darkMain text-base border border-primaryBlack px-3 cursor-pointer"
       onChange={handleClickSortBy}
       value={sortBy || "most-relevant"}
     >

@@ -75,8 +75,7 @@ const Footer = ({
           </ul>
         </div>
         <Button
-          className="flex items-center gap-1 border border-white pr-12 hover:bg-neutral-900"
-          borderNone
+          className="flex items-center gap-1 pr-12"
           onClick={handleShowChooseLanguage}
         >
           <IconEarth></IconEarth>

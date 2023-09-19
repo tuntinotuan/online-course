@@ -36,7 +36,7 @@ const CategoriesToggle = ({ hovered, onClick }) => {
         </ul>
       )}
       {listIndustries.length > 0 && (
-        <ul className="absolute top-0 left-full w-[250px] min-h-[500px] bg-white shadow-md border border-gray-300 py-2">
+        <ul className="absolute -top-[1px] left-full w-[250px] min-h-[500px] bg-white dark:bg-darkMain shadow-md border border-gray-300 dark:border-primaryBlack py-2">
           {listIndustries?.map((industry) => (
             <CategoryItem
               to={industry.name}
@@ -47,8 +47,8 @@ const CategoriesToggle = ({ hovered, onClick }) => {
             ></CategoryItem>
           ))}
           {listTopics && (
-            <ul className="absolute top-0 left-full w-[250px] min-h-[500px] bg-white shadow-md border border-gray-300">
-              <h3 className="pt-4 px-4 font-bold text-grayA6">
+            <ul className="absolute -top-[1px] left-full w-[250px] min-h-[500px] bg-white dark:bg-darkMain shadow-md border border-gray-300 dark:border-primaryBlack">
+              <h3 className="pt-4 px-4 font-bold text-grayA6 dark:text-darkTextCB">
                 {t("popular topics")}
               </h3>
               {loadingTopics &&

@@ -64,7 +64,7 @@ const PopupReview = () => {
         secondary
       ></CourseStar>
       <Textarea
-        className="w-full !h-[150px] resize-none"
+        className="w-full !h-[150px] dark:bg-darkMain resize-none"
         placeholder="Tell us about your own personal experience taking this course. Was it a good match for you?"
         defaultValue={mySingleReview?.content || ""}
         onChange={(e) => setContent(e.target.value)}

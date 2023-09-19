@@ -25,7 +25,7 @@ const UserSidebar = () => {
   const { userData } = useSelector((state) => state.user);
   const { avatar, url_google_avatar } = userData;
   return (
-    <div className="col-span-2 border border-transparent border-r-gray-300 pb-52">
+    <div className="col-span-2 border border-transparent border-r-gray-300 dark:border-r-primaryBlack pb-52">
       <div className="flex flex-col items-center gap-2 p-4">
         <ButtonUserAvatar
           avatar={

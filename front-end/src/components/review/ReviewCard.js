@@ -6,7 +6,7 @@ import { strapiPathBE } from "../../utils/constants";
 const ReviewCard = ({ name, avatar, shortName, time, rating, content }) => {
   return (
     <div className="pb-5">
-      <div className="flex items-center justify-between border border-transparent border-t-gray-300 py-5">
+      <div className="flex items-center justify-between border border-transparent border-t-gray-300 dark:border-t-primaryBlack py-5">
         <div className="flex items-center gap-5">
           <ButtonUserAvatar
             avatar={avatar && `${strapiPathBE}${avatar?.url}`}

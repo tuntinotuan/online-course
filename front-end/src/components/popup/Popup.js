@@ -35,7 +35,7 @@ const Popup = ({
           onClick={onClick}
         ></div>
         <div
-          className={`relative w-[406px] bg-white p-6 transition-all ${className}  ${
+          className={`relative w-[406px] bg-white dark:bg-darkMain border dark:border-primaryBlack p-6 transition-all ${className}  ${
             show
               ? "opacity-100 visible scale-100"
               : "opacity-0 invisible scale-75"

@@ -130,7 +130,7 @@ const SignInPage = ({
       )}
       <form
         onSubmit={handleSubmit(loginHandler)}
-        className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 py-3"
+        className="w-full flex flex-col gap-2 border border-transparent border-b-gray-200 dark:border-b-primaryBlack py-3"
       >
         {infoForReLogin && (
           <div className="flex flex-col items-center justify-center gap-2">

@@ -1,0 +1,35 @@
+.shadow-darkmode {
+  box-shadow: 0 0 15px 5px rgba(90, 65, 254, 0.2),
+    0 0 20px 10px rgba(90, 65, 254, 0.1);
+}
+.dark {
+  .dark\:shadow-darkmode {
+    box-shadow: 0 0 15px 5px rgba(90, 65, 254, 0.2),
+      0 0 20px 10px rgba(90, 65, 254, 0.1);
+  }
+}
+
+.star-scale {
+  transform: scale(1) rotate(180deg);
+  animation: starScale 1s ease-out;
+  animation-delay: 1.2s;
+}
+
+@keyframes starScale {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0);
+  }
+  30% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.5);
+  }
+  60% {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(180deg) scale(1);
+  }
+}

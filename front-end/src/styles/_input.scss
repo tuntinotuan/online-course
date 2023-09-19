@@ -7,7 +7,7 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
-
+// Custom for input type date
 input[type="date"]::-webkit-calendar-picker-indicator {
-  @apply cursor-pointer;
+  @apply cursor-pointer dark:invert-[1];
 }

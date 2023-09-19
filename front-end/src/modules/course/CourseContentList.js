@@ -12,10 +12,10 @@ const CourseContentList = ({ listData, toggleAll }) => {
     setToggle(!toggle);
   };
   return (
-    <div className="border border-gray-300 border-b-transparent last:border-b-gray-300">
+    <div className="border border-gray-300 dark:border-primaryBlack border-b-transparent last:border-b-gray-300 dark:last:border-b-primaryBlack">
       <div
-        className={`flex items-center justify-between w-full bg-grayF7 border border-transparent py-3 px-5 cursor-pointer ${
-          toggle ? "border-b-gray-300" : ""
+        className={`flex items-center justify-between w-full bg-grayF7 dark:bg-darkMain border border-transparent py-3 px-5 cursor-pointer ${
+          toggle ? "border-b-gray-300 dark:border-primaryBlack" : ""
         }`}
         onClick={handleToggle}
       >

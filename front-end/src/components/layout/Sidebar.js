@@ -7,13 +7,19 @@ import IconEarth from "../icon/IconEarth";
 import { SpecialCountCircle } from "../special";
 import { strapiPathBE } from "../../utils/constants";
 import { handleLogout } from "../../redux-toolkit/auth/authHandlerThunk";
-import { toggleShowPopupChooseLanguage } from "../../redux-toolkit/globalSlice";
+import {
+  setToggleDarkMode,
+  toggleShowPopupChooseLanguage,
+} from "../../redux-toolkit/globalSlice";
 import { locales } from "../../i18n/i18n";
 import { useTranslation } from "react-i18next";
+import ToggleDarkMode from "../toggle/ToggleDarkMode";
+import useDarkMode from "../../hooks/useDarkMode";
 
 const Sidebar = ({ hovered, onClick = () => {} }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [darkModeState, setDarkModeState] = useDarkMode();
   const { userData } = useSelector((state) => state.user);
   const { avatar, url_google_avatar } = userData;
   const { myCart } = useSelector((state) => state.cart);
@@ -34,11 +40,15 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
     dispatch(toggleShowPopupChooseLanguage(true));
     onClick();
   };
+  const handleClickToggleDarkMode = () => {
+    setDarkModeState(!darkModeState);
+    dispatch(setToggleDarkMode(!darkModeState));
+  };
   return (
     <TooltipCover hovered={hovered} className="!top-[106%] w-[260px]">
       <Link
         to="/user/edit-profile"
-        className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 p-4 group"
+        className="w-full flex items-center gap-2 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group"
         onClick={onClick}
       >
         <ButtonUserAvatar
@@ -56,12 +66,15 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           >
             {userData?.username || "Tuan Nguyen"}
           </h1>
-          <p className="text-xs text-grayA6 truncate" title={userData?.email}>
+          <p
+            className="text-xs text-grayA6 dark:text-darkTextCB truncate"
+            title={userData?.email}
+          >
             {userData?.email || "tuan48594@donga.edu.vn"}
           </p>
         </div>
       </Link>
-      <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">
+      <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4">
         <Link
           to="/my-course/learning"
           className="w-full transition-all hover:text-purpleText56"
@@ -93,7 +106,7 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
         </Link>
       </div>
       <Link
-        className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 p-4 group"
+        className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group"
         onClick={handleShowChooseLanguage}
       >
         <span className="transition-all group-hover:text-purpleText56">
@@ -104,7 +117,13 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           <IconEarth size={18}></IconEarth>
         </div>
       </Link>
-      <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 p-4">
+      <div className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group">
+        <ToggleDarkMode
+          on={darkModeState}
+          onClick={handleClickToggleDarkMode}
+        ></ToggleDarkMode>
+      </div>
+      <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4">
         <Link
           className="w-full transition-all hover:text-purpleText56"
           onClick={onClick}

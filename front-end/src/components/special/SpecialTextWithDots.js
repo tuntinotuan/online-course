@@ -21,7 +21,7 @@ const SpecialTextWithDots = ({
           key={items}
         >
           <div
-            className="bg-primaryBlack rounded-full"
+            className="bg-primaryBlack dark:bg-white rounded-full"
             style={{ width: dotSize, height: dotSize }}
           ></div>
           <p>{items}</p>

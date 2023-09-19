@@ -32,6 +32,8 @@ import IconFilter from "./IconFilter";
 import IconClose from "./IconClose";
 import IconPlayCircle from "./IconPlayCircle";
 import IconChevronLeft from "./IconChevronLeft";
+import IconCloud from "./IconCloud";
+import IconStar from "./IconStar";
 
 export {
   IconArrowLeft,
@@ -68,4 +70,6 @@ export {
   IconEyeClose,
   IconFilter,
   IconPen,
+  IconCloud,
+  IconStar,
 };

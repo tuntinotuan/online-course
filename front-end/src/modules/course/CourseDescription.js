@@ -28,7 +28,7 @@ const CourseDescription = () => {
         } mt-8 overflow-hidden`}
       >
         {!showMore && (
-          <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-[rgba(255,255,255,0.9)]"></div>
+          <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-white dark:from-darkMain"></div>
         )}
         <CourseHeading>Description</CourseHeading>
         <p className="font-bold mb-2">
@@ -37,11 +37,11 @@ const CourseDescription = () => {
           Data Science!
         </p>
         {dataLocal.map((items) => (
-          <p className="text-slate-600 mb-2" key={items}>
+          <p className="text-slate-600 dark:text-darkTextCB mb-2" key={items}>
             {items}
           </p>
         ))}
-        <p className="text-slate-600 mt-5">
+        <p className="text-slate-600 dark:text-darkTextCB mt-5">
           Please make sure you read the entire page to understand if the course
           is the correct version for you.
         </p>
@@ -51,6 +51,7 @@ const CourseDescription = () => {
             "Anyone interested in learning more about python, data science, or data visualizations.",
             "Anyone interested about the rapidly expanding world of data science!",
           ]}
+          styleContent="dark:text-darkTextCB"
         ></SpecialTextWithDots>
       </div>
       <div

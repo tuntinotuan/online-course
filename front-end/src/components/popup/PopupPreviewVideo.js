@@ -30,7 +30,7 @@ const PopupPreviewVideo = () => {
       show={showPopupVideo}
       onClick={handleClosePopup}
       classPopup="flex-col !justify-normal !items-normal"
-      className={`top-16 w-[600px] !bg-primaryBlack text-white border border-gray-600 !p-0 ${
+      className={`top-16 w-[600px] !bg-primaryBlack dark:!bg-darkMain text-white border !border-gray-600 dark:!border-primaryBlack !p-0 ${
         video_lists?.length > 0 ? "mb-32" : ""
       }`}
     >
@@ -48,7 +48,7 @@ const PopupPreviewVideo = () => {
             autoPlay
             width="100%"
             height="100%"
-            className="border border-gray-600"
+            className="border border-gray-600 dark:border-primaryBlack"
             ref={videoRef}
           >
             <source

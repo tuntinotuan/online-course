@@ -8,7 +8,7 @@ const CourseRating = ({ className, rating, totalRating = 0, secondary }) => {
     <div className={`flex items-center text-grayA6 gap-1 my-1 ${className}`}>
       <h2
         className={`font-bold ${
-          secondary ? "text-[#F69C08]" : "text-starColor"
+          secondary ? "text-[#F69C08]" : "text-starColor dark:text-[#B4690E]"
         }`}
       >
         {newRating ? newRating?.toFixed(1) : 0}
@@ -18,7 +18,7 @@ const CourseRating = ({ className, rating, totalRating = 0, secondary }) => {
         readOnly
         secondary={secondary}
       ></CourseStar>
-      <span className="text-xs">({totalRating || 0})</span>
+      <span className="text-xs dark:text-darkTextCB">({totalRating || 0})</span>
     </div>
   );
 };

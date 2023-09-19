@@ -38,7 +38,7 @@ const CartItems = ({
     }
   };
   return (
-    <div className="flex items-start border border-transparent border-t-gray-200 py-4">
+    <div className="flex items-start border border-transparent border-t-gray-200 dark:border-t-primaryBlack py-4">
       <Link to={`/course/${id}`} className="w-[120px]">
         <Image url={`${strapiPathBE}${img?.url}`}></Image>
       </Link>

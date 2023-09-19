@@ -40,7 +40,7 @@ const SearchControl = () => {
           </span>
         )}
       </div>
-      <h1 className="text-base font-bold text-grayA6">
+      <h1 className="text-base font-bold text-grayA6 dark:text-darkTextCB">
         {coursesSearch.length.toLocaleString("en-US") || 0} {t("results")}
       </h1>
     </div>

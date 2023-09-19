@@ -53,7 +53,7 @@ const CourseCard = ({
         className="course-card relative h-full select-none -z-1 cursor-pointer group"
         ref={nodeRef}
       >
-        <div className={`${imageHeight}`}>
+        <div className={`mb-2 ${imageHeight}`}>
           <Image
             url={`${strapiPathBE}${img}`}
             className="mb-2"
@@ -67,7 +67,7 @@ const CourseCard = ({
           >
             {title}
           </h3>
-          <p className="course-instructer text-xs text-grayA6 truncate">
+          <p className="course-instructer text-xs text-grayA6 dark:text-darkTextCB truncate">
             {instructor?.username}
           </p>
           <CourseRating

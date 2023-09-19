@@ -29,7 +29,7 @@ const MenuBorderBottom = ({ defineValue = defaultValue }) => {
           to={`/topic/${topicName}?filter=${item.to}`}
           className={`text-base text-grayA6 font-bold pb-2 ${
             filter === item.to || (!filter && index === 0)
-              ? "text-primaryBlack"
+              ? "text-primaryBlack dark:text-darkTextCB"
               : ""
           }`}
           style={{

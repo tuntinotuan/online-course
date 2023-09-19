@@ -36,11 +36,11 @@ const CheckoutCreditForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardNumber]);
 
-  const commonCssForStripeElement = `paymentInput w-full border border-primaryBlack font-bold focus:text-purpleTextA4 p-3`;
+  const commonCssForStripeElement = `paymentInput w-full border border-primaryBlack dark:bg-white font-bold focus:text-purpleTextA4 p-3`;
 
   return (
     <>
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end dark:text-white">
         <span className="text-xs text-grayA6 mb-2 mt-4">Required</span>
       </div>
       <CardNumberElement className={commonCssForStripeElement} />

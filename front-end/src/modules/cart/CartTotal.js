@@ -17,9 +17,11 @@ const CartTotal = ({ data }) => {
   const discountOnPercentage = (discount / originalTotal) * 100;
   return (
     <div className="flex-1">
-      <div className="pb-4 border border-transparent border-b-gray-200">
+      <div className="pb-4 border border-transparent border-b-gray-200 dark:border-b-primaryBlack">
         <div className="font-bold mb-2">
-          <p className="text-base text-grayA6 mb-2">Total:</p>
+          <p className="text-base text-grayA6 dark:text-darkTextCB mb-2">
+            Total:
+          </p>
           <CoursePrice
             price={total.toLocaleString("en-US")}
             className="text-4xl"

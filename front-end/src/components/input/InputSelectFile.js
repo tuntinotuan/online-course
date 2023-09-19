@@ -32,13 +32,13 @@ const InputSelectFile = ({
       />
       <label
         htmlFor={name}
-        className="flex items-center justify-between bg-grayF7 text-base border border-primaryBlack cursor-pointer pl-4"
+        className="flex items-center justify-between bg-grayF7 dark:bg-darkMain text-base border border-primaryBlack cursor-pointer pl-4"
       >
         <p className="max-w-[450px] truncate">
           {urlChosenImage?.name || t("no file selected")}
         </p>
         <Button
-          className="text-base font-bold bg-white border-transparent border-l-primaryBlack"
+          className="text-base font-bold bg-white dark:bg-darkMain border-transparent border-l-primaryBlack"
           onClick={() => ref.current.click()}
         >
           {t("upload image")}

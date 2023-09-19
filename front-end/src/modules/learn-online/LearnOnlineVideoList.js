@@ -8,9 +8,9 @@ const LearnOnlineVideoList = ({ video, initial = false }) => {
     setToggle(!toggle);
   };
   return (
-    <div className="border border-transparent border-t-gray-300">
+    <div className="border border-transparent border-t-gray-300 dark:border-t-primaryBlack">
       <div
-        className={`flex items-center justify-between w-full bg-grayF7 py-3 px-4 cursor-pointer`}
+        className={`flex items-center justify-between w-full bg-grayF7 dark:bg-darkMain py-3 px-4 cursor-pointer`}
         onClick={handleToggle}
       >
         <div className="w-full flex items-center justify-between gap-4">
@@ -35,7 +35,7 @@ const LearnOnlineVideoList = ({ video, initial = false }) => {
               ))}
             </div>
           ) : (
-            <p className="text-xs text-grayA6">Next release course</p>
+            <p className="text-xs text-grayA6 py-3 px-4">Next release course</p>
           )}
         </div>
       )}
