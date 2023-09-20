@@ -7,15 +7,20 @@ function SwiperProvider(props) {
   const [coords, setCoords] = useState(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleClickPrev = (swiper) => {
     swiper.slidePrev(1000);
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
+    const newCoords = nodeRef.current.getBoundingClientRect();
+    setCoords(newCoords);
   };
-  const handleClickNext = (swiper) => {
+  const handleClickNext = (swiper, apiEnd) => {
     swiper.slideNext(1000);
-    setIsEnd(swiper.isEnd);
+    apiEnd && setIsEnd(swiper.isEnd);
     setIsBeginning(swiper.isBeginning);
+    const newCoords = nodeRef.current.getBoundingClientRect();
+    setCoords(newCoords);
   };
   useEffect(() => {
     const newCoords = nodeRef.current.getBoundingClientRect();
@@ -27,6 +32,8 @@ function SwiperProvider(props) {
     coords,
     isBeginning,
     isEnd,
+    loading,
+    setLoading,
     handleClickPrev,
     handleClickNext,
   };

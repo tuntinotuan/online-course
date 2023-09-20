@@ -12,7 +12,8 @@ const SearchControl = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const { t } = useTranslation("search");
-  const { coursesSearch } = useSelector((state) => state.course);
+  const { searchPagination } = useSelector((state) => state.course);
+  const { total } = searchPagination;
   const { showFilter } = useSelector((state) => state.global);
   const handleShowFilter = () => {
     dispatch(toggleShowFilter(!showFilter));
@@ -41,7 +42,7 @@ const SearchControl = () => {
         )}
       </div>
       <h1 className="text-base font-bold text-grayA6 dark:text-darkTextCB">
-        {coursesSearch.length.toLocaleString("en-US") || 0} {t("results")}
+        {total?.toLocaleString("en-US") || 0} {t("results")}
       </h1>
     </div>
   );

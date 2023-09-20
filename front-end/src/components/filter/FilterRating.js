@@ -3,10 +3,7 @@ import RadioCustom from "../radio/RadioCustom";
 import CourseStar from "../course/CourseStar";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  handleSearchCourse,
-  handleSearchCourseOnly,
-} from "../../redux-toolkit/course/courseHandlerThunk";
+import { handleSearchCourseOnly } from "../../redux-toolkit/course/courseHandlerThunk";
 import { useTranslation } from "react-i18next";
 
 const FilterRating = () => {
@@ -43,17 +40,14 @@ const FilterRating = () => {
   const [params] = useSearchParams();
   const keyword = params.get("keyword");
   const rating = params.get("ratings");
-  const sortBy = params.get("sort-by");
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     dispatch(handleSearchCourseOnly({ keyword }));
   }, [keyword, dispatch]);
 
-  useEffect(() => {
-    dispatch(handleSearchCourse({ keyword, sortBy, rating }));
-  }, [keyword, sortBy, rating, dispatch]);
   const handleClickFilterStar = (value) => {
     searchParams.set("ratings", value);
+    searchParams.set("page", 1);
     setSearchParams(searchParams);
   };
   return (

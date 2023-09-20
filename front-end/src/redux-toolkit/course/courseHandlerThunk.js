@@ -6,15 +6,27 @@ import {
   requestSearchCourse,
 } from "./courseRequests";
 import { setLoading } from "../globalSlice";
+import {
+  setAllCoursesEnd,
+  setCourseListEnd,
+  setSearchPagination,
+} from "./courseSlice";
 
 export const handleGetTopicOfCourse = createAsyncThunk(
   "course/handleGetTopicOfCourse",
-  async ({ topicName, filter }, { dispatch }) => {
+  async ({ topicName, filter, page }, { dispatch, getState }) => {
     let results = [];
-    dispatch(setLoading(true));
+    const state = getState();
+    const { courseList } = state.course;
+    !courseList.length > 0 && dispatch(setLoading(true));
     try {
-      const response = await requestGetTopicOfCourse(topicName, filter);
-      results = response.data;
+      const response = await requestGetTopicOfCourse(topicName, filter, page);
+      const newPageCount = response.meta.pagination.pageCount;
+      if (!courseList.length > 0) results = response.data;
+      if (courseList && page <= newPageCount) {
+        results = courseList.concat(response.data);
+      }
+      if (page === newPageCount) dispatch(setCourseListEnd(true));
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
@@ -25,11 +37,19 @@ export const handleGetTopicOfCourse = createAsyncThunk(
 );
 export const handleGetAllCourses = createAsyncThunk(
   "course/handleGetAllCourses",
-  async (query, { dispatch }) => {
+  async (query, { dispatch, getState }) => {
     let results = [];
+    const { page } = query;
+    const state = getState();
+    const { allCourses } = state.course;
     try {
-      const response = await requestGetAllCourses(query);
-      results = response.data;
+      const response = await requestGetAllCourses(page);
+      const newPageCount = response.meta.pagination.pageCount;
+      if (!allCourses) results = response.data;
+      if (allCourses && page <= newPageCount) {
+        results = allCourses.concat(response.data);
+      }
+      if (page === newPageCount) dispatch(setAllCoursesEnd(true));
     } catch (error) {
       console.log(error);
     }
@@ -59,9 +79,11 @@ export const handleSearchCourseOnly = createAsyncThunk(
 );
 export const handleSearchCourse = createAsyncThunk(
   "course/handleSearchCourse",
-  async (filter, ThunkAPI) => {
+  async (filter, { dispatch }) => {
     const response = await requestSearchCourse(filter);
-    console.log("response", response.data);
+    console.log("response SEARCH", response);
+    const { meta } = response;
+    dispatch(setSearchPagination(meta.pagination));
     return response.data;
   }
 );

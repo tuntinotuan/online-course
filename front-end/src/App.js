@@ -79,7 +79,6 @@ function App() {
     }
   }, [courses, location, dispatch]);
   const [darkModeHook] = useDarkMode();
-  console.log("darkModeHook", darkModeHook);
   useEffect(() => {
     dispatch(setToggleDarkMode(darkModeHook));
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -9,10 +9,13 @@ import {
 
 const initialState = {
   courseList: [],
-  allCourses: [],
+  courseListEnd: false,
+  allCourses: null,
+  allCoursesEnd: false,
   course: "",
   coursesSearch: [],
   coursesSearchOnly: [],
+  searchPagination: [],
   courseLoading: false,
   showPopupVideo: false,
   urlPreviewVideo: "",
@@ -33,6 +36,18 @@ const courseSlice = createSlice({
     setUrlPreviewVideo: (state, action) => ({
       ...state,
       urlPreviewVideo: action.payload,
+    }),
+    setCourseListEnd: (state, action) => ({
+      ...state,
+      courseListEnd: action.payload,
+    }),
+    setAllCoursesEnd: (state, action) => ({
+      ...state,
+      allCoursesEnd: action.payload,
+    }),
+    setSearchPagination: (state, action) => ({
+      ...state,
+      searchPagination: action.payload,
     }),
   },
   extraReducers: (builder) => {
@@ -62,7 +77,13 @@ const courseSlice = createSlice({
   },
 });
 
-export const { setCourseList, toggleShowPopupVideo, setUrlPreviewVideo } =
-  courseSlice.actions;
+export const {
+  setCourseList,
+  setCourseListEnd,
+  toggleShowPopupVideo,
+  setUrlPreviewVideo,
+  setAllCoursesEnd,
+  setSearchPagination,
+} = courseSlice.actions;
 
 export default courseSlice.reducer;

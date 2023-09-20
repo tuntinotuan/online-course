@@ -23,7 +23,7 @@ const MenuBorderBottom = ({ defineValue = defaultValue }) => {
   const filter = param.get("filter");
   const { t } = useTranslation("category");
   return (
-    <div className="flex items-center gap-5 border border-transparent border-b-gray-300 mb-4">
+    <div className="flex items-center gap-5 border border-transparent border-b-gray-300 dark:border-b-primaryBlack mb-4">
       {defineValue.map((item, index) => (
         <Link
           to={`/topic/${topicName}?filter=${item.to}`}

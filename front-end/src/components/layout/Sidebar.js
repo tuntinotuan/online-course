@@ -105,7 +105,7 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           {t("edit profile")}
         </Link>
       </div>
-      <Link
+      <button
         className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group"
         onClick={handleShowChooseLanguage}
       >
@@ -116,7 +116,7 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           {currentLanguage}
           <IconEarth size={18}></IconEarth>
         </div>
-      </Link>
+      </button>
       <div className="w-full flex items-center justify-between gap-2 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group">
         <ToggleDarkMode
           on={darkModeState}

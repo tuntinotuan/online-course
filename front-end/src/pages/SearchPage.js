@@ -12,13 +12,20 @@ const SearchPage = () => {
   const dispatch = useDispatch();
   const [params] = useSearchParams();
   const keyword = params.get("keyword");
+  const sortBy = params.get("sort-by");
+  const rating = params.get("ratings");
+  const searchPage = params.get("page");
   const { t } = useTranslation("search");
-  const { coursesSearch, courseLoading } = useSelector((state) => state.course);
+  const { coursesSearch, searchPagination, courseLoading } = useSelector(
+    (state) => state.course
+  );
+  const { total } = searchPagination;
   useEffect(() => {
-    dispatch(handleSearchCourse(keyword));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    dispatch(handleSearchCourse({ keyword, sortBy, rating, searchPage }));
+  }, [keyword, sortBy, rating, searchPage, dispatch]);
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchPage]);
   return (
     <section className={`page-container my-12 overflow-hidden`}>
       {courseLoading && (
@@ -32,8 +39,7 @@ const SearchPage = () => {
       {coursesSearch?.length > 0 && (
         <>
           <h1 className="text-3xl font-bold mb-4">
-            {(coursesSearch && coursesSearch?.length.toLocaleString("en-US")) ||
-              0}{" "}
+            {(coursesSearch && total?.toLocaleString("en-US")) || 0}{" "}
             {t("results for")} {`“${keyword}”`}
           </h1>
           <SearchControl></SearchControl>

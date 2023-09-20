@@ -12,7 +12,9 @@ import CheckoutCreditForm from "./CheckoutCreditForm";
 import { useSearchParams } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
+const stripePromise = loadStripe(
+  "pk_test_51MwSqkEqTHVX4ukZmvtphvtHggeYSSNWklI1cgHc010ZyWPC6Esr5fFt8DNMHHxJ4kLh9tGfH6oz8mDFsO6GwACJ00AMfFHWuv"
+);
 const creditCardImg = [
   "https://www.udemy.com/staticx/udemy/images/v9/card-amex.svg",
   "https://www.udemy.com/staticx/udemy/images/v9/card-discover.svg",

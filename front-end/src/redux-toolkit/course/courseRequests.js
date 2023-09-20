@@ -1,6 +1,6 @@
 import { strapi } from "../../utils/strapi-config";
 
-export function requestGetTopicOfCourse(topic, filter) {
+export function requestGetTopicOfCourse(topic, filter, page) {
   return strapi.find("courses", {
     filters: {
       $or: [
@@ -48,15 +48,19 @@ export function requestGetTopicOfCourse(topic, filter) {
         populate: "*",
       },
     },
-    // pagination: {
-    //   page: 1,
-    //   pageSize: 5,
-    // },
+    pagination: {
+      page: page || 1,
+      pageSize: 5,
+    },
   });
 }
-export function requestGetAllCourses() {
+export function requestGetAllCourses(page) {
   return strapi.find("courses", {
     populate: "*",
+    pagination: {
+      page: page || 1,
+      pageSize: 5,
+    },
   });
 }
 
@@ -87,7 +91,7 @@ export function requestGetSingleCourse(courseId) {
 }
 
 export function requestSearchCourse(filter) {
-  const { keyword, sortBy, rating } = filter;
+  const { keyword, sortBy, rating, searchPage } = filter;
   return strapi.find("courses", {
     filters: {
       $or: [
@@ -119,6 +123,10 @@ export function requestSearchCourse(filter) {
     },
     sort: [sortBy],
     populate: "*",
+    pagination: {
+      page: searchPage || 1,
+      pageSize: 5,
+    },
   });
 }
 export function requestUpdateTotalReviewsCourse(

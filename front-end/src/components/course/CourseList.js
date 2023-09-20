@@ -12,19 +12,27 @@ import {
 import CourseCardSkeleton from "./CourseCardSkeleton";
 import { useSelector } from "react-redux";
 
-const CourseList = ({ data, autoPlay = false, items = 5 }) => {
+const CourseList = ({
+  data,
+  autoPlay = false,
+  items = 5,
+  callApi = false,
+  apiEnd,
+}) => {
   return (
     <SwiperProvider>
       <CourseListMain
         data={data}
         autoPlay={autoPlay}
         items={items}
+        callApi={callApi}
+        apiEnd={apiEnd}
       ></CourseListMain>
     </SwiperProvider>
   );
 };
 
-function CourseListMain({ data, autoPlay, items }) {
+function CourseListMain({ data, autoPlay, items, callApi, apiEnd }) {
   const { nodeRef } = useSwiperContext();
   const { loading } = useSelector((state) => state.global);
   return (
@@ -63,8 +71,12 @@ function CourseListMain({ data, autoPlay, items }) {
               ></CourseCard>
             </SwiperSlide>
           ))}
-        {!loading && data?.length > items && (
-          <ButtonControlSwiper sizeButton="w-12 h-12"></ButtonControlSwiper>
+        {!loading && (
+          <ButtonControlSwiper
+            sizeButton="w-12 h-12"
+            callApi={callApi}
+            apiEnd={apiEnd}
+          ></ButtonControlSwiper>
         )}
       </Swiper>
     </div>

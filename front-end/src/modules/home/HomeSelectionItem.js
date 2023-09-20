@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/button";
 import { CourseList } from "../../components/course";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,8 @@ const HomeSelectionItem = () => {
   const dispatch = useDispatch();
   const { topicName } = useParams();
   const { t } = useTranslation("home");
-  const { courseList } = useSelector((state) => state.course);
+  const [page, setPage] = useState(1);
+  const { courseList, courseListEnd } = useSelector((state) => state.course);
   const { loading } = useSelector((state) => state.global);
   const newTopic =
     !courseList[0]?.topic?.industry?.name === topicName
@@ -19,8 +20,14 @@ const HomeSelectionItem = () => {
       : topicName || "Unity";
   const newDescription = courseList[0]?.topic?.description;
   useEffect(() => {
-    dispatch(handleGetTopicOfCourse({ topicName }));
-  }, [topicName, dispatch]);
+    if (!courseList?.length > 0 || topicName)
+      dispatch(handleGetTopicOfCourse({ topicName }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topicName]);
+  const handleCallMoreTopicOfCourses = () => {
+    dispatch(handleGetTopicOfCourse({ topicName, page }));
+    setPage(page + 1);
+  };
   return (
     <div className="p-8 border border-gray-300 dark:border-primaryBlack overflow-hidden">
       <h1 className="text-2xl font-bold mb-4">
@@ -34,8 +41,12 @@ const HomeSelectionItem = () => {
       <Button className="font-bold mb-8" to={`/topic/${newTopic}`}>
         {t("explore")} {newTopic}
       </Button>
-      <CourseList data={courseList}></CourseList>
-      {!loading && !courseList.length > 0 && <DataNotFound></DataNotFound>}
+      <CourseList
+        data={courseList}
+        callApi={handleCallMoreTopicOfCourses}
+        apiEnd={courseListEnd}
+      ></CourseList>
+      {!loading && !courseList?.length > 0 && <DataNotFound></DataNotFound>}
     </div>
   );
 };

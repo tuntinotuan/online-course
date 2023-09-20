@@ -72,7 +72,7 @@ export const handlePaymentWithElement = createAsyncThunk(
         }
       );
       const client_secret = data.client_secret;
-
+      console.log("client_secret", client_secret);
       const result = await stripeElement.confirmCardPayment(client_secret, {
         payment_method: {
           card: cardNumberElement,

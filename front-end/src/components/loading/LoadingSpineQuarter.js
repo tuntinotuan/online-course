@@ -1,9 +1,15 @@
 import React from "react";
 
-const LoadingSpineQuarter = ({ className }) => {
+const LoadingSpineQuarter = ({
+  className,
+  size = 80,
+  borderSize = "border-[12px]",
+  borderColor = "border-primaryBlack",
+}) => {
   return (
     <div
-      className={`w-20 h-20 mx-auto border-[12px] border-primaryBlack border-t-transparent rounded-full animate-spin ${className}`}
+      className={`mx-auto border-t-transparent rounded-full animate-spin ${borderSize} ${borderColor} ${className}`}
+      style={{ width: size, height: size }}
     ></div>
   );
 };

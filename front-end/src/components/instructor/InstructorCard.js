@@ -11,7 +11,7 @@ const InstructorCard = ({ data }) => {
   return (
     <Link
       to={`/user/${data.id}`}
-      className={`flex items-start gap-4 border border-b-gray-300 p-4 hover:bg-grayF7 dark:hover:bg-transparent`}
+      className={`flex items-start gap-4 border border-gray-300 dark:border-primaryBlack p-4 hover:bg-grayF7 dark:hover:bg-transparent`}
     >
       <ButtonUserAvatar
         avatar={data?.avatar && `${strapiPathBE}${data?.avatar?.url}`}
