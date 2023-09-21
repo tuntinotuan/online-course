@@ -7,11 +7,10 @@ import { useTranslation } from "react-i18next";
 
 const LearningToggle = ({ hovered, onClick }) => {
   const { myPurchasedCourses } = useSelector((state) => state.purchased);
-  const { courses } = myPurchasedCourses;
   const { t } = useTranslation();
   return (
     <TooltipCover hovered={hovered} className="top-[115%]">
-      {courses?.length > 0 ? (
+      {myPurchasedCourses?.length > 0 ? (
         <LearningToggleNoEmpty onClick={onClick}></LearningToggleNoEmpty>
       ) : (
         <TooltipEmptyButton

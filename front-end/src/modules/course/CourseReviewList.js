@@ -33,7 +33,8 @@ const CourseReviewList = ({ course }) => {
             avatar={review.user?.avatar}
             shortName={review?.user?.username}
             name={review?.user?.username}
-            time={review?.createdAt}
+            createdTime={review?.createdAt}
+            updatedTime={review?.updatedAt}
             rating={review?.rating}
             content={review?.content}
           ></ReviewCard>

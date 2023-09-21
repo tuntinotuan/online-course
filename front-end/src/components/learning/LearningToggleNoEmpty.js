@@ -8,13 +8,12 @@ import { useTranslation } from "react-i18next";
 const LearningToggleNoEmpty = ({ onClick = () => {} }) => {
   const { pathname } = useLocation();
   const { myPurchasedCourses } = useSelector((state) => state.purchased);
-  const { courses } = myPurchasedCourses;
   const { t } = useTranslation();
   return (
     <div className="w-full">
       <div className="max-h-[420px] overflow-y-auto">
-        {courses &&
-          courses.map((items) => (
+        {myPurchasedCourses &&
+          myPurchasedCourses.map((items) => (
             <CartToggleItems
               key={items.id}
               id={items.id}

@@ -5,6 +5,7 @@ import {
   requestUpdateUserAvatar,
 } from "./userRequests";
 import { setUserData } from "./userSlice";
+import { toast } from "react-toastify";
 
 export const handleGetUserData = createAsyncThunk(
   "user/handleUserDataThunk",
@@ -29,6 +30,7 @@ export const handleUpdateUserProfile = createAsyncThunk(
       const newUseData = await requestGetUserData(currentUserId);
       dispatch(setUserData(newUseData));
       console.log("response", response);
+      toast.success("Update profile successfully!");
     } catch (error) {
       console.log(error);
     }

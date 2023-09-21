@@ -26,7 +26,7 @@ const Search = ({
 
   const handleSubmitSearch = () => {
     if (!filter) return null;
-    filter && dispatch(handleSearchCourse({ keyword }));
+    // filter && dispatch(handleSearchCourse({ keyword }));
     navigate(`/courses/search?keyword=${filter}`);
   };
   return (

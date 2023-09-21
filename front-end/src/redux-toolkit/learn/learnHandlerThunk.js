@@ -11,8 +11,12 @@ export const handleGetSingleLearnOnline = createAsyncThunk(
     const { userData } = state.user;
     const { purchased_course } = userData;
     try {
-      const { data } = await requestGetMyPurchasedCourses(purchased_course?.id);
-      const checkPurchasedCourses = await data?.courses?.some(
+      const { data } = await requestGetMyPurchasedCourses(
+        purchased_course?.id,
+        null,
+        false
+      );
+      const checkPurchasedCourses = await data?.some(
         (course) => course.id === Number(courseId)
       );
       if (jwt && checkPurchasedCourses) {

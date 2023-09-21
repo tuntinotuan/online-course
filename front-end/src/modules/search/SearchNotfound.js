@@ -17,7 +17,7 @@ const SearchNotfound = ({ keyword }) => {
           t("try different search terms"),
           t("try more general search terms"),
         ]}
-        styleContent="!text-primaryBlack"
+        styleContent="!text-primaryBlack dark:!text-darkTextCB"
         dotSize={5}
       ></SpecialTextWithDots>
     </>

@@ -9,7 +9,9 @@ import { toast } from "react-toastify";
 import { totalCoursePrice } from "../../utils/processing-number";
 import { requestRemoveNumerousItemsFromCart } from "../cart/cartRequests";
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
+const stripePromise = loadStripe(
+  "pk_test_51MwSqkEqTHVX4ukZmvtphvtHggeYSSNWklI1cgHc010ZyWPC6Esr5fFt8DNMHHxJ4kLh9tGfH6oz8mDFsO6GwACJ00AMfFHWuv"
+);
 
 export const handlePaymentWithCheckout = createAsyncThunk(
   "order/handlePaymentWithCheckout",

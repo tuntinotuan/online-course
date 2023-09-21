@@ -3,6 +3,7 @@ import { handleGetMyPurchasedCourses } from "./purchasedHandlerThunk";
 
 const initialState = {
   myPurchasedCourses: [],
+  purchasedPagination: [],
   loadingPurchasedCourses: false,
 };
 
@@ -18,6 +19,10 @@ const purchasedCoursesSlice = createSlice({
       ...state,
       loadingPurchasedCourses: action.payload,
     }),
+    setPurchasedPagination: (state, action) => ({
+      ...state,
+      purchasedPagination: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(handleGetMyPurchasedCourses.fulfilled, (state, action) => {
@@ -26,7 +31,7 @@ const purchasedCoursesSlice = createSlice({
   },
 });
 
-export const { setMyCart, setLoadingPurchasedCourses } =
+export const { setMyCart, setLoadingPurchasedCourses, setPurchasedPagination } =
   purchasedCoursesSlice.actions;
 
 export default purchasedCoursesSlice.reducer;

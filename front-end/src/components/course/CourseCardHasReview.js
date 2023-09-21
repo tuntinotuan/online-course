@@ -11,7 +11,7 @@ import { setCurrentCourseId } from "../../redux-toolkit/review/reviewSlice";
 import { handleGetMySingleReview } from "../../redux-toolkit/review/reviewHanlderThunk";
 import { requestGetMySingleReview } from "../../redux-toolkit/review/reviewRequests";
 
-const CourseCardHasReview = ({ data }) => {
+const CourseCardHasReview = ({ data, page }) => {
   const dispatch = useDispatch();
   const { reviewLoading } = useSelector((state) => state.review);
   const { currentUserId } = useSelector((state) => state.auth);

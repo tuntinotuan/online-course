@@ -6,6 +6,8 @@ import Pagination from "@mui/material/Pagination";
 import { useSearchParams } from "react-router-dom";
 
 const SearchBody = () => {
+  const [param] = useSearchParams();
+  const page = param.get("page");
   const [searchParams, setSearchParams] = useSearchParams();
   const { showFilter } = useSelector((state) => state.global);
   const { searchPagination } = useSelector((state) => state.course);
@@ -30,10 +32,11 @@ const SearchBody = () => {
       >
         <SearchList></SearchList>
         <Pagination
+          page={Number(page) || 1}
           count={pageCount}
           color="secondary"
-          onChange={handleChangePage}
           className="mt-5"
+          onChange={handleChangePage}
         />
       </div>
     </div>

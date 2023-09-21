@@ -17,7 +17,7 @@ export function requestFindEmail(email) {
   });
 }
 export function requestUpdateUserProfile(userId, jwt, data) {
-  const { fullname, address, phone, birthDay } = data;
+  const { fullname, address, phone, birthDay, description } = data;
   // return strapi.update("users", userId, {
   //   // data: {
   //   username: fullname,
@@ -33,6 +33,7 @@ export function requestUpdateUserProfile(userId, jwt, data) {
       address: address,
       phonenumber: phone,
       birthday: birthDay,
+      description,
     },
     {
       headers: {

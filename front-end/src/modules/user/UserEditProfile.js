@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import UserTopContent from "./UserTopContent";
 import Input from "../../components/input/Input";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { useDispatch, useSelector } from "react-redux";
-import ReactMarkdown from "react-markdown";
 import { handleUpdateUserProfile } from "../../redux-toolkit/user/userHandlerThunk";
 import LoadingSpine from "../../components/loading/LoadingSpine";
 import { useTranslation } from "react-i18next";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-light.css";
+// import "highlight.js/styles/github.css";
+import { IconArrowRight } from "../../components/icon";
+
+const mdParser = new MarkdownIt({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (__) {}
+    }
+    return ""; // use external default escaping
+  },
+});
 
 const UserEditProfile = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation("profile");
   const { userData, loadingUser } = useSelector((state) => state.user);
+  const [textWithMarkDown, setTextWithMarkDown] = useState(
+    userData.description
+  );
   const {
     control,
     handleSubmit,
@@ -28,8 +48,15 @@ const UserEditProfile = () => {
   });
   const editProfileHandler = (values) => {
     if (!isValid) return;
-    dispatch(handleUpdateUserProfile(values));
+    const newValues = {
+      ...values,
+      description: textWithMarkDown,
+    };
+    dispatch(handleUpdateUserProfile(newValues));
   };
+  function handleEditorChange({ html, text }) {
+    setTextWithMarkDown(text);
+  }
   return (
     <div>
       <UserTopContent
@@ -67,10 +94,20 @@ const UserEditProfile = () => {
           size={36}
           className="!w-[150px]"
         ></Input>
-        <ReactMarkdown
-          name="description"
-          children={userData.description}
-        ></ReactMarkdown>
+        <MdEditor
+          className="w-full"
+          renderHTML={(text) => mdParser.render(text)}
+          defaultValue={userData.description}
+          onChange={handleEditorChange}
+        />
+        <Button
+          className="flex items-center gap-2 font-bold bg-purpleTextA4 text-white"
+          borderNone
+          to="/user/me"
+        >
+          View Me <IconArrowRight></IconArrowRight>
+        </Button>
+        {/* <ReactMarkdown name="description">{userData.description}</ReactMarkdown> */}
         <Button
           type="submit"
           className="flex items-center justify-center w-[90px] bg-primaryBlack text-white font-bold py-4 px-6 mt-5"

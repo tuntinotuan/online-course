@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useSearchParams } from "react-router-dom";
 import Main from "./components/layout/Main";
 import CartPage from "./pages/CartPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -42,6 +42,8 @@ import { setToggleDarkMode } from "./redux-toolkit/globalSlice";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [param] = useSearchParams();
+  const page = param.get("page");
   const { jwt, currentUserId } = useSelector((state) => state.auth);
   const { userData } = useSelector((state) => state.user);
   const { purchased_course, favorite, cart } = userData;
@@ -53,8 +55,9 @@ function App() {
     }
   }, [dispatch, currentUserId]);
   useEffect(() => {
-    dispatch(handleGetMyPurchasedCourses(purchased_course?.id));
-  }, [purchased_course, dispatch]);
+    const purchasedId = purchased_course?.id;
+    dispatch(handleGetMyPurchasedCourses({ purchasedId, page }));
+  }, [purchased_course, page, dispatch]);
   useEffect(() => {
     dispatch(handleGetMyWishlist(favorite?.id));
   }, [favorite, dispatch]);

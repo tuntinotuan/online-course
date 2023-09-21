@@ -6,6 +6,7 @@
 @import "input";
 @import "pagenotfound";
 @import "darkmode";
+@import "markdown";
 
 @layer base {
   body {
@@ -50,4 +51,11 @@
 // User Sidebar Active Link
 .user-sidebar-link.active {
   @apply bg-grayA6 font-semibold text-white;
+}
+
+// Styles for MUI Pagination
+.dark .MuiPagination-root {
+  button {
+    color: white !important;
+  }
 }
