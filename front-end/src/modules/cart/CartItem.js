@@ -57,7 +57,7 @@ const CartItems = ({
           </ButtonStatusTag>
           <CourseRating
             rating={rating}
-            totalRating={rating.length}
+            totalRating={rating?.length}
           ></CourseRating>
         </div>
         <CourseSumary></CourseSumary>

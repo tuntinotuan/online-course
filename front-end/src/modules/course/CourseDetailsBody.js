@@ -39,13 +39,13 @@ const CourseDetailsBody = ({
 
 function Left() {
   const { course } = useSelector((state) => state.course);
-  const { video_lists } = course;
+  const { video_lists, description } = course;
   return (
     <Fragment>
       {video_lists?.length > 0 && (
         <CourseContent videoData={video_lists}></CourseContent>
       )}
-      <CourseDescription></CourseDescription>
+      <CourseDescription description={description}></CourseDescription>
       <CourseFeaturedReview></CourseFeaturedReview>
       <CourseInstructor></CourseInstructor>
       {course?.reviews?.length > 0 && (

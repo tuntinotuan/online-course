@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import IconArrowRight from "../icon/IconArrowRight";
 
-const ButtonBackHome = ({ className, children, to = "" }) => {
+const ButtonBackHome = ({ className, children = "Back home", to = "" }) => {
   return (
     <Link to={to} className="mt-2">
       <button

@@ -21,7 +21,7 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
   const navigate = useNavigate();
   const [darkModeState, setDarkModeState] = useDarkMode();
   const { userData } = useSelector((state) => state.user);
-  const { avatar, url_google_avatar } = userData;
+  const { avatar, url_google_avatar, role } = userData;
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
   const { t, i18n } = useTranslation();
@@ -74,6 +74,14 @@ const Sidebar = ({ hovered, onClick = () => {} }) => {
           </p>
         </div>
       </Link>
+      {(role?.type === "admin" || role?.type === "moderator") && (
+        <Link
+          to="/admin/dashboard"
+          className="w-full flex items-center justify-between gap-2 hover:text-purpleText56 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4 group"
+        >
+          Admin Dashboard
+        </Link>
+      )}
       <div className="w-full flex flex-col items-center gap-4 border border-transparent border-b-gray-300 dark:border-b-primaryBlack p-4">
         <Link
           to="/my-course/learning"

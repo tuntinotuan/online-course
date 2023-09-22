@@ -13,6 +13,7 @@ import { requestAddToCart, requestGetMyCart } from "../cart/cartRequests";
 import { setMyCart } from "../cart/cartSlice";
 import { requestGetUserData } from "../user/userRequests";
 import { setUserData } from "../user/userSlice";
+import { toast } from "react-toastify";
 
 export const handleGetMyWishlist = createAsyncThunk(
   "wishlist/handleGetMyWishlist",
@@ -51,6 +52,7 @@ export const handleAddToWishlist = createAsyncThunk(
       console.log("response", response);
     } catch (error) {
       console.log(error);
+      toast.error(error.error.message);
     }
     return results;
   }

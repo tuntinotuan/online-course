@@ -7,6 +7,8 @@ import { ButtonUserAvatar } from "../components/button";
 import { strapiPathBE } from "../utils/constants";
 import { totalReviews, totalStudents } from "../utils/processing-array";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const UserDetailsPage = () => {
   const dispatch = useDispatch();
@@ -41,8 +43,29 @@ const UserDetailsPage = () => {
         <h2 className="text-xl font-bold mb-4">About me</h2>
         <span className="text-base mb-5">
           {authorSingle?.description ? (
-            <ReactMarkdown className="react-mark-down">
-              {authorSingle?.description}
+            <ReactMarkdown
+              className="react-mark-down"
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      {...props}
+                      children={String(children).replace(/\n$/, "")}
+                      style={dracula}
+                      language={match[1]}
+                      PreTag="div"
+                    />
+                  ) : (
+                    <code {...props} className={className}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+              children={authorSingle?.description}
+            >
+              {/* {authorSingle?.description} */}
             </ReactMarkdown>
           ) : (
             "Tim Berry is the founder of Palo Alto Software, makers of the top selling business plan software in the world. He is also the founder of Bplans.com, co-founder of Borland International, author of several best-selling books on business planning, and has a Stanford MBA."

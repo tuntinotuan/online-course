@@ -71,7 +71,8 @@ export const handleLoginWithGoogle = createAsyncThunk(
       }
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error.message);
+      error?.response?.data && toast.error(error.response.data.error.message);
     }
     return results;
   }

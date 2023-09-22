@@ -16,7 +16,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { InputTogglePassword } from "../components/input";
-import PageNotFound from "../components/notfound/PageNotFound";
 import {
   handleLogin,
   handleLoginWithGithub,
@@ -52,7 +51,7 @@ const SignInPage = ({
   const [param] = useSearchParams();
   const accessToken = param.get("access_token");
   const { t } = useTranslation("authen");
-  const { jwt, infoForReLogin, authLoading, error } = useSelector(
+  const { infoForReLogin, authLoading, error } = useSelector(
     (state) => state.auth
   );
   const {
@@ -113,7 +112,6 @@ const SignInPage = ({
     dispatch(handleLoginWithGithub({ search, accessToken, navigate }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authProvider]);
-  if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
       title={t("log in to your udemy account")}
@@ -210,6 +208,7 @@ const SignInPage = ({
         <AuthenAnotherOption
           className="text-center mt-3"
           textUnderline={t("log in to a different account")}
+          to={false}
           onClick={handleClickDifferentAccount}
         ></AuthenAnotherOption>
       )}

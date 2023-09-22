@@ -3,6 +3,7 @@ import { useState } from "react";
 import SpecialTextWithDots from "../../components/special/SpecialTextWithDots";
 import { IconArrowDown } from "../../components/icon";
 import CourseHeading from "./CourseHeading";
+import ReactMarkdown from "react-markdown";
 const dataLocal = [
   "You'll get a full understanding of how to program with Python and how to use it in conjunction with scientific computing modules and libraries to analyze data.",
   "You will also get lifetime access to over 100 example python code notebooks, new and updated videos, as well as future additions of various data analysis projects that you can use for a portfolio to show future employers! ",
@@ -15,7 +16,7 @@ const dataLocal = [
   "- Have an understanding of Machine Learning and SciKit Learn!",
   "With 100+ lectures and over 20 hours of information and more than 100 example python code notebooks, you will be excellently prepared for a future in data science! ",
 ];
-const CourseDescription = () => {
+const CourseDescription = ({ description }) => {
   const [showMore, setShowMore] = useState(false);
   const handleShowMore = () => {
     setShowMore(!showMore);
@@ -23,9 +24,9 @@ const CourseDescription = () => {
   return (
     <section className="h-full">
       <div
-        className={`relative ${
+        className={`react-mark-down relative mt-8 overflow-hidden ${
           showMore ? "h-full" : "max-h-[300px]"
-        } mt-8 overflow-hidden`}
+        }`}
       >
         {!showMore && (
           <div className="absolute h-1/2 bottom-0 left-0 right-0 bg-gradient-to-t from-white dark:from-darkMain"></div>
@@ -53,6 +54,7 @@ const CourseDescription = () => {
           ]}
           styleContent="dark:text-darkTextCB"
         ></SpecialTextWithDots>
+        <ReactMarkdown>{description}</ReactMarkdown>
       </div>
       <div
         className="flex items-center gap-2 font-bold text-purpleText56 hover:opacity-90 cursor-pointer mt-5"

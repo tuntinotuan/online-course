@@ -31,7 +31,7 @@ const ReviewCard = ({
               <CourseStar rating={rating || 5} readOnly></CourseStar>
               <p className="text-xs font-bold text-grayA6">{newCreatedTime}</p>
             </div>
-            <span className="text-[9px] text-grayA6 font-thin">
+            <span className="text-[9px] text-grayA6 font-thin italic">
               {createdTime !== updatedTime ? `Updated ${newUpdatedTime}` : ""}
             </span>
           </div>

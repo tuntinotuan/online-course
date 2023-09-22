@@ -77,3 +77,9 @@
   line-height: 1.7;
   margin: 8px 0;
 }
+.react-mark-down p {
+  @apply dark:text-darkTextCB;
+}
+.react-mark-down strong {
+  @apply dark:text-white dark:font-bold;
+}

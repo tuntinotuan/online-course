@@ -7,15 +7,21 @@ const SpecialTextUnderline = ({
   to = "",
   onClick,
 }) => {
-  return (
-    <Link to={to} onClick={onClick}>
-      <p
-        className={`inline-block border border-transparent border-b-current mx-1 cursor-pointer ${className}`}
-      >
-        {text}
-      </p>
-    </Link>
+  const renderElement = () => (
+    <p
+      className={`inline-block border border-transparent border-b-current mx-1 cursor-pointer ${className}`}
+      onClick={onClick}
+    >
+      {text}
+    </p>
   );
+  if (to)
+    return (
+      <Link to={to} onClick={onClick}>
+        {renderElement()}
+      </Link>
+    );
+  return renderElement();
 };
 
 export default SpecialTextUnderline;

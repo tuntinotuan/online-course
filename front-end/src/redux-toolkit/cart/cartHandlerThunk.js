@@ -14,6 +14,7 @@ import {
 import { setCourseList } from "../course/courseSlice";
 import { requestGetUserData } from "../user/userRequests";
 import { setUserData } from "../user/userSlice";
+import { toast } from "react-toastify";
 
 export const handleGetMyCart = createAsyncThunk(
   "cart/handleGetMyCart",
@@ -84,6 +85,7 @@ export const handleAddToCart = createAsyncThunk(
     } catch (error) {
       console.log(error);
       dispatch(setLoadingAddCart(false));
+      toast.error(error.error.message);
     }
   }
 );

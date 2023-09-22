@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../redux-toolkit/auth/authHandlerThunk";
 import { useTranslation } from "react-i18next";
-import PageNotFound from "../components/notfound/PageNotFound";
 import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
@@ -34,7 +33,7 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation(["authen", "header"]);
-  const { jwt, error } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.auth);
   const {
     control,
     handleSubmit,
@@ -65,7 +64,6 @@ const SignUpPage = ({ className, unToSignIn = false, onClickSignIn }) => {
   useEffect(() => {
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
-  if (jwt) return <PageNotFound></PageNotFound>;
   return (
     <AuthenticationPage
       title={t("sign up and start learning")}

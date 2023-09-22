@@ -95,7 +95,7 @@ const UserEditProfile = () => {
           className="!w-[150px]"
         ></Input>
         <MdEditor
-          className="w-full"
+          className="w-full h-[500px]"
           renderHTML={(text) => mdParser.render(text)}
           defaultValue={userData.description}
           onChange={handleEditorChange}
