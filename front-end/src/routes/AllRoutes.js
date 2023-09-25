@@ -28,6 +28,9 @@ import TokenAuthentication from "../token-authentication/TokenAuthentication";
 import CheckoutPage from "../pages/CheckoutPage";
 import PrivateRoute from "./PrivateRoute";
 import AdminLayout from "../modules/admin/AdminLayout";
+import AdminCoursePage from "../pages/admin/AdminCoursePage";
+import CourseUpdate from "../modules/admin/course/CourseUpdate";
+import CourseRecycleBin from "../modules/admin/course/CourseRecycleBin";
 
 const AllRoutes = () => {
   return (
@@ -186,7 +189,23 @@ const AllRoutes = () => {
           path="course"
           element={
             <PrivateRoute isRole="MOD">
-              <p>Here course dashboard</p>
+              <AdminCoursePage></AdminCoursePage>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="course-update/:courseId"
+          element={
+            <PrivateRoute isRole="MOD">
+              <CourseUpdate></CourseUpdate>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="course/trash"
+          element={
+            <PrivateRoute isRole="MOD">
+              <CourseRecycleBin></CourseRecycleBin>
             </PrivateRoute>
           }
         ></Route>

@@ -101,6 +101,10 @@
       "relation": "manyToOne",
       "target": "api::topic.topic",
       "inversedBy": "courses"
+    },
+    "deleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

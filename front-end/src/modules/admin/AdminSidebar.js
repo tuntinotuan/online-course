@@ -113,7 +113,12 @@ function AdminSidebar() {
               </ListItemButton>
               {open &&
                 data.map((item) => (
-                  <NavLink to={item.url}>
+                  <NavLink
+                    to={item.url}
+                    className={({ isActive }) =>
+                      isActive ? "block bg-[rgba(255,255,255,.2)]" : ""
+                    }
+                  >
                     <ListItemButton
                       key={item.label}
                       sx={{

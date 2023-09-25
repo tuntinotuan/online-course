@@ -34,6 +34,7 @@ import IconPlayCircle from "./IconPlayCircle";
 import IconChevronLeft from "./IconChevronLeft";
 import IconCloud from "./IconCloud";
 import IconStar from "./IconStar";
+import IconTrash from "./IconTrash";
 
 export {
   IconArrowLeft,
@@ -72,4 +73,5 @@ export {
   IconPen,
   IconCloud,
   IconStar,
+  IconTrash,
 };

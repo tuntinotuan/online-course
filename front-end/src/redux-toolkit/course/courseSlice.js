@@ -5,6 +5,8 @@ import {
   handleSearchCourse,
   handleSearchCourseOnly,
   handleGetAllCourses,
+  handleGetAllCoursesInRecycleBin,
+  handleGetCoursesInAdmin,
 } from "./courseHandlerThunk";
 
 const initialState = {
@@ -12,6 +14,8 @@ const initialState = {
   courseListEnd: false,
   allCourses: null,
   allCoursesEnd: false,
+  coursesAdminPagination: [],
+  allCoursesRecycleBin: null,
   course: "",
   coursesSearch: [],
   coursesSearchOnly: [],
@@ -28,6 +32,14 @@ const courseSlice = createSlice({
     setCourseList: (state, action) => ({
       ...state,
       courseList: action.payload,
+    }),
+    setAllCourses: (state, action) => ({
+      ...state,
+      allCourses: action.payload,
+    }),
+    setAllCoursesRecycleBin: (state, action) => ({
+      ...state,
+      allCoursesRecycleBin: action.payload,
     }),
     toggleShowPopupVideo: (state, action) => ({
       ...state,
@@ -49,6 +61,10 @@ const courseSlice = createSlice({
       ...state,
       searchPagination: action.payload,
     }),
+    setCoursesAdminPagination: (state, action) => ({
+      ...state,
+      coursesAdminPagination: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -57,6 +73,12 @@ const courseSlice = createSlice({
       })
       .addCase(handleGetAllCourses.fulfilled, (state, action) => {
         state.allCourses = action.payload;
+      })
+      .addCase(handleGetCoursesInAdmin.fulfilled, (state, action) => {
+        state.allCourses = action.payload;
+      })
+      .addCase(handleGetAllCoursesInRecycleBin.fulfilled, (state, action) => {
+        state.allCoursesRecycleBin = action.payload;
       })
       .addCase(handleGetSingleCourse.fulfilled, (state, action) => {
         state.course = action.payload;
@@ -79,11 +101,14 @@ const courseSlice = createSlice({
 
 export const {
   setCourseList,
+  setAllCourses,
+  setAllCoursesRecycleBin,
   setCourseListEnd,
   toggleShowPopupVideo,
   setUrlPreviewVideo,
   setAllCoursesEnd,
   setSearchPagination,
+  setCoursesAdminPagination,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

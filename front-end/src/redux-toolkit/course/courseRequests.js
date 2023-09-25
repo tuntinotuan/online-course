@@ -54,8 +54,13 @@ export function requestGetTopicOfCourse(topic, filter, page) {
     },
   });
 }
-export function requestGetAllCourses(page) {
+export function requestGetAllCourses(page, deleted = false) {
   return strapi.find("courses", {
+    filters: {
+      deleted: {
+        $eq: deleted,
+      },
+    },
     populate: "*",
     pagination: {
       page: page || 1,
@@ -89,7 +94,6 @@ export function requestGetSingleCourse(courseId) {
     // populate: ["overview_image", "user.courses"],
   });
 }
-
 export function requestSearchCourse(filter) {
   const { keyword, sortBy, rating, searchPage } = filter;
   return strapi.find("courses", {
@@ -137,5 +141,11 @@ export function requestUpdateTotalReviewsCourse(
   return strapi.update("courses", currentCourseId, {
     star: newStar,
     total_reviews: amountReview,
+  });
+}
+
+export function requestDeleteAndRestoreCourse(courseId, deleted = true) {
+  return strapi.update("courses", courseId, {
+    deleted,
   });
 }
