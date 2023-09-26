@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { useDispatch, useSelector } from "react-redux";
 import { handleUpdateUserProfile } from "../../redux-toolkit/user/userHandlerThunk";
-import LoadingSpine from "../../components/loading/LoadingSpine";
+import LoadingSpin from "../../components/loading/LoadingSpin";
 import { useTranslation } from "react-i18next";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -115,7 +115,7 @@ const UserEditProfile = () => {
           disabled={loadingUser}
         >
           {loadingUser ? (
-            <LoadingSpine size="22px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="22px" borderSize="2px"></LoadingSpin>
           ) : (
             t("save")
           )}

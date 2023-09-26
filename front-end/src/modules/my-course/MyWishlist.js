@@ -3,7 +3,7 @@ import { CourseCard } from "../../components/course";
 import SearchWishlist from "../../components/search/SearchWishlist";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../components/button";
-import LoadingSpineQuarter from "../../components/loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../../components/loading/LoadingSpinQuarter";
 import { useSearchParams } from "react-router-dom";
 import { SpecialTextUnderline } from "../../components/special";
 import { setWishlistSearch } from "../../redux-toolkit/wishlist/wishlistSlice";
@@ -49,7 +49,7 @@ const MyWishlist = () => {
             )}
             <SearchWishlist></SearchWishlist>
           </div>
-          {loadingMyWishlist && <LoadingSpineQuarter></LoadingSpineQuarter>}
+          {loadingMyWishlist && <LoadingSpinQuarter></LoadingSpinQuarter>}
           {!loadingMyWishlist && (
             <>
               <div className="grid grid-cols-4 gap-4">

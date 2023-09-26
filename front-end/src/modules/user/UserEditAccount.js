@@ -12,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChangePassword } from "../../redux-toolkit/auth/authHandlerThunk";
-import LoadingSpine from "../../components/loading/LoadingSpine";
+import LoadingSpin from "../../components/loading/LoadingSpin";
 import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
@@ -28,7 +28,6 @@ const schema = yup.object({
 const UserEditAccount = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation("profile");
-  const { error } = useSelector((state) => state.auth);
   const { loadingUser } = useSelector((state) => state.user);
   const {
     control,
@@ -49,10 +48,8 @@ const UserEditAccount = () => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
       toast.error(arrErrors[0]?.message, { pauseOnHover: false });
-    } else {
-      error && toast.error(error, { pauseOnHover: false });
     }
-  }, [errors, error]);
+  }, [errors]);
 
   return (
     <div>
@@ -101,7 +98,7 @@ const UserEditAccount = () => {
           }
         >
           {loadingUser ? (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
           ) : (
             t("change password")
           )}

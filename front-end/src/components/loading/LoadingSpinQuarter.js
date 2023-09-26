@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingSpineQuarter = ({
+const LoadingSpinQuarter = ({
   className,
   size = 80,
   borderSize = "border-[12px]",
@@ -14,4 +14,4 @@ const LoadingSpineQuarter = ({
   );
 };
 
-export default LoadingSpineQuarter;
+export default LoadingSpinQuarter;

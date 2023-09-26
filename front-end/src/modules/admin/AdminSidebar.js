@@ -45,7 +45,7 @@ const AdminSidebarStyles = styled(List)({
 function AdminSidebar() {
   const [open, setOpen] = useState(true);
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} className="sticky top-0">
       <ThemeProvider
         theme={createTheme({
           components: {

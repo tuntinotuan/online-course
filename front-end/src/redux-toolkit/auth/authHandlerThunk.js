@@ -193,10 +193,12 @@ export const handleChangePassword = createAsyncThunk(
       const response = await requestChangePassword(value);
       console.log("response", response);
       dispatch(setLoading(false));
+      toast.success("Updated password successfully!");
     } catch (error) {
       console.log(error);
       dispatch(setLoading(false));
       dispatch(setError(error.error.message));
+      toast.error(error.error.message);
     }
   }
 );

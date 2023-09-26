@@ -4,7 +4,7 @@ import SearchBody from "../modules/search/SearchBody";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleSearchCourse } from "../redux-toolkit/course/courseHandlerThunk";
-import LoadingSpineQuarter from "../components/loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../components/loading/LoadingSpinQuarter";
 import SearchNotfound from "../modules/search/SearchNotfound";
 import { useTranslation } from "react-i18next";
 
@@ -33,7 +33,7 @@ const SearchPage = () => {
           className="absolute top-0 left-0 flex items-start justify-center w-full bg-white bg-opacity-60 mx-auto py-40 z-10"
           style={{ height: document.body.offsetHeight }}
         >
-          <LoadingSpineQuarter></LoadingSpineQuarter>
+          <LoadingSpinQuarter></LoadingSpinQuarter>
         </div>
       )}
       {coursesSearch?.length > 0 && (

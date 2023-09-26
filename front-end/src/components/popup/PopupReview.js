@@ -6,7 +6,7 @@ import CourseStar from "../course/CourseStar";
 import Textarea from "../textarea/Textarea";
 import Button from "../button/Button";
 import { handleCreateReview } from "../../redux-toolkit/review/reviewHanlderThunk";
-import LoadingSpine from "../loading/LoadingSpine";
+import LoadingSpin from "../loading/LoadingSpin";
 
 const PopupReview = () => {
   const labels = {
@@ -75,7 +75,7 @@ const PopupReview = () => {
         onClick={createReviewHandler}
       >
         {reviewLoading && (
-          <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+          <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
         )}
         {!reviewLoading && "Save and Continue"}
       </Button>

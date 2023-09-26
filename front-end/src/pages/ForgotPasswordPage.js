@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { handleForgotPassword } from "../redux-toolkit/auth/authHandlerThunk";
-import LoadingSpine from "../components/loading/LoadingSpine";
+import LoadingSpin from "../components/loading/LoadingSpin";
 import { useTranslation } from "react-i18next";
 
 const schema = yup.object({
@@ -82,7 +82,7 @@ const ForgotPasswordPage = ({
           full
         >
           {loading ? (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
           ) : (
             t("reset password")
           )}

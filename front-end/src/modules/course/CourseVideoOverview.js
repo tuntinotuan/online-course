@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CoursePrice from "../../components/course/CoursePrice";
 import { handleAddToCart } from "../../redux-toolkit/cart/cartHandlerThunk";
 import { useParams } from "react-router-dom";
-import LoadingSpine from "../../components/loading/LoadingSpine";
+import LoadingSpin from "../../components/loading/LoadingSpin";
 
 const CourseVideoOverview = ({ offset }) => {
   const { courseId } = useParams();
@@ -71,7 +71,7 @@ const CourseVideoOverview = ({ offset }) => {
           onClick={intoCart ? () => {} : addToCart}
         >
           {loadingAdd && (
-            <LoadingSpine size="22px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="22px" borderSize="2px"></LoadingSpin>
           )}
           {!loadingAdd && (intoCart ? "Go to cart" : "Add to cart")}
         </Button>

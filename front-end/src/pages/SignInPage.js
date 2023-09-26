@@ -25,7 +25,7 @@ import { useTranslation } from "react-i18next";
 import { ButtonUserAvatar } from "../components/button";
 import { setInfoForReLogin } from "../redux-toolkit/auth/authSlice";
 import { strapiPathBE } from "../utils/constants";
-import LoadingSpine from "../components/loading/LoadingSpine";
+import LoadingSpin from "../components/loading/LoadingSpin";
 
 const schema = yup.object({
   email: yup
@@ -119,11 +119,11 @@ const SignInPage = ({
     >
       {authLoading && (
         <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-60 z-50">
-          <LoadingSpine
+          <LoadingSpin
             borderColor="#000"
             borderSize="2px"
             size="62px"
-          ></LoadingSpine>
+          ></LoadingSpin>
         </div>
       )}
       <form

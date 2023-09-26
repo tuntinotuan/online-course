@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -14,18 +14,22 @@ import Image from "../../components/image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import AdminHeading from "../../modules/admin/AdminHeading";
 import { useSearchParams } from "react-router-dom";
-import { current } from "@reduxjs/toolkit";
 
 const AdminCoursePage = () => {
   const dispatch = useDispatch();
-  const [param] = useSearchParams();
-  const page = param.get("page");
+  // const [param] = useSearchParams();
+  // const page = param.get("page");
+  const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const { allCourses, coursesAdminPagination } = useSelector(
     (state) => state.course
   );
   useEffect(() => {
-    dispatch(handleGetCoursesInAdmin({ page }));
+    !allCourses && dispatch(handleGetCoursesInAdmin({ page }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    page > 1 && dispatch(handleGetCoursesInAdmin({ page }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -153,8 +157,11 @@ const AdminCoursePage = () => {
   };
   const handleOnPaginationModelChange = (currentPage) => {
     console.log("currentPage", currentPage);
-    searchParams.set("page", currentPage.page + 1);
-    setSearchParams(searchParams);
+    if (allCourses) {
+      // searchParams.set("page", currentPage.page);
+      // setSearchParams(searchParams);
+      setPage(currentPage.page);
+    }
   };
   return (
     <>
@@ -175,7 +182,7 @@ const AdminCoursePage = () => {
           initialState={{
             pagination: {
               paginationModel: {
-                page,
+                page: page - 1,
                 pageSize: 5,
               },
             },
@@ -191,6 +198,9 @@ const AdminCoursePage = () => {
           disableRowSelectionOnClick
         />
       </Box>
+      {allCourses?.map((item) => (
+        <Button to={`/admin/course-update/${item.id}`}>update</Button>
+      ))}
     </>
   );
 };

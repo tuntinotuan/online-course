@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { strapiPathBE } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { handleUpdateUserAvatar } from "../../redux-toolkit/user/userHandlerThunk";
-import LoadingSpine from "../../components/loading/LoadingSpine";
+import LoadingSpin from "../../components/loading/LoadingSpin";
 import { useTranslation } from "react-i18next";
 
 const UserEditPhoto = () => {
@@ -61,7 +61,7 @@ const UserEditPhoto = () => {
           disabled={loadingUser || !urlChosenImage}
         >
           {loadingUser ? (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
           ) : (
             t("save")
           )}

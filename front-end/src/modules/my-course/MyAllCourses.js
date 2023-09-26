@@ -3,7 +3,7 @@ import { CourseCardHasReview } from "../../components/course";
 import { useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
-import LoadingSpineQuarter from "../../components/loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../../components/loading/LoadingSpinQuarter";
 
 const MyAllCourses = () => {
   const [param] = useSearchParams();
@@ -20,7 +20,7 @@ const MyAllCourses = () => {
     <div className="py-5">
       {loadingPurchasedCourses && (
         <div className="pt-28 pb-80">
-          <LoadingSpineQuarter>loading</LoadingSpineQuarter>
+          <LoadingSpinQuarter>loading</LoadingSpinQuarter>
         </div>
       )}
       {!loadingPurchasedCourses && myPurchasedCourses?.length > 0 ? (

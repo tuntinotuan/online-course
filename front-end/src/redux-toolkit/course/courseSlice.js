@@ -23,6 +23,8 @@ const initialState = {
   courseLoading: false,
   showPopupVideo: false,
   urlPreviewVideo: "",
+  loadingUpdateCourse: false,
+  loadingUpdateCourseSkeleton: false,
 };
 
 const courseSlice = createSlice({
@@ -64,6 +66,14 @@ const courseSlice = createSlice({
     setCoursesAdminPagination: (state, action) => ({
       ...state,
       coursesAdminPagination: action.payload,
+    }),
+    setLoadingUpdateCourse: (state, action) => ({
+      ...state,
+      loadingUpdateCourse: action.payload,
+    }),
+    setLoadingUpdateCourseSkeleton: (state, action) => ({
+      ...state,
+      loadingUpdateCourseSkeleton: action.payload,
     }),
   },
   extraReducers: (builder) => {
@@ -109,6 +119,8 @@ export const {
   setAllCoursesEnd,
   setSearchPagination,
   setCoursesAdminPagination,
+  setLoadingUpdateCourse,
+  setLoadingUpdateCourseSkeleton,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

@@ -2,7 +2,7 @@ import React from "react";
 import IconHeart from "../icon/IconHeart";
 import { IconHeartSolid } from "../icon";
 import { useSelector } from "react-redux";
-import LoadingSpine from "../loading/LoadingSpine";
+import LoadingSpin from "../loading/LoadingSpin";
 
 const ButtonHeart = ({ contain, className, onClick = () => {} }) => {
   const { jwt } = useSelector((state) => state.auth);
@@ -13,11 +13,11 @@ const ButtonHeart = ({ contain, className, onClick = () => {} }) => {
       onClick={onClick}
     >
       {loadingHeart && (
-        <LoadingSpine
+        <LoadingSpin
           size="24px"
           borderSize="1px"
           borderColor="#000"
-        ></LoadingSpine>
+        ></LoadingSpin>
       )}
       {!loadingHeart &&
         (jwt && contain ? (

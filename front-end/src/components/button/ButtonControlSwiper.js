@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { IconArrowLeft, IconArrowRight } from "../icon";
 import { useSwiperContext } from "../../contexts/swiper-context";
 import { useSwiper } from "swiper/react";
-import LoadingSpineQuarter from "../loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../loading/LoadingSpinQuarter";
 const ButtonControlSwiper = ({
   className,
   sizeButton = "",
@@ -68,11 +68,11 @@ const ButtonControlSwiper = ({
         disabled={loading}
       >
         {loading && (
-          <LoadingSpineQuarter
+          <LoadingSpinQuarter
             size={20}
             borderSize="border-[2px]"
             borderColor="border-white"
-          ></LoadingSpineQuarter>
+          ></LoadingSpinQuarter>
         )}
         {!loading && <IconArrowRight size={24} stroke={3}></IconArrowRight>}
       </button>

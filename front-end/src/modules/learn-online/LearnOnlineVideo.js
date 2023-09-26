@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/button/Button";
 import { IconChevronLeft } from "../../components/icon";
 import { setToggleLearnOnlineSidebar } from "../../redux-toolkit/learn/learnSlice";
-import LoadingSpineQuarter from "../../components/loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../../components/loading/LoadingSpinQuarter";
 
 const LearnOnlineVideo = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const LearnOnlineVideo = () => {
     <div className="relative w-full bg-primaryBlack rounded-xl overflow-hidden">
       {loadVideo && (
         <div className="flex items-center justify-center h-[300px]">
-          <LoadingSpineQuarter></LoadingSpineQuarter>
+          <LoadingSpinQuarter></LoadingSpinQuarter>
         </div>
       )}
       {!loadVideo && (

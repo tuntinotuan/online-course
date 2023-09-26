@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingSpine = ({
+const LoadingSpin = ({
   className,
   size = "40px",
   borderSize = "5px",
@@ -20,4 +20,4 @@ const LoadingSpine = ({
   );
 };
 
-export default LoadingSpine;
+export default LoadingSpin;

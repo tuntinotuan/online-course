@@ -4,8 +4,9 @@ import {
   requestGetAllCourses,
   requestGetSingleCourse,
   requestGetTopicOfCourse,
-  requestSearchCourse,
+  requestUpdateCourse,
 } from "./courseRequests";
+import { requestSearchCourse } from "./requestSearchCourse";
 import { setLoading } from "../globalSlice";
 import {
   setAllCourses,
@@ -13,6 +14,8 @@ import {
   setAllCoursesRecycleBin,
   setCourseListEnd,
   setCoursesAdminPagination,
+  setLoadingUpdateCourse,
+  setLoadingUpdateCourseSkeleton,
   setSearchPagination,
 } from "./courseSlice";
 import { toast } from "react-toastify";
@@ -112,14 +115,17 @@ export const handleGetAllCoursesInRecycleBin = createAsyncThunk(
 );
 export const handleGetSingleCourse = createAsyncThunk(
   "course/handleGetSingleCourse",
-  async (courseId, ThunkAPI) => {
+  async (courseId, { dispatch }) => {
     let results = [];
+    dispatch(setLoadingUpdateCourseSkeleton(true));
     try {
       const response = await requestGetSingleCourse(courseId);
       console.log("response", response);
+      dispatch(setLoadingUpdateCourseSkeleton(false));
       results = response.data;
     } catch (error) {
       console.log(error);
+      dispatch(setLoadingUpdateCourseSkeleton(false));
     }
     return results;
   }
@@ -168,6 +174,23 @@ export const handleRestoreCourse = createAsyncThunk(
     } catch (error) {
       console.log(error);
       toast.error(error.error.message);
+    }
+  }
+);
+
+export const handleUpdateCourse = createAsyncThunk(
+  "course/handleUpdateCourse",
+  async (query, { dispatch }) => {
+    const { courseId, newValues } = query;
+    dispatch(setLoadingUpdateCourse(true));
+    try {
+      const response = await requestUpdateCourse(courseId, newValues);
+      console.log("res", response);
+      dispatch(setLoadingUpdateCourse(false));
+      Swal.fire("Update!", "Your file has been update.", "success");
+    } catch (error) {
+      console.log("error", error);
+      dispatch(setLoadingUpdateCourse(false));
     }
   }
 );

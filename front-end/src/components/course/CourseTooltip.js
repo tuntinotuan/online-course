@@ -11,7 +11,7 @@ import {
   handleAddToWishlist,
   handleRemoveItemFromWishlist,
 } from "../../redux-toolkit/wishlist/wishlistHandlerThunk";
-import LoadingSpine from "../loading/LoadingSpine";
+import LoadingSpin from "../loading/LoadingSpin";
 const targetCourse = [
   "Master Machine Learning on Python & R",
   "Have a great intuition of many Machine Learning models. What is your name, What's up Bro?",
@@ -115,7 +115,7 @@ const CourseTooltip = ({
           onClick={addToCart}
         >
           {loadingAdd && (
-            <LoadingSpine size="28px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="28px" borderSize="2px"></LoadingSpin>
           )}
           {!loadingAdd && (intoCart ? "Go to cart" : "Add to cart")}
         </Button>

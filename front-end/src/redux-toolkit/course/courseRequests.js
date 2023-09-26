@@ -149,3 +149,8 @@ export function requestDeleteAndRestoreCourse(courseId, deleted = true) {
     deleted,
   });
 }
+
+export function requestUpdateCourse(courseId, values) {
+  console.log(`id = ${courseId}, values =`, values);
+  // return strapi.update("courses", courseId, { values });
+}

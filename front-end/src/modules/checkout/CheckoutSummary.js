@@ -9,7 +9,7 @@ import {
 } from "../../utils/processing-number";
 import { handlePaymentWithCheckout } from "../../redux-toolkit/order/orderHandlerThunk";
 import { useSearchParams } from "react-router-dom";
-import LoadingSpine from "../../components/loading/LoadingSpine";
+import LoadingSpin from "../../components/loading/LoadingSpin";
 import { toast } from "react-toastify";
 import { setCardNumber } from "../../redux-toolkit/order/orderSlice";
 
@@ -147,7 +147,7 @@ const CheckoutSummary = () => {
         disabled={orderLoading}
       >
         {orderLoading && (
-          <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+          <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
         )}
         {!orderLoading && "Complete Checkout"}
       </Button>

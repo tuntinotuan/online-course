@@ -4,7 +4,7 @@ import { strapiPathBE } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowPopupVideo } from "../../redux-toolkit/course/courseSlice";
 import VideoList from "../video/VideoList";
-import LoadingSpineQuarter from "../loading/LoadingSpineQuarter";
+import LoadingSpinQuarter from "../loading/LoadingSpinQuarter";
 
 const PopupPreviewVideo = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const PopupPreviewVideo = () => {
         <h1 className="text-xl max-w-[400px] mb-10">{course.title}</h1>
         {loadVideo && (
           <div className="flex items-center justify-center h-[300px]">
-            <LoadingSpineQuarter className="border-white"></LoadingSpineQuarter>
+            <LoadingSpinQuarter className="border-white"></LoadingSpinQuarter>
           </div>
         )}
         {!loadVideo && urlPreviewVideo && (

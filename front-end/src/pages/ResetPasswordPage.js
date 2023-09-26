@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { InputTogglePassword } from "../components/input";
 import { handleResetPassword } from "../redux-toolkit/auth/authHandlerThunk";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import LoadingSpine from "../components/loading/LoadingSpine";
+import LoadingSpin from "../components/loading/LoadingSpin";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -76,7 +76,7 @@ const ResetPasswordPage = () => {
           full
         >
           {loading ? (
-            <LoadingSpine size="24px" borderSize="2px"></LoadingSpine>
+            <LoadingSpin size="24px" borderSize="2px"></LoadingSpin>
           ) : (
             "Submit"
           )}
