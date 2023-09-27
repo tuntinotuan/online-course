@@ -73,8 +73,9 @@ export const handleGetCoursesInAdmin = createAsyncThunk(
     const { page } = query;
     const state = getState();
     const { allCourses } = state.course;
+    const newPage = page + 1;
     try {
-      const response = await requestGetAllCourses(page);
+      const response = await requestGetAllCourses(newPage);
       console.log("res", response);
       results = response.data;
       const { meta } = response;
@@ -115,14 +116,24 @@ export const handleGetAllCoursesInRecycleBin = createAsyncThunk(
 );
 export const handleGetSingleCourse = createAsyncThunk(
   "course/handleGetSingleCourse",
-  async (courseId, { dispatch }) => {
+  async ({ courseId, reset, setValue }, { dispatch }) => {
     let results = [];
     dispatch(setLoadingUpdateCourseSkeleton(true));
     try {
       const response = await requestGetSingleCourse(courseId);
       console.log("response", response);
-      dispatch(setLoadingUpdateCourseSkeleton(false));
       results = response.data;
+      reset &&
+        reset({
+          title: results.title,
+          subTitle: results.subtitle,
+          currentPrice: results.current_price,
+          originalPrice: results.original_price,
+          star: results.star,
+          topic: results.topic.name,
+        });
+      setValue && setValue("description", results.description);
+      dispatch(setLoadingUpdateCourseSkeleton(false));
     } catch (error) {
       console.log(error);
       dispatch(setLoadingUpdateCourseSkeleton(false));
@@ -149,12 +160,19 @@ export const handleSearchCourse = createAsyncThunk(
 );
 export const handleDeleteCourse = createAsyncThunk(
   "course/handleDeleteCourse",
-  async (courseId, { dispatch }) => {
+  async (courseId, { dispatch, getState }) => {
+    const state = getState();
+    const { allCourses } = state.course;
     try {
       await requestDeleteAndRestoreCourse(courseId);
       Swal.fire("Deleted!", "Your file has been deleted.", "success");
       const response = await requestGetAllCourses();
-      dispatch(setAllCourses(response.data));
+      const { meta } = response;
+      const newAllCourses = allCourses.filter(
+        (course) => course.id !== courseId
+      );
+      dispatch(setAllCourses(newAllCourses));
+      dispatch(setCoursesAdminPagination(meta.pagination));
     } catch (error) {
       console.log(error);
       toast.error(error.error.message);
@@ -181,10 +199,14 @@ export const handleRestoreCourse = createAsyncThunk(
 export const handleUpdateCourse = createAsyncThunk(
   "course/handleUpdateCourse",
   async (query, { dispatch }) => {
-    const { courseId, newValues } = query;
+    const { courseId, newValues, urlChosenImage } = query;
     dispatch(setLoadingUpdateCourse(true));
     try {
-      const response = await requestUpdateCourse(courseId, newValues);
+      const response = await requestUpdateCourse(
+        courseId,
+        newValues,
+        urlChosenImage
+      );
       console.log("res", response);
       dispatch(setLoadingUpdateCourse(false));
       Swal.fire("Update!", "Your file has been update.", "success");

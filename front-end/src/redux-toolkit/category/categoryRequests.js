@@ -14,3 +14,20 @@ export function requestGetTopics(industryId) {
     populate: "*",
   });
 }
+
+export function requestGetAllTopics(query) {
+  return strapi.find("topics", {
+    filters: query
+      ? {
+          name: {
+            $contains: query,
+          },
+        }
+      : {},
+    populate: "*",
+    // pagination: {
+    //   page: 1,
+    //   pageSize: 5,
+    // },
+  });
+}

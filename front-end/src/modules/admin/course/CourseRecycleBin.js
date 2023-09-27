@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import AdminHeading from "../AdminHeading";
 import { Box } from "@mui/material";
 import { strapiPathBE } from "../../../utils/constants";
 import Image from "../../../components/image/Image";
@@ -10,8 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "../../../components/button";
-import { Link } from "react-router-dom";
-import { IconChevronLeft } from "../../../components/icon";
+import AdminHeadingWithBack from "./AdminHeadingWithBack";
 
 const CourseRecycleBin = () => {
   const dispatch = useDispatch();
@@ -107,12 +105,11 @@ const CourseRecycleBin = () => {
   };
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <Link to=".." relative="path">
-          <IconChevronLeft></IconChevronLeft>
-        </Link>
-        <AdminHeading>Recycle bin of the all courses</AdminHeading>
-      </div>
+      <AdminHeadingWithBack
+        title="Recycle bin of the all courses"
+        to=".."
+        relative="path"
+      ></AdminHeadingWithBack>
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           columns={columns}

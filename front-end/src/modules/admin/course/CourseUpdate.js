@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import AdminHeading from "../AdminHeading";
+import { useParams } from "react-router-dom";
 import Field from "../../../components/field/Field";
 import Input from "../../../components/input/Input";
 import { useForm } from "react-hook-form";
@@ -17,7 +16,14 @@ import "highlight.js/styles/atom-one-light.css";
 import InputSelectImage from "../../../components/input/InputSelectImage";
 import Button from "../../../components/button/Button";
 import LoadingSpin from "../../../components/loading/LoadingSpin";
-import { IconChevronLeft } from "../../../components/icon";
+import { strapiPathBE } from "../../../utils/constants";
+import { Dropdown } from "../../../components/dropdown";
+import {
+  handleGetAllTopics,
+  handleSearchTopic,
+} from "../../../redux-toolkit/category/categoryHanlderThunk";
+import AdminHeadingWithBack from "./AdminHeadingWithBack";
+import { debounce } from "lodash";
 
 const mdParser = new MarkdownIt({
   highlight: function (str, lang) {
@@ -33,48 +39,39 @@ const mdParser = new MarkdownIt({
 const CourseUpdate = () => {
   const dispatch = useDispatch();
   const { courseId } = useParams();
+  const [urlChosenImage, setUrlChosenImage] = useState();
   const { course, loadingUpdateCourse, loadingUpdateCourseSkeleton } =
     useSelector((state) => state.course);
-  const [textWithMarkDown, setTextWithMarkDown] = useState(course.description);
-  const { control, reset, handleSubmit } = useForm({
+  const { allTopics } = useSelector((state) => state.category);
+  const { control, reset, setValue, watch, handleSubmit } = useForm({
     mode: "onSubmit",
-    defaultValues: {
-      title: "",
-      subTitle: "",
-      currentPrice: "",
-      originalPrice: "",
-      star: "",
-    },
   });
   useEffect(() => {
-    dispatch(handleGetSingleCourse(courseId));
-    course &&
-      reset({
-        title: course.title,
-        subTitle: course.subtitle,
-        currentPrice: course.current_price,
-        originalPrice: course.original_price,
-        star: course.star,
-      });
+    dispatch(handleGetSingleCourse({ courseId, reset, setValue }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, reset]);
+  useEffect(() => {
+    dispatch(handleGetAllTopics());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const updateCourseHandler = (values) => {
     const newValues = {
       ...values,
     };
-    dispatch(handleUpdateCourse({ courseId, newValues }));
+    dispatch(handleUpdateCourse({ courseId, newValues, urlChosenImage }));
   };
   function handleEditorChange({ html, text }) {
-    setTextWithMarkDown(text);
+    setValue("description", text);
   }
+  const handleSearchDropdownTopic = debounce((e) => {
+    dispatch(handleSearchTopic(e.target.value));
+  }, 500);
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <Link to="/admin/course">
-          <IconChevronLeft></IconChevronLeft>
-        </Link>
-        <AdminHeading>Update course</AdminHeading>
-      </div>
+      <AdminHeadingWithBack
+        title="Update course"
+        to="/admin/course"
+      ></AdminHeadingWithBack>
       {loadingUpdateCourseSkeleton && <UpdateSkeleton></UpdateSkeleton>}
       {!loadingUpdateCourseSkeleton && course && (
         <form className="w-full" onSubmit={handleSubmit(updateCourseHandler)}>
@@ -99,7 +96,7 @@ const CourseUpdate = () => {
               <Label>Description</Label>
               <MdEditor
                 className="w-full h-[250px]"
-                defaultValue={course.description || ""}
+                defaultValue={watch("description")}
                 renderHTML={(text) => mdParser.render(text)}
                 onChange={handleEditorChange}
               />
@@ -107,7 +104,12 @@ const CourseUpdate = () => {
             <Field>
               <Label>Overview Image</Label>
               <InputSelectImage
-                url={course.overview_image?.url}
+                url={
+                  urlChosenImage
+                    ? urlChosenImage?.preview
+                    : `${strapiPathBE}${course.overview_image?.url}`
+                }
+                setUrlChosenImage={setUrlChosenImage}
               ></InputSelectImage>
             </Field>
             <Field>
@@ -126,7 +128,26 @@ const CourseUpdate = () => {
               ></Input>
             </Field>
             <Field>
-              <Label>Star / Topic</Label>
+              <Label>Topic / Star</Label>
+              <Dropdown
+                onChange={handleSearchDropdownTopic}
+                placeholder={watch("topic")}
+              >
+                <Dropdown.Search></Dropdown.Search>
+                {allTopics?.map(
+                  (topic) =>
+                    topic.name !== watch("topic") && (
+                      <Dropdown.Option
+                        onClick={() => {
+                          setValue("topic", topic?.name);
+                          setValue("topicId", topic?.id);
+                        }}
+                      >
+                        {topic?.name}
+                      </Dropdown.Option>
+                    )
+                )}
+              </Dropdown>
               <Input
                 control={control}
                 name="star"
@@ -134,7 +155,13 @@ const CourseUpdate = () => {
                 className="opacity-60 cursor-wait"
                 disabled
               ></Input>
-              <Input control={control} name="topic" placeholder="topic"></Input>
+            </Field>
+            <Field>
+              <Label>Video Intro</Label>
+            </Field>
+            <Field></Field>
+            <Field>
+              <Label>Video Lists</Label>
             </Field>
           </div>
           <Button

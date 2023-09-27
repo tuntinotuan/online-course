@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { requestGetCategories, requestGetTopics } from "./categoryRequests";
+import {
+  requestGetAllTopics,
+  requestGetCategories,
+  requestGetTopics,
+} from "./categoryRequests";
+import { setAllTopics } from "./categorySlice";
 
 export const handleGetCategories = createAsyncThunk(
   "category/handleGetCategories",
@@ -20,6 +25,32 @@ export const handleGetTopics = createAsyncThunk(
       const response = await requestGetTopics(industryId);
       console.log("response", response.data);
       return response.data.topics;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
+export const handleGetAllTopics = createAsyncThunk(
+  "category/handleGetAllTopics",
+  async (query, { getState }) => {
+    try {
+      const response = await requestGetAllTopics();
+      console.log("response", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+export const handleSearchTopic = createAsyncThunk(
+  "category/handleSearchTopic",
+  async (query, { getState, dispatch }) => {
+    try {
+      const response = await requestGetAllTopics(query);
+      console.log("response", response.data);
+      query && dispatch(setAllTopics(response.data));
+      return response.data;
     } catch (error) {
       console.log("error", error);
     }

@@ -1,4 +1,6 @@
+import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
+import { strapiPathBE } from "../../utils/constants";
 
 export function requestGetTopicOfCourse(topic, filter, page) {
   return strapi.find("courses", {
@@ -150,7 +152,30 @@ export function requestDeleteAndRestoreCourse(courseId, deleted = true) {
   });
 }
 
-export function requestUpdateCourse(courseId, values) {
+export function requestUpdateCourse(courseId, values, dataOverviewImage) {
   console.log(`id = ${courseId}, values =`, values);
-  // return strapi.update("courses", courseId, { values });
+  if (dataOverviewImage) {
+    console.log("this update image");
+    const formData = new FormData();
+    formData.append("files", dataOverviewImage, dataOverviewImage?.name);
+    formData.append("ref", "api::course.course");
+    formData.append("refId", courseId);
+    formData.append("field", "overview_image");
+    axios.post(`${strapiPathBE}/api/upload`, formData);
+  }
+  if (values.topicId) {
+    console.log("this update topic");
+    strapi.update("courses", courseId, {
+      topic: {
+        connect: [{ id: values?.topicId }],
+      },
+    });
+  }
+  const newValues = {
+    title: values.title,
+    subtitle: values.subTitle,
+    current_price: values.currentPrice,
+    original_price: values.originalPrice,
+  };
+  return strapi.update("courses", courseId, newValues);
 }

@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleGetCategories, handleGetTopics } from "./categoryHanlderThunk";
+import {
+  handleGetAllTopics,
+  handleGetCategories,
+  handleGetTopics,
+} from "./categoryHanlderThunk";
 
 const initialState = {
   listCategories: [],
   listIndustries: [],
   listTopics: null,
+  allTopics: null,
   loadingCategories: false,
   loadingTopics: false,
 };
@@ -20,6 +25,10 @@ const categorySlice = createSlice({
     setListTopics: (state, action) => ({
       ...state,
       listTopics: action.payload,
+    }),
+    setAllTopics: (state, action) => ({
+      ...state,
+      allTopics: action.payload,
     }),
   },
   extraReducers: (builder) => {
@@ -43,10 +52,14 @@ const categorySlice = createSlice({
       })
       .addCase(handleGetTopics.rejected, (state, action) => {
         state.loadingTopics = false;
+      })
+      .addCase(handleGetAllTopics.fulfilled, (state, action) => {
+        state.allTopics = action.payload;
       });
   },
 });
 
-export const { setListIndustries, setListTopics } = categorySlice.actions;
+export const { setListIndustries, setListTopics, setAllTopics } =
+  categorySlice.actions;
 
 export default categorySlice.reducer;

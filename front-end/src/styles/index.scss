@@ -59,3 +59,20 @@
     color: white !important;
   }
 }
+// Custom background for per button
+.custom-btn:nth-child(5n + 1) {
+  @apply bg-indigo-500;
+}
+.custom-btn:nth-child(5n + 2) {
+  @apply bg-purple-500;
+  margin-right: 20px;
+}
+.custom-btn:nth-child(5n + 3) {
+  @apply bg-pink-500;
+}
+.custom-btn:nth-child(5n + 4) {
+  @apply bg-emerald-500;
+}
+.custom-btn:nth-child(5n + 5) {
+  @apply bg-sky-500;
+}

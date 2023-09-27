@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   handleDeleteCourse,
-  handleGetAllCourses,
   handleGetCoursesInAdmin,
 } from "../../redux-toolkit/course/courseHandlerThunk";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,14 +12,11 @@ import { IconEye, IconPen, IconTrash } from "../../components/icon";
 import Image from "../../components/image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import AdminHeading from "../../modules/admin/AdminHeading";
-import { useSearchParams } from "react-router-dom";
 
 const AdminCoursePage = () => {
   const dispatch = useDispatch();
-  // const [param] = useSearchParams();
-  // const page = param.get("page");
-  const [page, setPage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [page, setPage] = useState(0);
   const { allCourses, coursesAdminPagination } = useSelector(
     (state) => state.course
   );
@@ -29,7 +25,9 @@ const AdminCoursePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    page > 1 && dispatch(handleGetCoursesInAdmin({ page }));
+    page > 0 &&
+      page > currentPage &&
+      dispatch(handleGetCoursesInAdmin({ page }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -103,14 +101,14 @@ const AdminCoursePage = () => {
           <div className="flex items-center gap-3">
             <Button
               to={`/course/${params.id}`}
-              className="!py-1 px-1 bg-green-500 text-white rounded"
+              className="!py-1 px-1 bg-emerald-500 text-white rounded"
               borderNone
             >
               <IconEye></IconEye>
             </Button>
             <Button
               to={`/admin/course-update/${params.id}`}
-              className="!py-1 px-1 bg-cyan-500 text-white rounded"
+              className="!py-1 px-1 bg-indigo-500 text-white rounded"
               borderNone
             >
               <IconPen size={20}></IconPen>
@@ -155,12 +153,12 @@ const AdminCoursePage = () => {
       }
     });
   };
+  console.log("currentPage", currentPage);
   const handleOnPaginationModelChange = (currentPage) => {
-    console.log("currentPage", currentPage);
+    console.log("nextPage", currentPage);
     if (allCourses) {
-      // searchParams.set("page", currentPage.page);
-      // setSearchParams(searchParams);
       setPage(currentPage.page);
+      setCurrentPage(page);
     }
   };
   return (
@@ -199,7 +197,13 @@ const AdminCoursePage = () => {
         />
       </Box>
       {allCourses?.map((item) => (
-        <Button to={`/admin/course-update/${item.id}`}>update</Button>
+        <Button
+          className="custom-btn w-20 text-white font-bold my-5 !p-0"
+          borderNone
+        >
+          {item.id}
+          <Image url={`${strapiPathBE}${item.overview_image.url}`}></Image>
+        </Button>
       ))}
     </>
   );

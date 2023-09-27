@@ -21,7 +21,7 @@ const CourseDetailsPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(handleGetSingleCourse(courseId));
+    dispatch(handleGetSingleCourse({ courseId }));
   }, [courseId, dispatch]);
 
   useEffect(() => {
