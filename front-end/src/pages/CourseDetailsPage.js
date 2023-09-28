@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetSingleCourse } from "../redux-toolkit/course/courseHandlerThunk";
 import PopupPreviewVideo from "../components/popup/PopupPreviewVideo";
+import PopupViewOfDetails from "../components/popup/PopupViewOfDetails";
 
 const CourseDetailsPage = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const CourseDetailsPage = () => {
       <CourseDetailsOverview data={course}></CourseDetailsOverview>
       <CourseDetailsBody scroll={offset}></CourseDetailsBody>
       <PopupPreviewVideo></PopupPreviewVideo>
+      <PopupViewOfDetails to="/admin/course"></PopupViewOfDetails>
     </section>
   );
 };

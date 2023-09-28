@@ -31,6 +31,8 @@ import AdminLayout from "../modules/admin/AdminLayout";
 import AdminCoursePage from "../pages/admin/AdminCoursePage";
 import CourseUpdate from "../modules/admin/course/CourseUpdate";
 import CourseRecycleBin from "../modules/admin/course/CourseRecycleBin";
+import InstructorLayout from "../modules/instructor/InstructorLayout";
+import InstructorCoursePage from "../pages/instructor/InstructorCoursePage";
 
 const AllRoutes = () => {
   return (
@@ -148,7 +150,7 @@ const AllRoutes = () => {
         ></Route>
         <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
       </Route>
-      {/* ---Other Routes--- */}
+      {/* ---Checkout Routes--- */}
       <Route
         path="/cart/checkout"
         element={
@@ -159,6 +161,7 @@ const AllRoutes = () => {
           </TokenAuthentication>
         }
       ></Route>
+      {/* ---Learn Online Routes--- */}
       <Route
         path="/course-dashboard-redirect/:courseId"
         element={
@@ -240,6 +243,29 @@ const AllRoutes = () => {
               <p>Here review dashboard</p>
             </PrivateRoute>
           }
+        ></Route>
+      </Route>
+      {/* Instructor Routes */}
+      <Route path="/instructor" element={<InstructorLayout></InstructorLayout>}>
+        <Route
+          path="courses"
+          element={<InstructorCoursePage></InstructorCoursePage>}
+        ></Route>
+        <Route
+          path="communication"
+          element={<>This is instructor COMMUNICATION page</>}
+        ></Route>
+        <Route
+          path="performance"
+          element={<>This is instructor PERFORMANCE page</>}
+        ></Route>
+        <Route
+          path="tools"
+          element={<>This is instructor TOOLS page</>}
+        ></Route>
+        <Route
+          path="help"
+          element={<>This is instructor RESOURCES page</>}
         ></Route>
       </Route>
     </Routes>

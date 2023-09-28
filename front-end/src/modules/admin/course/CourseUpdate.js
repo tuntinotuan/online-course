@@ -64,7 +64,7 @@ const CourseUpdate = () => {
     setValue("description", text);
   }
   const handleSearchDropdownTopic = debounce((e) => {
-    dispatch(handleSearchTopic(e.target.value));
+    dispatch(handleSearchTopic(e?.target?.value || ""));
   }, 500);
   return (
     <div>
@@ -141,6 +141,7 @@ const CourseUpdate = () => {
                         onClick={() => {
                           setValue("topic", topic?.name);
                           setValue("topicId", topic?.id);
+                          handleSearchDropdownTopic();
                         }}
                       >
                         {topic?.name}

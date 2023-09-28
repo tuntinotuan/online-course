@@ -12,6 +12,7 @@ import { IconEye, IconPen, IconTrash } from "../../components/icon";
 import Image from "../../components/image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import AdminHeading from "../../modules/admin/AdminHeading";
+import { setShowPopupViewOfDetails } from "../../redux-toolkit/globalSlice";
 
 const AdminCoursePage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const AdminCoursePage = () => {
   useEffect(() => {
     page > 0 &&
       page > currentPage &&
+      page === coursesAdminPagination.page &&
       dispatch(handleGetCoursesInAdmin({ page }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
@@ -103,6 +105,7 @@ const AdminCoursePage = () => {
               to={`/course/${params.id}`}
               className="!py-1 px-1 bg-emerald-500 text-white rounded"
               borderNone
+              onClick={() => dispatch(setShowPopupViewOfDetails(true))}
             >
               <IconEye></IconEye>
             </Button>

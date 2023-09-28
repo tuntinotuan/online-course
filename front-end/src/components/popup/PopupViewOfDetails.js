@@ -1,17 +1,26 @@
 import React from "react";
 import { Button } from "../button";
 import { IconChevronLeft } from "../icon";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowPopupViewOfDetails } from "../../redux-toolkit/globalSlice";
 
 const PopupViewOfDetails = ({ to }) => {
+  const dispatch = useDispatch();
+  const { showPopupViewOfDetails } = useSelector((state) => state.global);
+  const handleShowPopup = () => {
+    dispatch(setShowPopupViewOfDetails(false));
+  };
   return (
-    <div className="fixed inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.2)] via-transparent to-[rgba(0,0,0,0.2)] z-50">
-      <Button
-        className="absolute top-2 left-2 bg-white text-primaryBlack border-white hover:bg-transparent hover:text-white"
-        to={to}
-      >
-        <IconChevronLeft size={32}></IconChevronLeft>
-      </Button>
-    </div>
+    <Button
+      className={`fixed top-8 left-2 translate-y-full bg-purpleTextA4 text-white border-white hover:bg-white hover:text-primaryBlack hover:border-primaryBlack shadow-md z-50 ${
+        showPopupViewOfDetails ? "opacity-100 visible" : "opacity-0 invisible"
+      }`}
+      to={to}
+      title="Back"
+      onClick={handleShowPopup}
+    >
+      <IconChevronLeft size={32}></IconChevronLeft>
+    </Button>
   );
 };
 

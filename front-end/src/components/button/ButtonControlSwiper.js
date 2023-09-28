@@ -20,7 +20,7 @@ const ButtonControlSwiper = ({
     handleClickNext,
   } = useSwiperContext();
   const swiper = useSwiper();
-  const commonCss = `flex justify-center items-center absolute bg-primaryBlack dark:bg-primaryBg rounded-full shadow-md hover:brightness-150 text-white transition-all border border-gray-400 dark:border-primaryBlack z-50 ${className} ${
+  const commonCss = `flex justify-center items-center absolute bg-primaryBlack dark:bg-primaryBg rounded-full shadow-md hover:brightness-150 text-white transition-all border border-gray-400 dark:border-primaryBlack z-40 ${className} ${
     sizeButton ? sizeButton : "w-10 h-10"
   }`;
   return ReactDOM.createPortal(

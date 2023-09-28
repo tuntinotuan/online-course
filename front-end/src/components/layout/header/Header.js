@@ -53,7 +53,7 @@ const Header = ({
         </NavLink>
       )}
       {!hiddenMultiple && (
-        <NavLink to="/teaching" className="hover:text-purpleText56">
+        <NavLink to="/instructor/courses" className="hover:text-purpleText56">
           {t("teach on udemy")}
         </NavLink>
       )}

@@ -76,3 +76,8 @@
 .custom-btn:nth-child(5n + 5) {
   @apply bg-sky-500;
 }
+
+// Instructor page
+.instructor-sidebar {
+  border-left: 4px solid transparent;
+}

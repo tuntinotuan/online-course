@@ -186,7 +186,9 @@ export const handleRestoreCourse = createAsyncThunk(
       await requestDeleteAndRestoreCourse(courseId, false);
       Swal.fire("Restored!", "Your file has been restored.", "success");
       const response = await requestGetAllCourses();
+      const { meta } = response;
       dispatch(setAllCourses(response.data));
+      dispatch(setCoursesAdminPagination(meta.pagination));
       const { data } = await requestGetAllCourses(1, true);
       dispatch(setAllCoursesRecycleBin(data));
     } catch (error) {

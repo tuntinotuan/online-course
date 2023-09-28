@@ -9,6 +9,7 @@ module.exports = {
         primaryBlack: "#2D2F31",
         grayA6: "#6A6F73",
         grayF7: "#F7F9FA",
+        grayHover3E: "#3E4143",
         purpleText56: "#5624D0",
         purpleTextA4: "#A435F0",
         purpleTextC0: "#C0C4FC",

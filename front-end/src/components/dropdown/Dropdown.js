@@ -19,12 +19,12 @@ const Dropdown = ({
           onClick={handleToggleDropdown}
         >
           <span>{placeholder}</span>
-          <span>
-            <IconArrowDown
-              className={`${show ? "-rotate-180" : ""} transition-all`}
-              size={15}
-            ></IconArrowDown>
-          </span>
+          <IconArrowDown
+            className={`${
+              show ? "-rotate-180" : ""
+            } transition-all duration-300`}
+            size={15}
+          ></IconArrowDown>
         </div>
         {show && (
           <div className="absolute top-full left-0 w-full h-[150px] bg-white shadow-md overflow-auto z-10">

@@ -9,6 +9,7 @@ const initialState = {
   showPopupForgotPassword: false,
   showPopupReview: false,
   showPopupChooseLanguage: false,
+  showPopupViewOfDetails: false,
   darkMode: null,
 };
 
@@ -52,6 +53,10 @@ const globalSlice = createSlice({
       ...state,
       darkMode: action.payload,
     }),
+    setShowPopupViewOfDetails: (state, action) => ({
+      ...state,
+      showPopupViewOfDetails: action.payload,
+    }),
   },
 });
 
@@ -65,6 +70,7 @@ export const {
   toggleShowPopupReview,
   toggleShowPopupChooseLanguage,
   setToggleDarkMode,
+  setShowPopupViewOfDetails,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

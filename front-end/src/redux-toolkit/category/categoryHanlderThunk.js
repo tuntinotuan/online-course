@@ -45,12 +45,11 @@ export const handleGetAllTopics = createAsyncThunk(
 );
 export const handleSearchTopic = createAsyncThunk(
   "category/handleSearchTopic",
-  async (query, { getState, dispatch }) => {
+  async (query, { dispatch }) => {
     try {
       const response = await requestGetAllTopics(query);
       console.log("response", response.data);
-      query && dispatch(setAllTopics(response.data));
-      return response.data;
+      dispatch(setAllTopics(response.data));
     } catch (error) {
       console.log("error", error);
     }
