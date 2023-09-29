@@ -1,14 +1,14 @@
 import React from "react";
 import InstructorCourseItem from "./InstructorCourseItem";
+import { useSelector } from "react-redux";
 
 const InstructorCourseList = () => {
+  const { myCourses } = useSelector((state) => state.course);
   return (
     <>
-      {Array(5)
-        .fill()
-        .map((course) => (
-          <InstructorCourseItem></InstructorCourseItem>
-        ))}
+      {myCourses?.map((course) => (
+        <InstructorCourseItem course={course}></InstructorCourseItem>
+      ))}
     </>
   );
 };

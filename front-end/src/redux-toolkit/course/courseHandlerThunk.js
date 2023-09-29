@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  requestCourseUpdateConnect,
+  requestCreateCourse,
   requestDeleteAndRestoreCourse,
   requestGetAllCourses,
+  requestGetMyCourses,
   requestGetSingleCourse,
   requestGetTopicOfCourse,
   requestUpdateCourse,
@@ -21,6 +24,21 @@ import {
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
+export const handleGetMyCourses = createAsyncThunk(
+  "course/handleGetMyCourses",
+  async (values, { dispatch, getState }) => {
+    const state = getState();
+    const { currentUserId } = state.auth;
+    try {
+      const response = await requestGetMyCourses(currentUserId);
+      console.log("ress", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+      toast.error(error.error.message);
+    }
+  }
+);
 export const handleGetTopicOfCourse = createAsyncThunk(
   "course/handleGetTopicOfCourse",
   async ({ topicName, filter, page }, { dispatch, getState }) => {
@@ -197,7 +215,6 @@ export const handleRestoreCourse = createAsyncThunk(
     }
   }
 );
-
 export const handleUpdateCourse = createAsyncThunk(
   "course/handleUpdateCourse",
   async (query, { dispatch }) => {
@@ -215,6 +232,27 @@ export const handleUpdateCourse = createAsyncThunk(
     } catch (error) {
       console.log("error", error);
       dispatch(setLoadingUpdateCourse(false));
+    }
+  }
+);
+export const handleCreateCourse = createAsyncThunk(
+  "course/handleCreateCourse",
+  async (values, { dispatch, getState }) => {
+    const { navigate } = values;
+    const state = getState();
+    const { currentUserId } = state.auth;
+    const connectId = {
+      userId: currentUserId,
+    };
+    try {
+      const response = await requestCreateCourse(values);
+      console.log("ress", response.data);
+      await requestCourseUpdateConnect(response.data.id, connectId);
+      values.topicId && (await requestUpdateCourse(response.data.id, values));
+      navigate("/instructor/courses");
+    } catch (error) {
+      console.log("error", error);
+      toast.error(error.error.message);
     }
   }
 );

@@ -14,6 +14,9 @@ const PrivateRoute = ({ children, isRole = "" }) => {
   ) {
     return children;
   }
+  if (role?.type === "author" && isRole === "AUTHOR") {
+    return children;
+  }
   if (role?.type === "user" && isRole === "USER") {
     return children;
   }

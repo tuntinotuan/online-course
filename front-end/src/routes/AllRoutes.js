@@ -33,6 +33,8 @@ import CourseUpdate from "../modules/admin/course/CourseUpdate";
 import CourseRecycleBin from "../modules/admin/course/CourseRecycleBin";
 import InstructorLayout from "../modules/instructor/InstructorLayout";
 import InstructorCoursePage from "../pages/instructor/InstructorCoursePage";
+import InstructorCreateCoursePage from "../pages/instructor/InstructorCreateCoursePage";
+import InstructorManageLayout from "../modules/instructor/manage/InstructorManageLayout";
 
 const AllRoutes = () => {
   return (
@@ -246,7 +248,14 @@ const AllRoutes = () => {
         ></Route>
       </Route>
       {/* Instructor Routes */}
-      <Route path="/instructor" element={<InstructorLayout></InstructorLayout>}>
+      <Route
+        path="/instructor"
+        element={
+          <PrivateRoute isRole="AUTHOR">
+            <InstructorLayout></InstructorLayout>
+          </PrivateRoute>
+        }
+      >
         <Route
           path="courses"
           element={<InstructorCoursePage></InstructorCoursePage>}
@@ -267,6 +276,24 @@ const AllRoutes = () => {
           path="help"
           element={<>This is instructor RESOURCES page</>}
         ></Route>
+      </Route>
+      {/* Course Creation Route */}
+      <Route
+        path="/course/create/:stepId"
+        element={
+          <PrivateRoute isRole="AUTHOR">
+            <InstructorCreateCoursePage></InstructorCreateCoursePage>
+          </PrivateRoute>
+        }
+      ></Route>
+      {/* Instructor Manager Routes */}
+      <Route
+        path="/instructor/course/:courseId/manage"
+        element={<InstructorManageLayout></InstructorManageLayout>}
+      >
+        <Route path="basics" element={<>Course landing page</>}></Route>
+        <Route path="curriculum" element={<>Curriculum</>}></Route>
+        <Route path="pricing" element={<>Pricing</>}></Route>
       </Route>
     </Routes>
   );

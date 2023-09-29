@@ -35,6 +35,7 @@ import IconChevronLeft from "./IconChevronLeft";
 import IconCloud from "./IconCloud";
 import IconStar from "./IconStar";
 import IconTrash from "./IconTrash";
+import IconSetting from "./IconSetting";
 
 export {
   IconArrowLeft,
@@ -74,4 +75,5 @@ export {
   IconCloud,
   IconStar,
   IconTrash,
+  IconSetting,
 };

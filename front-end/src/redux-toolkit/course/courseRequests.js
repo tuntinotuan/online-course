@@ -2,6 +2,18 @@ import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
 import { strapiPathBE } from "../../utils/constants";
 
+export function requestGetMyCourses(userId) {
+  return strapi.find("courses", {
+    filters: {
+      user: {
+        id: {
+          $eq: userId,
+        },
+      },
+    },
+    populate: "*",
+  });
+}
 export function requestGetTopicOfCourse(topic, filter, page) {
   return strapi.find("courses", {
     filters: {
@@ -70,7 +82,6 @@ export function requestGetAllCourses(page, deleted = false) {
     },
   });
 }
-
 export function requestGetSingleCourse(courseId) {
   return strapi.findOne("courses", courseId, {
     populate: {
@@ -145,13 +156,11 @@ export function requestUpdateTotalReviewsCourse(
     total_reviews: amountReview,
   });
 }
-
 export function requestDeleteAndRestoreCourse(courseId, deleted = true) {
   return strapi.update("courses", courseId, {
     deleted,
   });
 }
-
 export function requestUpdateCourse(courseId, values, dataOverviewImage) {
   console.log(`id = ${courseId}, values =`, values);
   if (dataOverviewImage) {
@@ -178,4 +187,17 @@ export function requestUpdateCourse(courseId, values, dataOverviewImage) {
     original_price: values.originalPrice,
   };
   return strapi.update("courses", courseId, newValues);
+}
+export function requestCreateCourse(values) {
+  const { title } = values;
+  return strapi.create("courses", {
+    title,
+  });
+}
+export function requestCourseUpdateConnect(courseId, connectId) {
+  return strapi.update("courses", courseId, {
+    user: {
+      connect: [{ id: connectId?.userId }],
+    },
+  });
 }

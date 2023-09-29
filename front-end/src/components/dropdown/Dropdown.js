@@ -15,7 +15,7 @@ const Dropdown = ({
     <DropdownProvider setShow={setShow} {...props}>
       <div className="relative inline-block w-full">
         <div
-          className="flex items-center justify-between py-2 px-3 bg-[#E7ECF3] rounded cursor-pointer font-medium"
+          className="flex items-center justify-between py-2 px-3 bg-white border border-gray-300 cursor-pointer font-medium"
           onClick={handleToggleDropdown}
         >
           <span>{placeholder}</span>

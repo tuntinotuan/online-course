@@ -18,7 +18,7 @@
     },
     "subtitle": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "description": {
       "type": "richtext",
@@ -27,7 +27,7 @@
     "overview_image": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -49,7 +49,7 @@
     },
     "original_price": {
       "type": "integer",
-      "required": true
+      "required": false
     },
     "user": {
       "type": "relation",

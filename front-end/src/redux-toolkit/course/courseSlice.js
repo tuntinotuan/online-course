@@ -7,9 +7,11 @@ import {
   handleGetAllCourses,
   handleGetAllCoursesInRecycleBin,
   handleGetCoursesInAdmin,
+  handleGetMyCourses,
 } from "./courseHandlerThunk";
 
 const initialState = {
+  myCourses: null,
   courseList: [],
   courseListEnd: false,
   allCourses: null,
@@ -78,6 +80,9 @@ const courseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(handleGetMyCourses.fulfilled, (state, action) => {
+        state.myCourses = action.payload;
+      })
       .addCase(handleGetTopicOfCourse.fulfilled, (state, action) => {
         state.courseList = action.payload;
       })

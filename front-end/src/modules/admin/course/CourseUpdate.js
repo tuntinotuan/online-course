@@ -17,13 +17,8 @@ import InputSelectImage from "../../../components/input/InputSelectImage";
 import Button from "../../../components/button/Button";
 import LoadingSpin from "../../../components/loading/LoadingSpin";
 import { strapiPathBE } from "../../../utils/constants";
-import { Dropdown } from "../../../components/dropdown";
-import {
-  handleGetAllTopics,
-  handleSearchTopic,
-} from "../../../redux-toolkit/category/categoryHanlderThunk";
 import AdminHeadingWithBack from "./AdminHeadingWithBack";
-import { debounce } from "lodash";
+import DropdownTopic from "../../../components/dropdown/DropdownTopic";
 
 const mdParser = new MarkdownIt({
   highlight: function (str, lang) {
@@ -42,7 +37,6 @@ const CourseUpdate = () => {
   const [urlChosenImage, setUrlChosenImage] = useState();
   const { course, loadingUpdateCourse, loadingUpdateCourseSkeleton } =
     useSelector((state) => state.course);
-  const { allTopics } = useSelector((state) => state.category);
   const { control, reset, setValue, watch, handleSubmit } = useForm({
     mode: "onSubmit",
   });
@@ -50,10 +44,6 @@ const CourseUpdate = () => {
     dispatch(handleGetSingleCourse({ courseId, reset, setValue }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, reset]);
-  useEffect(() => {
-    dispatch(handleGetAllTopics());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const updateCourseHandler = (values) => {
     const newValues = {
       ...values,
@@ -63,9 +53,6 @@ const CourseUpdate = () => {
   function handleEditorChange({ html, text }) {
     setValue("description", text);
   }
-  const handleSearchDropdownTopic = debounce((e) => {
-    dispatch(handleSearchTopic(e?.target?.value || ""));
-  }, 500);
   return (
     <div>
       <AdminHeadingWithBack
@@ -129,7 +116,7 @@ const CourseUpdate = () => {
             </Field>
             <Field>
               <Label>Topic / Star</Label>
-              <Dropdown
+              {/* <Dropdown
                 onChange={handleSearchDropdownTopic}
                 placeholder={watch("topic")}
               >
@@ -148,7 +135,8 @@ const CourseUpdate = () => {
                       </Dropdown.Option>
                     )
                 )}
-              </Dropdown>
+              </Dropdown> */}
+              <DropdownTopic watch={watch} setValue={setValue}></DropdownTopic>
               <Input
                 control={control}
                 name="star"
