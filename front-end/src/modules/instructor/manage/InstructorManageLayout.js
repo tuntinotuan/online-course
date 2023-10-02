@@ -7,18 +7,12 @@ import { useDispatch } from "react-redux";
 import { handleGetSingleCourse } from "../../../redux-toolkit/course/courseHandlerThunk";
 
 const InstructorManageLayout = () => {
-  const dispatch = useDispatch();
-  const { courseId } = useParams();
-  console.log("CourseId", courseId);
-  useEffect(() => {
-    dispatch(handleGetSingleCourse({ courseId }));
-  }, [courseId, dispatch]);
   return (
     <>
       <InstructorManageHeader></InstructorManageHeader>
-      <div className="flex">
+      <div className="flex gap-5 mt-14 p-8">
         <InstructorManageSidebar></InstructorManageSidebar>
-        <div className="mb-[1000px]">
+        <div className="flex-1 border border-red-500 shadow-xl">
           <Outlet></Outlet>
         </div>
       </div>

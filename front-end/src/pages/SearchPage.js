@@ -4,9 +4,9 @@ import SearchBody from "../modules/search/SearchBody";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleSearchCourse } from "../redux-toolkit/course/courseHandlerThunk";
-import LoadingSpinQuarter from "../components/loading/LoadingSpinQuarter";
 import SearchNotfound from "../modules/search/SearchNotfound";
 import { useTranslation } from "react-i18next";
+import LoadingSpinWithBgOpacity from "../components/loading/LoadingSpinWithBgOpacity";
 
 const SearchPage = () => {
   const dispatch = useDispatch();
@@ -28,14 +28,7 @@ const SearchPage = () => {
   }, [searchPage]);
   return (
     <section className={`page-container my-12 overflow-hidden`}>
-      {courseLoading && (
-        <div
-          className="absolute top-0 left-0 flex items-start justify-center w-full bg-white bg-opacity-60 mx-auto py-40 z-10"
-          style={{ height: document.body.offsetHeight }}
-        >
-          <LoadingSpinQuarter></LoadingSpinQuarter>
-        </div>
-      )}
+      {courseLoading && <LoadingSpinWithBgOpacity />}
       {coursesSearch?.length > 0 && (
         <>
           <h1 className="text-3xl font-bold mb-4">

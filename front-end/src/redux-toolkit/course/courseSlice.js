@@ -12,6 +12,7 @@ import {
 
 const initialState = {
   myCourses: null,
+  myCoursePagination: [],
   courseList: [],
   courseListEnd: false,
   allCourses: null,
@@ -27,6 +28,7 @@ const initialState = {
   urlPreviewVideo: "",
   loadingUpdateCourse: false,
   loadingUpdateCourseSkeleton: false,
+  myCourseLoading: false,
 };
 
 const courseSlice = createSlice({
@@ -77,11 +79,22 @@ const courseSlice = createSlice({
       ...state,
       loadingUpdateCourseSkeleton: action.payload,
     }),
+    setMyCoursePagination: (state, action) => ({
+      ...state,
+      myCoursePagination: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
       .addCase(handleGetMyCourses.fulfilled, (state, action) => {
         state.myCourses = action.payload;
+        state.myCourseLoading = false;
+      })
+      .addCase(handleGetMyCourses.pending, (state, action) => {
+        state.myCourseLoading = true;
+      })
+      .addCase(handleGetMyCourses.rejected, (state, action) => {
+        state.myCourseLoading = false;
       })
       .addCase(handleGetTopicOfCourse.fulfilled, (state, action) => {
         state.courseList = action.payload;
@@ -126,6 +139,7 @@ export const {
   setCoursesAdminPagination,
   setLoadingUpdateCourse,
   setLoadingUpdateCourseSkeleton,
+  setMyCoursePagination,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

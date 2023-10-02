@@ -4,7 +4,8 @@
   "info": {
     "singularName": "video-intro",
     "pluralName": "video-intros",
-    "displayName": "VideoIntro"
+    "displayName": "VideoIntro",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -12,20 +13,20 @@
   "pluginOptions": {},
   "attributes": {
     "video": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "videos"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true
+      ]
     },
     "preview_image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "duration": {
       "type": "string"

@@ -2,7 +2,7 @@ import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
 import { strapiPathBE } from "../../utils/constants";
 
-export function requestGetMyCourses(userId) {
+export function requestGetMyCourses(userId, page, search) {
   return strapi.find("courses", {
     filters: {
       user: {
@@ -10,8 +10,15 @@ export function requestGetMyCourses(userId) {
           $eq: userId,
         },
       },
+      title: {
+        $contains: search,
+      },
     },
     populate: "*",
+    pagination: {
+      page: page || 1,
+      pageSize: 5,
+    },
   });
 }
 export function requestGetTopicOfCourse(topic, filter, page) {
@@ -161,8 +168,14 @@ export function requestDeleteAndRestoreCourse(courseId, deleted = true) {
     deleted,
   });
 }
-export function requestUpdateCourse(courseId, values, dataOverviewImage) {
+export function requestUpdateCourse(
+  courseId,
+  values,
+  dataOverviewImage,
+  dataUploadVideo
+) {
   console.log(`id = ${courseId}, values =`, values);
+  const { newVideoIntroId, urlChosenVideo } = dataUploadVideo;
   if (dataOverviewImage) {
     console.log("this update image");
     const formData = new FormData();
@@ -172,7 +185,7 @@ export function requestUpdateCourse(courseId, values, dataOverviewImage) {
     formData.append("field", "overview_image");
     axios.post(`${strapiPathBE}/api/upload`, formData);
   }
-  if (values.topicId) {
+  if (values?.topicId) {
     console.log("this update topic");
     strapi.update("courses", courseId, {
       topic: {
@@ -180,9 +193,17 @@ export function requestUpdateCourse(courseId, values, dataOverviewImage) {
       },
     });
   }
+  if (urlChosenVideo) {
+    strapi.update("courses", courseId, {
+      video_intro: {
+        connect: [{ id: newVideoIntroId }],
+      },
+    });
+  }
   const newValues = {
     title: values.title,
     subtitle: values.subTitle,
+    description: values.description,
     current_price: values.currentPrice,
     original_price: values.originalPrice,
   };
@@ -200,4 +221,15 @@ export function requestCourseUpdateConnect(courseId, connectId) {
       connect: [{ id: connectId?.userId }],
     },
   });
+}
+export function requestCreateVideoIntro() {
+  return strapi.create("video-intros", {});
+}
+export function requestUpdateVideoIntro(videoIntroId, dataOverviewImage) {
+  const formData = new FormData();
+  formData.append("files", dataOverviewImage, dataOverviewImage?.name);
+  formData.append("ref", "api::video-intro.video-intro");
+  formData.append("refId", videoIntroId);
+  formData.append("field", "video");
+  return axios.post(`${strapiPathBE}/api/upload`, formData);
 }

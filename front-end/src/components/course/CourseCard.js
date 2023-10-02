@@ -77,13 +77,13 @@ const CourseCard = ({
           <div className="flex items-center text-base gap-2 mb-2">
             <span className="font-bold">
               <CoursePrice
-                price={(currentPrice || originalPrice).toLocaleString("en-US")}
+                price={(currentPrice || originalPrice)?.toLocaleString("en-US")}
               ></CoursePrice>
             </span>
             <span className="line-through">
               {currentPrice && (
                 <CoursePrice
-                  price={originalPrice.toLocaleString("en-US")}
+                  price={originalPrice?.toLocaleString("en-US")}
                   className="font-normal text-grayA6"
                 ></CoursePrice>
               )}

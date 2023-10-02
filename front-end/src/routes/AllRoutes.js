@@ -35,6 +35,8 @@ import InstructorLayout from "../modules/instructor/InstructorLayout";
 import InstructorCoursePage from "../pages/instructor/InstructorCoursePage";
 import InstructorCreateCoursePage from "../pages/instructor/InstructorCreateCoursePage";
 import InstructorManageLayout from "../modules/instructor/manage/InstructorManageLayout";
+import ManageLandingPage from "../pages/manage/ManageLandingPage";
+import ManageCurriculum from "../pages/manage/ManageCurriculum";
 
 const AllRoutes = () => {
   return (
@@ -291,8 +293,14 @@ const AllRoutes = () => {
         path="/instructor/course/:courseId/manage"
         element={<InstructorManageLayout></InstructorManageLayout>}
       >
-        <Route path="basics" element={<>Course landing page</>}></Route>
-        <Route path="curriculum" element={<>Curriculum</>}></Route>
+        <Route
+          path="basics"
+          element={<ManageLandingPage></ManageLandingPage>}
+        ></Route>
+        <Route
+          path="curriculum"
+          element={<ManageCurriculum></ManageCurriculum>}
+        ></Route>
         <Route path="pricing" element={<>Pricing</>}></Route>
       </Route>
     </Routes>

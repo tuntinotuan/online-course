@@ -4,8 +4,23 @@ import { Link } from "react-router-dom";
 import { strapiPathBE } from "../../../utils/constants";
 
 const InstructorCourseItem = ({ course }) => {
+  let styleForStatusSpan = "";
+  switch (course.status) {
+    case "draft":
+      styleForStatusSpan = "";
+      break;
+    case "public":
+      styleForStatusSpan = "text-green-500";
+      break;
+    case "reject":
+      styleForStatusSpan = "text-red-500";
+      break;
+
+    default:
+      break;
+  }
   return (
-    <div className="flex border border-gray-300 mb-2">
+    <div className="flex w-full border border-gray-300 mb-2">
       <div className="w-[125px]">
         <Image
           url={
@@ -27,7 +42,9 @@ const InstructorCourseItem = ({ course }) => {
           <h1 className="font-bold">{course.title}</h1>
           <div>
             <span className="font-bold">Status </span>
-            <span>Draft</span>
+            <span className={`capitalize ${styleForStatusSpan}`}>
+              {course.status}
+            </span>
           </div>
         </div>
         <div className="font-bold">Finish your course</div>

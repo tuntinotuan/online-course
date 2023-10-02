@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   requestCourseUpdateConnect,
   requestCreateCourse,
+  requestCreateVideoIntro,
   requestDeleteAndRestoreCourse,
   requestGetAllCourses,
   requestGetMyCourses,
   requestGetSingleCourse,
   requestGetTopicOfCourse,
   requestUpdateCourse,
+  requestUpdateVideoIntro,
 } from "./courseRequests";
 import { requestSearchCourse } from "./requestSearchCourse";
 import { setLoading } from "../globalSlice";
@@ -19,6 +21,7 @@ import {
   setCoursesAdminPagination,
   setLoadingUpdateCourse,
   setLoadingUpdateCourseSkeleton,
+  setMyCoursePagination,
   setSearchPagination,
 } from "./courseSlice";
 import { toast } from "react-toastify";
@@ -28,9 +31,12 @@ export const handleGetMyCourses = createAsyncThunk(
   "course/handleGetMyCourses",
   async (values, { dispatch, getState }) => {
     const state = getState();
+    const { page, search } = values;
     const { currentUserId } = state.auth;
     try {
-      const response = await requestGetMyCourses(currentUserId);
+      const response = await requestGetMyCourses(currentUserId, page, search);
+      const { meta } = response;
+      dispatch(setMyCoursePagination(meta.pagination));
       console.log("ress", response.data);
       return response.data;
     } catch (error) {
@@ -148,7 +154,7 @@ export const handleGetSingleCourse = createAsyncThunk(
           currentPrice: results.current_price,
           originalPrice: results.original_price,
           star: results.star,
-          topic: results.topic.name,
+          topic: results?.topic?.name,
         });
       setValue && setValue("description", results.description);
       dispatch(setLoadingUpdateCourseSkeleton(false));
@@ -217,14 +223,37 @@ export const handleRestoreCourse = createAsyncThunk(
 );
 export const handleUpdateCourse = createAsyncThunk(
   "course/handleUpdateCourse",
-  async (query, { dispatch }) => {
-    const { courseId, newValues, urlChosenImage } = query;
+  async (query, { dispatch, getState }) => {
+    const { courseId, newValues, urlChosenImage, urlChosenVideo } = query;
     dispatch(setLoadingUpdateCourse(true));
+    const state = getState();
+    const { course } = state.course;
+    let videoIntroId = null;
     try {
+      // Update Promotional Video
+      if (urlChosenVideo) {
+        if (!course?.video_intro) {
+          const { data } = await requestCreateVideoIntro();
+          await requestUpdateVideoIntro(data.id, urlChosenVideo);
+          videoIntroId = data.id;
+        } else {
+          await requestUpdateVideoIntro(
+            course?.video_intro?.id,
+            urlChosenVideo
+          );
+        }
+      }
+      const newVideoIntroId = course?.video_intro?.id || videoIntroId;
+      const dataUploadVideo = {
+        newVideoIntroId,
+        urlChosenVideo,
+      };
+      //
       const response = await requestUpdateCourse(
         courseId,
         newValues,
-        urlChosenImage
+        urlChosenImage,
+        dataUploadVideo
       );
       console.log("res", response);
       dispatch(setLoadingUpdateCourse(false));

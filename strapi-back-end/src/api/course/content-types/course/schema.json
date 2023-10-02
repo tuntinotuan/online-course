@@ -105,6 +105,15 @@
     "deleted": {
       "type": "boolean",
       "default": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "public",
+        "reject"
+      ],
+      "default": "draft"
     }
   }
 }
