@@ -83,6 +83,10 @@ const courseSlice = createSlice({
       ...state,
       myCoursePagination: action.payload,
     }),
+    setSingCourse: (state, action) => ({
+      ...state,
+      course: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -140,6 +144,7 @@ export const {
   setLoadingUpdateCourse,
   setLoadingUpdateCourseSkeleton,
   setMyCoursePagination,
+  setSingCourse,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

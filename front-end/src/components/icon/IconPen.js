@@ -2,7 +2,7 @@ import React from "react";
 
 const IconPen = ({ className, size = 24, onClick = () => {} }) => {
   return (
-    <span className={className} onClick={onClick}>
+    <span className={`cursor-pointer ${className}`} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

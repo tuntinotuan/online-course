@@ -2,6 +2,11 @@ import axios from "axios";
 import { strapi } from "../../utils/strapi-config";
 import { strapiPathBE } from "../../utils/constants";
 
+const requestCommon = [
+  { deleted: { $eq: false } },
+  { status: { $eq: "public" } },
+];
+
 export function requestGetMyCourses(userId, page, search) {
   return strapi.find("courses", {
     filters: {
@@ -78,9 +83,10 @@ export function requestGetTopicOfCourse(topic, filter, page) {
 export function requestGetAllCourses(page, deleted = false) {
   return strapi.find("courses", {
     filters: {
-      deleted: {
-        $eq: deleted,
-      },
+      $and: requestCommon,
+      // deleted: {
+      //   $eq: deleted,
+      // },
     },
     populate: "*",
     pagination: {
@@ -217,9 +223,16 @@ export function requestCreateCourse(values) {
 }
 export function requestCourseUpdateConnect(courseId, connectId) {
   return strapi.update("courses", courseId, {
-    user: {
-      connect: [{ id: connectId?.userId }],
-    },
+    user: connectId?.userId
+      ? {
+          connect: [{ id: connectId?.userId }],
+        }
+      : {},
+    video_lists: connectId?.sectionId
+      ? {
+          connect: [{ id: connectId?.sectionId }],
+        }
+      : {},
   });
 }
 export function requestCreateVideoIntro() {

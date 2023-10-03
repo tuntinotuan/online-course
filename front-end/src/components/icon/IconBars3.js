@@ -1,13 +1,8 @@
 import React from "react";
 
-const IconArrowDown = ({
-  className,
-  size = 24,
-  onClick = () => {},
-  stroke = 2.5,
-}) => {
+const IconBars3 = ({ className, size = 24, stroke = 1.5 }) => {
   return (
-    <span className={`cursor-pointer ${className}`} onClick={onClick}>
+    <span className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -19,11 +14,11 @@ const IconArrowDown = ({
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
         />
       </svg>
     </span>
   );
 };
 
-export default IconArrowDown;
+export default IconBars3;

@@ -36,6 +36,8 @@ import IconCloud from "./IconCloud";
 import IconStar from "./IconStar";
 import IconTrash from "./IconTrash";
 import IconSetting from "./IconSetting";
+import IconBars3 from "./IconBars3";
+import IconPlus from "./IconPlus";
 
 export {
   IconArrowLeft,
@@ -76,4 +78,6 @@ export {
   IconStar,
   IconTrash,
   IconSetting,
+  IconBars3,
+  IconPlus,
 };
