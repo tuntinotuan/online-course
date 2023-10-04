@@ -34,3 +34,13 @@ export function totalReviews(arrCourses) {
   arrCourses?.forEach((course) => (total += course?.reviews?.length));
   return total;
 }
+
+export function getIdPurchasedFromMyCourses(arr) {
+  let arrId = [];
+  arr?.forEach((course) => {
+    course.purchased_courses.forEach((purchased) => {
+      arrId.push(purchased.id);
+    });
+  });
+  return arrId;
+}

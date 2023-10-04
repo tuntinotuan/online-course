@@ -15,3 +15,6 @@ export function requestSectionUpdateConnect(sectionId, connectId) {
 export function requestUpdateTitleSection(sectionId, title) {
   return strapi.update("video-lists", sectionId, { lesson: title });
 }
+export function requestDeleteSection(sectionId) {
+  return strapi.delete("video-lists", sectionId);
+}

@@ -11,7 +11,7 @@ const InstructorLayout = () => {
         <InstructorSidebar></InstructorSidebar>
         <div className="w-full mb-[200px]">
           <InstructorHeader></InstructorHeader>
-          <div className="ml-14 px-12 py-6">
+          <div className="ml-14 mb-[1000px]">
             <Outlet></Outlet>
           </div>
         </div>

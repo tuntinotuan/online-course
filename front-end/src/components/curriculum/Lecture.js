@@ -4,7 +4,11 @@ import { IconArrowDown } from "../icon";
 import Edit from "./Edit";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { handleUpdateTitleLecture } from "../../redux-toolkit/lecture/lectureHandlerThunk";
+import {
+  handleDeleteLecture,
+  handleUpdateTitleLecture,
+} from "../../redux-toolkit/lecture/lectureHandlerThunk";
+import Swal from "sweetalert2";
 
 const Lecture = ({ title, videoLocate, children, lectureId }) => {
   const dispatch = useDispatch();
@@ -16,6 +20,22 @@ const Lecture = ({ title, videoLocate, children, lectureId }) => {
     dispatch(handleUpdateTitleLecture({ lectureId, newTitle }));
     setShowEditLecture(false);
   };
+  const deleteLectureHandler = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      imageWidth: 100,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(handleDeleteLecture({ lectureId }));
+      }
+    });
+  };
   return (
     <div className="mb-2">
       {!showEditLecture && (
@@ -25,6 +45,7 @@ const Lecture = ({ title, videoLocate, children, lectureId }) => {
             title={title}
             className="border border-primaryBlack bg-white ml-16 mr-2 !py-3"
             onClickPen={() => setShowEditLecture(true)}
+            onClickTrash={deleteLectureHandler}
           >
             <IconArrowDown
               onClick={() => setShowChildren(!showChildren)}

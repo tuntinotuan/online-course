@@ -10,11 +10,20 @@ const requestCommon = [
 export function requestGetMyCourses(userId, page, search) {
   return strapi.find("courses", {
     filters: {
-      user: {
-        id: {
-          $eq: userId,
+      $and: [
+        {
+          user: {
+            id: {
+              $eq: userId,
+            },
+          },
         },
-      },
+        {
+          deleted: {
+            $eq: false,
+          },
+        },
+      ],
       title: {
         $contains: search,
       },
@@ -237,6 +246,14 @@ export function requestCourseUpdateConnect(courseId, connectId) {
 }
 export function requestCreateVideoIntro() {
   return strapi.create("video-intros", {});
+}
+export function requestUpdatePricingCourse(courseId, values) {
+  console.log("values", values);
+  const newValues = {
+    current_price: values.currentPrice || null,
+    original_price: values.originalPrice,
+  };
+  return strapi.update("courses", courseId, newValues);
 }
 export function requestUpdateVideoIntro(videoIntroId, dataOverviewImage) {
   const formData = new FormData();

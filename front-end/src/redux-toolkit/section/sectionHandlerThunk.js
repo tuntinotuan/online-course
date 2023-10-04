@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   requestCreateNewSection,
+  requestDeleteSection,
   requestUpdateTitleSection,
 } from "./sectionRequests";
 import {
@@ -38,6 +39,22 @@ export const handleUpdateTitleSection = createAsyncThunk(
     const { course } = state.course;
     try {
       const response = await requestUpdateTitleSection(sectionId, newTitle);
+      console.log("response", response);
+      const { data } = await requestGetSingleCourse(course.id);
+      dispatch(setSingCourse(data));
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
+export const handleDeleteSection = createAsyncThunk(
+  "section/handleDeleteSection",
+  async (sectionId, { dispatch, getState }) => {
+    const state = getState();
+    const { course } = state.course;
+    try {
+      const response = await requestDeleteSection(sectionId);
       console.log("response", response);
       const { data } = await requestGetSingleCourse(course.id);
       dispatch(setSingCourse(data));

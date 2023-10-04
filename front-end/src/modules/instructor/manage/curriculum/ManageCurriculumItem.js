@@ -34,6 +34,7 @@ const ManageCurriculumItem = ({ section, sectionLocate }) => {
             <Curriculum.Video
               nameFile={video?.video?.name}
               videoId={video.id}
+              preview={video.preview}
             ></Curriculum.Video>
           </Curriculum.Resources>
         </Curriculum.Lecture>

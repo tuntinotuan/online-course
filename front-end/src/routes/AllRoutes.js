@@ -37,6 +37,11 @@ import InstructorCreateCoursePage from "../pages/instructor/InstructorCreateCour
 import InstructorManageLayout from "../modules/instructor/manage/InstructorManageLayout";
 import ManageLandingPage from "../pages/manage/ManageLandingPage";
 import ManageCurriculumPage from "../pages/manage/ManageCurriculumPage";
+import ManageSettingPage from "../pages/manage/ManageSettingPage";
+import ManagePricingPage from "../pages/manage/ManagePricingPage";
+import InstructorPerformancePage from "../pages/instructor/InstructorPerformancePage";
+import PerformanceStudentPage from "../pages/performance/PerformanceStudentPage";
+import PerformanceOverviewPage from "../pages/performance/PerformanceOverviewPage";
 
 const AllRoutes = () => {
   return (
@@ -266,10 +271,20 @@ const AllRoutes = () => {
           path="communication"
           element={<>This is instructor COMMUNICATION page</>}
         ></Route>
+        {/* Performance nested routes */}
         <Route
           path="performance"
-          element={<>This is instructor PERFORMANCE page</>}
-        ></Route>
+          element={<InstructorPerformancePage></InstructorPerformancePage>}
+        >
+          <Route
+            path="students"
+            element={<PerformanceStudentPage></PerformanceStudentPage>}
+          ></Route>
+          <Route
+            path="overview"
+            element={<PerformanceOverviewPage></PerformanceOverviewPage>}
+          ></Route>
+        </Route>
         <Route
           path="tools"
           element={<>This is instructor TOOLS page</>}
@@ -301,7 +316,14 @@ const AllRoutes = () => {
           path="curriculum"
           element={<ManageCurriculumPage></ManageCurriculumPage>}
         ></Route>
-        <Route path="pricing" element={<>Pricing</>}></Route>
+        <Route
+          path="pricing"
+          element={<ManagePricingPage></ManagePricingPage>}
+        ></Route>
+        <Route
+          path="settings"
+          element={<ManageSettingPage></ManageSettingPage>}
+        ></Route>
       </Route>
     </Routes>
   );

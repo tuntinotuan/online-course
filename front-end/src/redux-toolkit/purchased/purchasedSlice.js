@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleGetMyPurchasedCourses } from "./purchasedHandlerThunk";
+import {
+  handleGetMyPurchasedCourses,
+  handleGetStudentPurchasedCourses,
+} from "./purchasedHandlerThunk";
 
 const initialState = {
   myPurchasedCourses: [],
   purchasedPagination: [],
+  myStudents: null,
   loadingPurchasedCourses: false,
 };
 
@@ -28,6 +32,12 @@ const purchasedCoursesSlice = createSlice({
     builder.addCase(handleGetMyPurchasedCourses.fulfilled, (state, action) => {
       state.myPurchasedCourses = action.payload;
     });
+    builder.addCase(
+      handleGetStudentPurchasedCourses.fulfilled,
+      (state, action) => {
+        state.myStudents = action.payload;
+      }
+    );
   },
 });
 

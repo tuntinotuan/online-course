@@ -72,6 +72,9 @@ const ManageLandingPage = () => {
 
   return (
     <>
+      {loadingUpdateCourseSkeleton && (
+        <LandingPageSkeleton></LandingPageSkeleton>
+      )}
       {!loadingUpdateCourseSkeleton && (
         <>
           <InstructorManageHeading>Course landing page</InstructorManageHeading>
@@ -177,5 +180,43 @@ const ManageLandingPage = () => {
     </>
   );
 };
+
+function LandingPageSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <InstructorManageHeading>
+        <div className="h-6 w-80 bg-grayA6"></div>
+      </InstructorManageHeading>
+      <div className="p-10">
+        <Field>
+          <Label htmlFor="title">Course title</Label>
+          <div className="w-full h-10 bg-grayA6"></div>
+        </Field>
+        <Field>
+          <Label htmlFor="subTitle">Course subtitle</Label>
+          <div className="w-full h-10 bg-grayA6"></div>
+        </Field>
+        <Field>
+          <Label>Course description</Label>
+          {Array(5)
+            .fill()
+            .map((item) => (
+              <div className="w-full h-4 bg-grayA6"></div>
+            ))}
+          {Array(3)
+            .fill()
+            .map((item) => (
+              <div className="w-1/2 h-4 bg-grayA6"></div>
+            ))}
+          {Array(2)
+            .fill()
+            .map((item) => (
+              <div className="w-1/3 h-4 bg-grayA6"></div>
+            ))}
+        </Field>
+      </div>
+    </div>
+  );
+}
 
 export default ManageLandingPage;

@@ -152,7 +152,7 @@ const AdminCoursePage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(handleDeleteCourse(courseId));
+        dispatch(handleDeleteCourse({ courseId }));
       }
     });
   };

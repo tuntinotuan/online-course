@@ -42,3 +42,17 @@ export function requestUpdatePurchasedCourses(purchasedCourseId, listCourseId) {
     },
   });
 }
+export function requestFindPurchasedCourses(arrId) {
+  return strapi.find("purchased-courses", {
+    filters: {
+      id: {
+        $eq: arrId,
+      },
+    },
+    populate: {
+      user: {
+        populate: ["avatar"],
+      },
+    },
+  });
+}

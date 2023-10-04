@@ -46,7 +46,7 @@ const InstructorCoursePage = () => {
         ></LoadingSpinQuarter>
       )}
       {!myCourseLoading && myCourses !== null ? (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center py-6 px-12">
           <CourseHeading className="text-3xl mr-auto">Courses</CourseHeading>
           <div className="flex items-center justify-between w-full mb-6">
             <div className="flex items-center gap-5">

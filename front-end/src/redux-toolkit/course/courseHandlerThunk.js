@@ -9,6 +9,7 @@ import {
   requestGetSingleCourse,
   requestGetTopicOfCourse,
   requestUpdateCourse,
+  requestUpdatePricingCourse,
   requestUpdateVideoIntro,
 } from "./courseRequests";
 import { requestSearchCourse } from "./requestSearchCourse";
@@ -184,19 +185,21 @@ export const handleSearchCourse = createAsyncThunk(
 );
 export const handleDeleteCourse = createAsyncThunk(
   "course/handleDeleteCourse",
-  async (courseId, { dispatch, getState }) => {
+  async (values, { dispatch, getState }) => {
+    const { courseId, navigate } = values;
     const state = getState();
     const { allCourses } = state.course;
     try {
       await requestDeleteAndRestoreCourse(courseId);
-      Swal.fire("Deleted!", "Your file has been deleted.", "success");
       const response = await requestGetAllCourses();
       const { meta } = response;
-      const newAllCourses = allCourses.filter(
+      const newAllCourses = allCourses?.filter(
         (course) => course.id !== courseId
       );
       dispatch(setAllCourses(newAllCourses));
       dispatch(setCoursesAdminPagination(meta.pagination));
+      navigate && navigate("/instructor/courses");
+      Swal.fire("Deleted!", "Your course has been deleted.", "success");
     } catch (error) {
       console.log(error);
       toast.error(error.error.message);
@@ -257,10 +260,23 @@ export const handleUpdateCourse = createAsyncThunk(
       );
       console.log("res", response);
       dispatch(setLoadingUpdateCourse(false));
-      Swal.fire("Update!", "Your file has been update.", "success");
+      Swal.fire("Update!", "Your course has been update.", "success");
     } catch (error) {
       console.log("error", error);
       dispatch(setLoadingUpdateCourse(false));
+    }
+  }
+);
+export const handleUpdatePriceCourse = createAsyncThunk(
+  "course/handleUpdatePricingCourse",
+  async (query, ThunkAPI) => {
+    const { courseId, values } = query;
+    try {
+      const response = await requestUpdatePricingCourse(courseId, values);
+      console.log("response", response);
+      Swal.fire("Update!", "Your course has been update.", "success");
+    } catch (error) {
+      console.log("error", error);
     }
   }
 );

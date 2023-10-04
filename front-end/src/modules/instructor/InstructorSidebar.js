@@ -21,7 +21,7 @@ const linkItems = [
   },
   {
     title: "Performance",
-    path: "/instructor/performance",
+    path: "/instructor/performance/students",
     icon: <BarChartIcon></BarChartIcon>,
   },
   {
@@ -40,7 +40,10 @@ const InstructorSidebar = () => {
   const { hovered, nodeRef, setHovered } = useHover();
   const commonCss = `instructor-sidebar flex items-center gap-6 w-full text-base text-white font-bold hover:bg-grayHover3E py-4 px-3`;
   return (
-    <div className={`absolute h-full bg-primaryBlack z-[999]`} ref={nodeRef}>
+    <div
+      className={`absolute h-full bg-primaryBlack shadow-lg z-[999]`}
+      ref={nodeRef}
+    >
       <div
         className={`sticky top-0 overflow-hidden transition-all duration-500 ${
           hovered ? "w-[290px]" : "w-14"

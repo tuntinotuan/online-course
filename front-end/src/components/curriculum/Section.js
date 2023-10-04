@@ -3,8 +3,12 @@ import Block from "./Block";
 import Edit from "./Edit";
 import { useCurriculum } from "./curriculum-context";
 import { useDispatch } from "react-redux";
-import { handleUpdateTitleSection } from "../../redux-toolkit/section/sectionHandlerThunk";
+import {
+  handleDeleteSection,
+  handleUpdateTitleSection,
+} from "../../redux-toolkit/section/sectionHandlerThunk";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const Section = ({ sectionLocate, title, sectionId }) => {
   const dispatch = useDispatch();
@@ -15,6 +19,22 @@ const Section = ({ sectionLocate, title, sectionId }) => {
     dispatch(handleUpdateTitleSection({ sectionId, newTitle }));
     setShowEditSection(false);
   };
+  const deleteSectionHandler = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      imageWidth: 100,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(handleDeleteSection(sectionId));
+      }
+    });
+  };
   return (
     <>
       {!showEditSection && (
@@ -24,6 +44,7 @@ const Section = ({ sectionLocate, title, sectionId }) => {
           }
           title={title}
           onClickPen={() => setShowEditSection(true)}
+          onClickTrash={deleteSectionHandler}
         ></Block>
       )}
       {showEditSection && (
