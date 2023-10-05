@@ -5,12 +5,27 @@ import { IconArrowDown } from "../icon";
 const Dropdown = ({
   placeholder = "Please select an option",
   children,
+  childrenClass,
   ...props
 }) => {
   const [show, setShow] = useState(false);
   const handleToggleDropdown = () => {
     setShow(!show);
   };
+  let statusClassForPlaceholder = "";
+  switch (placeholder) {
+    case "draft":
+      statusClassForPlaceholder = "text-grayA6 font-bold";
+      break;
+    case "public":
+      statusClassForPlaceholder = "text-green-500 font-bold";
+      break;
+    case "reject":
+      statusClassForPlaceholder = "text-red-500 font-bold";
+      break;
+    default:
+      break;
+  }
   return (
     <DropdownProvider setShow={setShow} {...props}>
       <div className="relative inline-block w-full">
@@ -18,7 +33,9 @@ const Dropdown = ({
           className="flex items-center justify-between py-2 px-3 bg-white border border-gray-300 cursor-pointer font-medium"
           onClick={handleToggleDropdown}
         >
-          <span>{placeholder}</span>
+          <span className={`capitalize ${statusClassForPlaceholder}`}>
+            {placeholder}
+          </span>
           <IconArrowDown
             className={`${
               show ? "-rotate-180" : ""
@@ -27,7 +44,9 @@ const Dropdown = ({
           ></IconArrowDown>
         </div>
         {show && (
-          <div className="absolute top-full left-0 w-full h-[150px] bg-white shadow-md overflow-auto z-10">
+          <div
+            className={`absolute top-full left-0 w-full h-[150px] bg-white shadow-md overflow-auto z-10 ${childrenClass}`}
+          >
             {children}
           </div>
         )}

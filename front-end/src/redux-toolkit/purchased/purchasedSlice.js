@@ -9,6 +9,7 @@ const initialState = {
   purchasedPagination: [],
   myStudents: null,
   loadingPurchasedCourses: false,
+  loadingMyStudents: false,
 };
 
 const purchasedCoursesSlice = createSlice({
@@ -32,12 +33,17 @@ const purchasedCoursesSlice = createSlice({
     builder.addCase(handleGetMyPurchasedCourses.fulfilled, (state, action) => {
       state.myPurchasedCourses = action.payload;
     });
-    builder.addCase(
-      handleGetStudentPurchasedCourses.fulfilled,
-      (state, action) => {
+    builder
+      .addCase(handleGetStudentPurchasedCourses.fulfilled, (state, action) => {
         state.myStudents = action.payload;
-      }
-    );
+        state.loadingMyStudents = false;
+      })
+      .addCase(handleGetStudentPurchasedCourses.pending, (state, action) => {
+        state.loadingMyStudents = true;
+      })
+      .addCase(handleGetStudentPurchasedCourses.rejected, (state, action) => {
+        state.loadingMyStudents = false;
+      });
   },
 });
 

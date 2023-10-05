@@ -17,6 +17,10 @@ const InstructorManageSidebar = () => {
       title: "Pricing",
       path: `${pathCommon}pricing`,
     },
+    {
+      title: "Promotions",
+      path: `${pathCommon}promotions`,
+    },
   ];
   return (
     <div className="w-[250px]">

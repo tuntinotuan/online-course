@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   totalCourseOriginnalPrice,
   totalCoursePrice,
+  totalDiscountPriceForCoupon,
 } from "../../utils/processing-number";
 import { handlePaymentWithCheckout } from "../../redux-toolkit/order/orderHandlerThunk";
 import { useSearchParams } from "react-router-dom";
@@ -22,6 +23,7 @@ const CheckoutSummary = () => {
   const { myCart } = useSelector((state) => state.cart);
   const { orderLoading } = useSelector((state) => state.order);
   const { courses } = myCart;
+  const { listDiscount } = useSelector((state) => state.discount);
   const handlePayment = async () => {
     if (!paymentMethod) return toast.warning("Please select Payment Method!");
     if (paymentMethod === "checkout")
@@ -95,6 +97,9 @@ const CheckoutSummary = () => {
   //   //   console.log(error);
   //   // }
   // };
+  const totalPrice =
+    totalCoursePrice(!paymentNow ? courses : [course]) -
+    totalDiscountPriceForCoupon(listDiscount);
   return (
     <div className="sticky top-5 mt-24 pl-12">
       <CheckoutTitle className="mb-5">Summary</CheckoutTitle>
@@ -113,26 +118,30 @@ const CheckoutSummary = () => {
           0 && (
           <div className="flex items justify-between">
             <span>Discounts:</span>
-            <span className="flex items-center gap-1">
-              {"-"}
-              <CoursePrice
-                price={(
-                  totalCourseOriginnalPrice(!paymentNow ? courses : [course]) -
-                  totalCoursePrice(!paymentNow ? courses : [course])
-                ).toLocaleString("en-US")}
-                className="font-normal"
-              ></CoursePrice>
-            </span>
+            <CoursePrice
+              price={(
+                totalCourseOriginnalPrice(!paymentNow ? courses : [course]) -
+                totalCoursePrice(!paymentNow ? courses : [course])
+              ).toLocaleString("en-US")}
+              className="font-normal"
+              minus
+            ></CoursePrice>
           </div>
         )}
+        {listDiscount?.map((discount) => (
+          <div className="flex items justify-between">
+            <span>{discount.code}</span>
+            <CoursePrice
+              price={discount.price.toLocaleString("en-US")}
+              className="font-normal"
+              minus
+            ></CoursePrice>
+          </div>
+        ))}
       </div>
       <div className="flex items-center justify-between text-base font-bold pt-3 mb-5">
         <span>Total:</span>
-        <CoursePrice
-          price={totalCoursePrice(
-            !paymentNow ? courses : [course]
-          ).toLocaleString("en-US")}
-        ></CoursePrice>
+        <CoursePrice price={totalPrice.toLocaleString("en-US")}></CoursePrice>
       </div>
       <span className="text-xs text-grayA6">
         By completing your purchase you agree to these

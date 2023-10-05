@@ -19,6 +19,7 @@ import LoadingSpin from "../../../components/loading/LoadingSpin";
 import { strapiPathBE } from "../../../utils/constants";
 import AdminHeadingWithBack from "./AdminHeadingWithBack";
 import DropdownTopic from "../../../components/dropdown/DropdownTopic";
+import DropdownStatus from "../../../components/dropdown/DropdownStatus";
 
 const mdParser = new MarkdownIt({
   highlight: function (str, lang) {
@@ -145,6 +146,14 @@ const CourseUpdate = () => {
                 disabled
               ></Input>
             </Field>
+            <Field>
+              <Label>Status</Label>
+              <DropdownStatus
+                currentStatus={watch("status")}
+                setValue={setValue}
+              ></DropdownStatus>
+            </Field>
+            <Field></Field>
             <Field>
               <Label>Video Intro</Label>
             </Field>

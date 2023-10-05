@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discounts",
+  "info": {
+    "singularName": "discount",
+    "pluralName": "discounts",
+    "displayName": "Discount",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "discounts"
+    },
+    "price": {
+      "required": true,
+      "type": "integer"
+    }
+  }
+}

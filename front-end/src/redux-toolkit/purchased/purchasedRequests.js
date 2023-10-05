@@ -43,6 +43,7 @@ export function requestUpdatePurchasedCourses(purchasedCourseId, listCourseId) {
   });
 }
 export function requestFindPurchasedCourses(arrId) {
+  if (!arrId.length > 0) return [];
   return strapi.find("purchased-courses", {
     filters: {
       id: {

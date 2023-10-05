@@ -25,3 +25,11 @@ export function mediumRatingsCourse(arrData) {
   });
   return result / arrData.length;
 }
+
+export function totalDiscountPriceForCoupon(arrData) {
+  let total = 0;
+  arrData?.forEach((item) => {
+    total += item.price;
+  });
+  return total;
+}

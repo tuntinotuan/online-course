@@ -114,6 +114,12 @@
         "reject"
       ],
       "default": "draft"
+    },
+    "discounts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::discount.discount",
+      "mappedBy": "course"
     }
   }
 }

@@ -156,6 +156,7 @@ export const handleGetSingleCourse = createAsyncThunk(
           originalPrice: results.original_price,
           star: results.star,
           topic: results?.topic?.name,
+          status: results?.status,
         });
       setValue && setValue("description", results.description);
       dispatch(setLoadingUpdateCourseSkeleton(false));

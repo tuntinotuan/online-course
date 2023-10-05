@@ -29,7 +29,7 @@ export function requestGetMyCourses(userId, page, search) {
       },
     },
     populate: "*",
-    pagination: {
+    pagination: page && {
       page: page || 1,
       pageSize: 5,
     },
@@ -221,6 +221,7 @@ export function requestUpdateCourse(
     description: values.description,
     current_price: values.currentPrice,
     original_price: values.originalPrice,
+    status: values.status,
   };
   return strapi.update("courses", courseId, newValues);
 }

@@ -29,7 +29,7 @@ const InstructorCoursePage = () => {
   const dispatch = useDispatch();
   const { myCourses } = useSelector((state) => state.course);
   useEffect(() => {
-    dispatch(handleGetMyCourses({ page, search }));
+    dispatch(handleGetMyCourses({ page: page || 1, search }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, search]);
   const handleClearFilters = () => {

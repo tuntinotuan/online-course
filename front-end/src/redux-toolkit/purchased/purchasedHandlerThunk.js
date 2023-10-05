@@ -37,18 +37,11 @@ export const handleGetStudentPurchasedCourses = createAsyncThunk(
     const { filterByCourse } = query;
     const state = getState();
     const { currentUserId } = state.auth;
-    // let arrId = [];
     try {
       const resMyCourses = await requestGetMyCourses(currentUserId);
-      // await resMyCourses.data?.forEach((course) => {
-      //   course.purchased_courses.forEach((purchased) => {
-      //     arrId.push(purchased.id);
-      //   });
-      // });
       const newData =
         filterByCourse &&
         resMyCourses.data.filter((item) => item.id === Number(filterByCourse));
-      console.log("newData", newData);
       const arrId = await getIdPurchasedFromMyCourses(
         newData || resMyCourses.data
       );

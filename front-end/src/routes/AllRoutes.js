@@ -42,6 +42,7 @@ import ManagePricingPage from "../pages/manage/ManagePricingPage";
 import InstructorPerformancePage from "../pages/instructor/InstructorPerformancePage";
 import PerformanceStudentPage from "../pages/performance/PerformanceStudentPage";
 import PerformanceOverviewPage from "../pages/performance/PerformanceOverviewPage";
+import ManagePromotionsPage from "../pages/manage/ManagePromotionsPage";
 
 const AllRoutes = () => {
   return (
@@ -319,6 +320,10 @@ const AllRoutes = () => {
         <Route
           path="pricing"
           element={<ManagePricingPage></ManagePricingPage>}
+        ></Route>
+        <Route
+          path="promotions"
+          element={<ManagePromotionsPage></ManagePromotionsPage>}
         ></Route>
         <Route
           path="settings"

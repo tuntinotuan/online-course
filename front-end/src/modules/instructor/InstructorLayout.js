@@ -9,9 +9,9 @@ const InstructorLayout = () => {
     <>
       <div className="relative flex items-start">
         <InstructorSidebar></InstructorSidebar>
-        <div className="w-full mb-[200px]">
+        <div className="w-full mb-[250px]">
           <InstructorHeader></InstructorHeader>
-          <div className="ml-14 mb-[1000px]">
+          <div className="ml-14">
             <Outlet></Outlet>
           </div>
         </div>
