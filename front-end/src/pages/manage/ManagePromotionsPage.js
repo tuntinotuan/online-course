@@ -45,6 +45,7 @@ const ManagePromotionsPage = () => {
             <ManagePromotionEdit
               submitForm={createCoupon}
               btnTitle="Add Coupon"
+              onClickClose={() => setShowNewCoupon(false)}
             ></ManagePromotionEdit>
           )}
         </div>

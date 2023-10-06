@@ -61,7 +61,7 @@ const ManagePromotionItem = ({ discount }) => {
       {showUpdateCoupon && (
         <ManagePromotionEdit
           submitForm={updateCoupon}
-          btnTitle="Update Coupon"
+          btnTitle="Save"
           values={discount}
           onClickClose={() => setShowUpdateCoupon(false)}
         ></ManagePromotionEdit>

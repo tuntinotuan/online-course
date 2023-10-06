@@ -10,6 +10,9 @@ const initialState = {
   showPopupReview: false,
   showPopupChooseLanguage: false,
   showPopupViewOfDetails: false,
+  showPopupEditCategory: false,
+  showPopupEditIndustry: false,
+  showPopupEditTopic: false,
   darkMode: null,
 };
 
@@ -57,6 +60,18 @@ const globalSlice = createSlice({
       ...state,
       showPopupViewOfDetails: action.payload,
     }),
+    setShowPopupEditCategory: (state, action) => ({
+      ...state,
+      showPopupEditCategory: action.payload,
+    }),
+    setShowPopupEditIndustry: (state, action) => ({
+      ...state,
+      showPopupEditIndustry: action.payload,
+    }),
+    setShowPopupEditTopic: (state, action) => ({
+      ...state,
+      showPopupEditTopic: action.payload,
+    }),
   },
 });
 
@@ -71,6 +86,9 @@ export const {
   toggleShowPopupChooseLanguage,
   setToggleDarkMode,
   setShowPopupViewOfDetails,
+  setShowPopupEditCategory,
+  setShowPopupEditIndustry,
+  setShowPopupEditTopic,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

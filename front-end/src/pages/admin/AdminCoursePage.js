@@ -8,11 +8,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Button } from "../../components/button";
-import { IconEye, IconPen, IconTrash } from "../../components/icon";
+import { IconTrash } from "../../components/icon";
 import Image from "../../components/image/Image";
 import { strapiPathBE } from "../../utils/constants";
 import AdminHeading from "../../modules/admin/AdminHeading";
 import { setShowPopupViewOfDetails } from "../../redux-toolkit/globalSlice";
+import ActionView from "../../components/action/ActionView";
+import ActionEdit from "../../components/action/ActionEdit";
+import ActionDelete from "../../components/action/ActionDelete";
 
 const AdminCoursePage = () => {
   const dispatch = useDispatch();
@@ -101,30 +104,16 @@ const AdminCoursePage = () => {
       renderCell: (params) => {
         return (
           <div className="flex items-center gap-3">
-            <Button
+            <ActionView
               to={`/course/${params.id}`}
-              className="!py-1 px-1 bg-emerald-500 text-white rounded"
-              borderNone
               onClick={() => dispatch(setShowPopupViewOfDetails(true))}
-            >
-              <IconEye></IconEye>
-            </Button>
-            <Button
-              to={`/admin/course-update/${params.id}`}
-              className="!py-1 px-1 bg-indigo-500 text-white rounded"
-              borderNone
-            >
-              <IconPen size={20}></IconPen>
-            </Button>
-            <Button
+            ></ActionView>
+            <ActionEdit to={`/admin/course-update/${params.id}`}></ActionEdit>
+            <ActionDelete
               onClick={() =>
                 deleteCourseHandler(params.id, params.row?.overview_image?.url)
               }
-              className="!py-1 px-1 bg-red-500 text-white rounded"
-              borderNone
-            >
-              <IconTrash size={20}></IconTrash>
-            </Button>
+            ></ActionDelete>
           </div>
         );
       },
@@ -169,7 +158,7 @@ const AdminCoursePage = () => {
       <div className="flex items-center justify-between">
         <AdminHeading>All Course</AdminHeading>
         <Button
-          className="flex items-center gap-2 bg-primaryBlack text-white rounded mb-2"
+          className="flex items-center gap-2 rounded"
           borderNone
           to="trash"
         >

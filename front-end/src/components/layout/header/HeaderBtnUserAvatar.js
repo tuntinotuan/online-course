@@ -21,6 +21,7 @@ const HeaderBtnUserAvatar = () => {
         to="/user/edit-profile"
         cartHasCourse={courses?.length > 0}
         onClick={() => setHovered(false)}
+        borderGradient
       ></ButtonUserAvatar>
       <Sidebar hovered={hovered} onClick={() => setHovered(false)}></Sidebar>
     </div>

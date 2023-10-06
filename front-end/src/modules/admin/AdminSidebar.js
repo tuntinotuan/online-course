@@ -7,7 +7,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import People from "@mui/icons-material/People";
 import PermMedia from "@mui/icons-material/PermMedia";
 import Dns from "@mui/icons-material/Dns";
@@ -16,7 +15,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PlayLessonIcon from "@mui/icons-material/PlayLesson";
 import ThumbsUpDownIcon from "@mui/icons-material/ThumbsUpDown";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 const data = [
   { icon: <Dns />, label: "Dashboard", url: "/admin/dashboard" },
@@ -43,9 +41,8 @@ const AdminSidebarStyles = styled(List)({
 });
 
 function AdminSidebar() {
-  const [open, setOpen] = useState(true);
   return (
-    <Box sx={{ display: "flex" }} className="sticky top-0">
+    <Box sx={{ display: "flex", height: "100vh" }} className="sticky top-0">
       <ThemeProvider
         theme={createTheme({
           components: {
@@ -62,7 +59,7 @@ function AdminSidebar() {
           },
         })}
       >
-        <Paper elevation={0} sx={{ maxWidth: 256 }}>
+        <Paper elevation={0} sx={{ maxWidth: 256 }} className="!rounded-none">
           <AdminSidebarStyles component="nav" disablePadding>
             <ListItemButton component="a" href="#customized-list">
               <LogoUdemyDark></LogoUdemyDark>
@@ -70,76 +67,38 @@ function AdminSidebar() {
             <Divider />
             <Box
               sx={{
-                bgcolor: open ? "rgba(71, 98, 130, 0.2)" : null,
-                pb: open ? 2 : 0,
-                height: "100vh",
+                bgcolor: "rgba(71, 98, 130, 0.2)",
               }}
             >
-              <ListItemButton
-                alignItems="flex-start"
-                onClick={() => setOpen(!open)}
-                sx={{
-                  px: 3,
-                  pt: 2.5,
-                  pb: open ? 0 : 2.5,
-                  "&:hover, &:focus": { "& svg": { opacity: open ? 1 : 0 } },
-                }}
-              >
-                <ListItemText
-                  primary="Build"
-                  primaryTypographyProps={{
-                    fontSize: 15,
-                    fontWeight: "medium",
-                    lineHeight: "20px",
-                    mb: "2px",
-                  }}
-                  secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
-                  secondaryTypographyProps={{
-                    noWrap: true,
-                    fontSize: 12,
-                    lineHeight: "16px",
-                    color: open ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.5)",
-                  }}
-                  sx={{ my: 0 }}
-                />
-                <KeyboardArrowDown
-                  sx={{
-                    mr: -1,
-                    opacity: 0,
-                    transform: open ? "rotate(-180deg)" : "rotate(0)",
-                    transition: "0.2s",
-                  }}
-                />
-              </ListItemButton>
-              {open &&
-                data.map((item) => (
-                  <NavLink
-                    to={item.url}
-                    className={({ isActive }) =>
-                      isActive ? "block bg-[rgba(255,255,255,.2)]" : ""
-                    }
+              {data.map((item) => (
+                <NavLink
+                  to={item.url}
+                  className={({ isActive }) =>
+                    isActive ? "block bg-[rgba(255,255,255,.2)]" : ""
+                  }
+                >
+                  <ListItemButton
+                    key={item.label}
+                    sx={{
+                      py: 0,
+                      minHeight: 52,
+                      width: 250,
+                      color: "rgba(255,255,255,.8)",
+                    }}
                   >
-                    <ListItemButton
-                      key={item.label}
-                      sx={{
-                        py: 0,
-                        minHeight: 52,
-                        color: "rgba(255,255,255,.8)",
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.label}
+                      primaryTypographyProps={{
+                        fontSize: 14,
+                        fontWeight: "medium",
                       }}
-                    >
-                      <ListItemIcon sx={{ color: "inherit" }}>
-                        {item.icon}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={item.label}
-                        primaryTypographyProps={{
-                          fontSize: 14,
-                          fontWeight: "medium",
-                        }}
-                      />
-                    </ListItemButton>
-                  </NavLink>
-                ))}
+                    />
+                  </ListItemButton>
+                </NavLink>
+              ))}
             </Box>
           </AdminSidebarStyles>
         </Paper>

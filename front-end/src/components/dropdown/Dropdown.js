@@ -6,9 +6,10 @@ const Dropdown = ({
   placeholder = "Please select an option",
   children,
   childrenClass,
+  initialShow = false,
   ...props
 }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(initialShow);
   const handleToggleDropdown = () => {
     setShow(!show);
   };
@@ -45,7 +46,7 @@ const Dropdown = ({
         </div>
         {show && (
           <div
-            className={`absolute top-full left-0 w-full h-[150px] bg-white shadow-md overflow-auto z-10 ${childrenClass}`}
+            className={`absolute top-full left-0 w-full h-auto max-h-[150px] bg-white shadow-md overflow-auto z-10 ${childrenClass}`}
           >
             {children}
           </div>

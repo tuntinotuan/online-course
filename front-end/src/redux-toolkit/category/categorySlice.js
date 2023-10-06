@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  handleGetAllCategories,
+  handleGetAllIndustries,
   handleGetAllTopics,
   handleGetCategories,
+  handleGetSingleCategory,
+  handleGetSingleIndustry,
+  handleGetSingleTopic,
   handleGetTopics,
 } from "./categoryHanlderThunk";
 
@@ -9,7 +14,12 @@ const initialState = {
   listCategories: [],
   listIndustries: [],
   listTopics: null,
+  allCategories: null,
+  category: null,
+  allIndustries: null,
+  industry: null,
   allTopics: null,
+  topic: null,
   loadingCategories: false,
   loadingTopics: false,
 };
@@ -29,6 +39,14 @@ const categorySlice = createSlice({
     setAllTopics: (state, action) => ({
       ...state,
       allTopics: action.payload,
+    }),
+    setAllCategories: (state, action) => ({
+      ...state,
+      allCategories: action.payload,
+    }),
+    setAllIndustries: (state, action) => ({
+      ...state,
+      allIndustries: action.payload,
     }),
   },
   extraReducers: (builder) => {
@@ -55,11 +73,31 @@ const categorySlice = createSlice({
       })
       .addCase(handleGetAllTopics.fulfilled, (state, action) => {
         state.allTopics = action.payload;
+      })
+      .addCase(handleGetAllCategories.fulfilled, (state, action) => {
+        state.allCategories = action.payload;
+      })
+      .addCase(handleGetAllIndustries.fulfilled, (state, action) => {
+        state.allIndustries = action.payload;
+      })
+      .addCase(handleGetSingleCategory.fulfilled, (state, action) => {
+        state.category = action.payload;
+      })
+      .addCase(handleGetSingleIndustry.fulfilled, (state, action) => {
+        state.industry = action.payload;
+      })
+      .addCase(handleGetSingleTopic.fulfilled, (state, action) => {
+        state.topic = action.payload;
       });
   },
 });
 
-export const { setListIndustries, setListTopics, setAllTopics } =
-  categorySlice.actions;
+export const {
+  setListIndustries,
+  setListTopics,
+  setAllTopics,
+  setAllCategories,
+  setAllIndustries,
+} = categorySlice.actions;
 
 export default categorySlice.reducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IconChevronLeft } from "../../../components/icon";
-import AdminHeading from "../AdminHeading";
+import { IconChevronLeft } from "../../components/icon";
+import AdminHeading from "./AdminHeading";
 
 const AdminHeadingWithBack = ({ title, to, ...props }) => {
   return (

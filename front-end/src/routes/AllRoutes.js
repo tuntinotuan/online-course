@@ -43,6 +43,7 @@ import InstructorPerformancePage from "../pages/instructor/InstructorPerformance
 import PerformanceStudentPage from "../pages/performance/PerformanceStudentPage";
 import PerformanceOverviewPage from "../pages/performance/PerformanceOverviewPage";
 import ManagePromotionsPage from "../pages/manage/ManagePromotionsPage";
+import AdminCategoryPage from "../pages/admin/AdminCategoryPage";
 
 const AllRoutes = () => {
   return (
@@ -226,7 +227,7 @@ const AllRoutes = () => {
           path="category"
           element={
             <PrivateRoute isRole="ADMIN">
-              <p>Here category dashboard</p>
+              <AdminCategoryPage></AdminCategoryPage>
             </PrivateRoute>
           }
         ></Route>

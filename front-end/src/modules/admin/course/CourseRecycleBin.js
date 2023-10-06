@@ -8,8 +8,8 @@ import {
 } from "../../../redux-toolkit/course/courseHandlerThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "../../../components/button";
-import AdminHeadingWithBack from "./AdminHeadingWithBack";
+import AdminHeadingWithBack from "../AdminHeadingWithBack";
+import ActionRestore from "../../../components/action/ActionRestore";
 
 const CourseRecycleBin = () => {
   const dispatch = useDispatch();
@@ -82,15 +82,11 @@ const CourseRecycleBin = () => {
       renderCell: (params) => {
         return (
           <div className="flex items-center gap-3">
-            <Button
+            <ActionRestore
               onClick={() =>
                 restoreCourseHandler(params.id, params.row?.overview_image?.url)
               }
-              className="!py-1 px-1 bg-cyan-500 text-white rounded"
-              borderNone
-            >
-              Restore
-            </Button>
+            ></ActionRestore>
           </div>
         );
       },

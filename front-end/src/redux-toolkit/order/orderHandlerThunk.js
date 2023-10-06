@@ -6,7 +6,10 @@ import {
   requestUpdatePurchasedCourses,
 } from "../purchased/purchasedRequests";
 import { toast } from "react-toastify";
-import { totalCoursePrice } from "../../utils/processing-number";
+import {
+  totalCoursePrice,
+  totalDiscountPriceForCoupon,
+} from "../../utils/processing-number";
 import { requestRemoveNumerousItemsFromCart } from "../cart/cartRequests";
 
 const stripePromise = loadStripe(
@@ -64,13 +67,14 @@ export const handlePaymentWithElement = createAsyncThunk(
     const state = getState();
     const { currentUserId } = state.auth;
     const { userData } = state.user;
+    const { listDiscount } = state.discount;
     const totalAmount = totalCoursePrice(courses);
     try {
       if (!stripeElement || !elements) return;
       const { data } = await makePaymentRequest.post(
         `/custom/payment-with-element`,
         {
-          amount: totalAmount,
+          amount: totalAmount - totalDiscountPriceForCoupon(listDiscount),
         }
       );
       const client_secret = data.client_secret;

@@ -17,9 +17,9 @@ import InputSelectImage from "../../../components/input/InputSelectImage";
 import Button from "../../../components/button/Button";
 import LoadingSpin from "../../../components/loading/LoadingSpin";
 import { strapiPathBE } from "../../../utils/constants";
-import AdminHeadingWithBack from "./AdminHeadingWithBack";
 import DropdownTopic from "../../../components/dropdown/DropdownTopic";
 import DropdownStatus from "../../../components/dropdown/DropdownStatus";
+import AdminHeadingWithBack from "../AdminHeadingWithBack";
 
 const mdParser = new MarkdownIt({
   highlight: function (str, lang) {

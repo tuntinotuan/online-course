@@ -92,10 +92,12 @@ export function requestGetTopicOfCourse(topic, filter, page) {
 export function requestGetAllCourses(page, deleted = false) {
   return strapi.find("courses", {
     filters: {
-      $and: requestCommon,
-      // deleted: {
-      //   $eq: deleted,
-      // },
+      $and: !deleted ? requestCommon : [],
+      deleted: deleted
+        ? {
+            $eq: deleted,
+          }
+        : {},
     },
     populate: "*",
     pagination: {
