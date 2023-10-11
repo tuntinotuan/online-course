@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CourseList } from "../components/course";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,13 +16,20 @@ const TopicPage = () => {
   const filter = param.get("filter");
   const dispatch = useDispatch();
   const { t } = useTranslation("category");
-  const { courseList } = useSelector((state) => state.course);
+  const [page, setPage] = useState(1);
+  const { courseList, courseListEnd } = useSelector((state) => state.course);
   const { loading } = useSelector((state) => state.global);
   const { authorList } = useSelector((state) => state.author);
   useEffect(() => {
     dispatch(handleGetTopicOfCourse({ topicName, filter }));
     dispatch(handleGetAuthorList());
-  }, [topicName, filter, dispatch]);
+    setPage(2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topicName, filter]);
+  const handleCallMoreTopicOfCourses = () => {
+    dispatch(handleGetTopicOfCourse({ topicName, page }));
+    setPage(page + 1);
+  };
   return (
     <div className="page-container py-10">
       <h1 className="text-3xl font-bold">{`“${topicName}”`} Courses</h1>
@@ -32,7 +39,12 @@ const TopicPage = () => {
             {t("courses to get you started")}
           </h2>
           <MenuBorderBottom></MenuBorderBottom>
-          <CourseList data={courseList}></CourseList>
+          <CourseList
+            data={courseList}
+            callApi={handleCallMoreTopicOfCourses}
+            apiEnd={courseListEnd}
+            restoreBtn={filter}
+          ></CourseList>
         </>
       )}
       {!loading && !courseList.length > 0 && <DataNotFound></DataNotFound>}

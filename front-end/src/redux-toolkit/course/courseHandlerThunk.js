@@ -56,11 +56,15 @@ export const handleGetTopicOfCourse = createAsyncThunk(
     try {
       const response = await requestGetTopicOfCourse(topicName, filter, page);
       const newPageCount = response.meta.pagination.pageCount;
-      if (!courseList.length > 0) results = response.data;
+      if (!courseList.length > 0 || !page) {
+        results = response.data;
+        dispatch(setCourseListEnd(false));
+      }
       if (courseList && page <= newPageCount) {
         results = courseList.concat(response.data);
       }
-      if (page === newPageCount) dispatch(setCourseListEnd(true));
+      if (page === newPageCount || !response.data.length > 0)
+        dispatch(setCourseListEnd(true));
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);

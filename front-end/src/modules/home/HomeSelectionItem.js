@@ -6,6 +6,7 @@ import { handleGetTopicOfCourse } from "../../redux-toolkit/course/courseHandler
 import { useParams } from "react-router-dom";
 import DataNotFound from "../../components/notfound/DataNotFound";
 import { useTranslation } from "react-i18next";
+import CourseListSkeleton from "../../components/course/CourseListSkeleton";
 
 const HomeSelectionItem = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,13 @@ const HomeSelectionItem = () => {
   const newTopic =
     !courseList[0]?.topic?.industry?.name === topicName
       ? courseList[0]?.topic?.name
-      : topicName || "Unity";
+      : topicName || "React JS";
   const newDescription = courseList[0]?.topic?.description;
   useEffect(() => {
-    if (!courseList?.length > 0 || topicName)
+    if (!courseList?.length > 0 || topicName) {
       dispatch(handleGetTopicOfCourse({ topicName }));
+      setPage(2);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicName]);
   const handleCallMoreTopicOfCourses = () => {
@@ -41,11 +44,15 @@ const HomeSelectionItem = () => {
       <Button className="font-bold mb-8" to={`/topic/${newTopic}`}>
         {t("explore")} {newTopic}
       </Button>
-      <CourseList
-        data={courseList}
-        callApi={handleCallMoreTopicOfCourses}
-        apiEnd={courseListEnd}
-      ></CourseList>
+      {loading && <CourseListSkeleton></CourseListSkeleton>}
+      {!loading && courseList?.length > 0 && (
+        <CourseList
+          data={courseList}
+          callApi={handleCallMoreTopicOfCourses}
+          apiEnd={courseListEnd}
+          restoreBtn={topicName}
+        ></CourseList>
+      )}
       {!loading && !courseList?.length > 0 && <DataNotFound></DataNotFound>}
     </div>
   );

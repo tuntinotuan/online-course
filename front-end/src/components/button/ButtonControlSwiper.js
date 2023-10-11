@@ -47,10 +47,10 @@ const ButtonControlSwiper = ({
             await callApi();
             setTimeout(() => {
               handleClickNext(swiper, apiEnd);
-            }, 100);
+            }, 500);
             setTimeout(() => {
               setLoading(false);
-            }, 100);
+            }, 500);
           } catch (error) {
             console.log("error", error);
             setLoading(false);

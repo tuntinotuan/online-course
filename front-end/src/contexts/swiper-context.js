@@ -19,8 +19,9 @@ function SwiperProvider(props) {
     swiper.slideNext(1000);
     apiEnd && setIsEnd(swiper.isEnd);
     setIsBeginning(swiper.isBeginning);
-    const newCoords = nodeRef.current.getBoundingClientRect();
+    const newCoords = nodeRef.current?.getBoundingClientRect();
     setCoords(newCoords);
+    console.log("Current Page:", swiper.activeIndex);
   };
   useEffect(() => {
     const newCoords = nodeRef.current.getBoundingClientRect();
@@ -34,6 +35,8 @@ function SwiperProvider(props) {
     isEnd,
     loading,
     setLoading,
+    setIsEnd,
+    setIsBeginning,
     handleClickPrev,
     handleClickNext,
   };

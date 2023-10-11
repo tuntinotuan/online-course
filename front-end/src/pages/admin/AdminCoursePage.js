@@ -188,7 +188,7 @@ const AdminCoursePage = () => {
           disableRowSelectionOnClick
         />
       </Box>
-      {allCourses?.map((item) => (
+      {/* {allCourses?.map((item) => (
         <Button
           className="custom-btn w-20 text-white font-bold my-5 !p-0"
           borderNone
@@ -196,7 +196,7 @@ const AdminCoursePage = () => {
           {item.id}
           <Image url={`${strapiPathBE}${item.overview_image.url}`}></Image>
         </Button>
-      ))}
+      ))} */}
     </>
   );
 };

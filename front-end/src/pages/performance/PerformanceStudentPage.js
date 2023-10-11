@@ -32,7 +32,7 @@ const PerformanceStudentPage = () => {
   return (
     <div className="w-full px-12">
       <h1 className="text-3xl font-bold">Students</h1>
-      <div className="w-[200px] my-5">
+      <div className="flex items-center gap-4 w-[450px] my-5">
         <Dropdown placeholder="Choose filter course">
           {myCourses?.map((course) => (
             <Dropdown.Option
@@ -43,6 +43,10 @@ const PerformanceStudentPage = () => {
             </Dropdown.Option>
           ))}
         </Dropdown>
+        <p className="flex-shrink-0">
+          Total students:{" "}
+          <span className="font-bold">{myStudents?.length}</span>
+        </p>
       </div>
       {loadingMyStudents && (
         <LoadingSpinQuarter

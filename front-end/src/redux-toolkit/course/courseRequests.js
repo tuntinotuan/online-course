@@ -42,7 +42,7 @@ export function requestGetTopicOfCourse(topic, filter, page) {
         {
           topic: {
             name: {
-              $contains: topic || "Unity",
+              $contains: topic || "React JS",
             },
           },
         },

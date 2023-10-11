@@ -22,10 +22,12 @@ const InstructorCard = ({ data }) => {
         <h2 className="popular-instructor text-base font-bold max-w-[200px] truncate">
           {data?.username}
         </h2>
-        {data?.traning && <p className="text-sm">{data?.traning}</p>}
+        {data?.training && <p className="text-sm">{data?.training}</p>}
         <div className="flex items-center gap-1">
           <p className="text-base text-star font-bold">
-            {mediumRatingsCourse(data?.courses)?.toFixed(1)}
+            {data?.courses?.length > 0
+              ? mediumRatingsCourse(data?.courses)?.toFixed(1)
+              : 0}
           </p>
           <img
             src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png"

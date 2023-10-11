@@ -85,7 +85,7 @@ const InstructorCoursePage = () => {
         </div>
       ) : (
         !myCourseLoading && (
-          <div className="flex items-center justify-between w-full border border-gray-300 shadow-md p-10 mt-12">
+          <div className="flex items-center justify-between border border-gray-300 shadow-md p-10 mt-12 mx-12">
             <h2 className="text-base">Jump Into Course Creation</h2>
             <Button
               className="w-[300px] bg-purpleTextA4 text-base text-white font-bold py-3"

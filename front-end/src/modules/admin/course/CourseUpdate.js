@@ -154,13 +154,9 @@ const CourseUpdate = () => {
               ></DropdownStatus>
             </Field>
             <Field></Field>
-            <Field>
-              <Label>Video Intro</Label>
-            </Field>
+            <Field>{/* <Label>Video Intro</Label> */}</Field>
             <Field></Field>
-            <Field>
-              <Label>Video Lists</Label>
-            </Field>
+            <Field>{/* <Label>Video Lists</Label> */}</Field>
           </div>
           <Button
             type="submit"

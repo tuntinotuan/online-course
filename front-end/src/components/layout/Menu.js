@@ -1,9 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const menuList = [
-  { title: "Unity", path: "/" },
   { title: "React JS", path: "/topics/React JS" },
+  { title: "Unity", path: "/topics/Unity" },
   { title: "JavaScript", path: "/topics/JavaScript" },
   { title: "Web Development", path: "/topics/Web Development" },
   { title: "Data Science", path: "/topics/Data Science" },
@@ -13,14 +13,16 @@ const menuList = [
 ];
 
 const Menu = () => {
+  const { topicName } = useParams();
+
   const commonCss =
     "py-4 font-bold transition-all hover:text-primaryBlack dark:hover:text-white cursor-pointer";
   return (
     <header className="header flex items-center gap-5 text-base">
-      {menuList.map((item) => (
+      {menuList.map((item, index) => (
         <NavLink
           className={({ isActive }) =>
-            isActive
+            isActive || (!topicName && index === 0)
               ? `text-primaryBlack dark:text-white ${commonCss}`
               : `text-grayA6 ${commonCss}`
           }

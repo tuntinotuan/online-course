@@ -12,6 +12,12 @@ import CheckoutCreditForm from "./CheckoutCreditForm";
 import { useSearchParams } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import CoursePrice from "../../components/course/CoursePrice";
+import {
+  totalCoursePrice,
+  totalDiscountPriceForCoupon,
+} from "../../utils/processing-number";
+import { useSelector } from "react-redux";
 const stripePromise = loadStripe(
   "pk_test_51MwSqkEqTHVX4ukZmvtphvtHggeYSSNWklI1cgHc010ZyWPC6Esr5fFt8DNMHHxJ4kLh9tGfH6oz8mDFsO6GwACJ00AMfFHWuv"
 );
@@ -25,7 +31,12 @@ const creditCardImg = [
 const CheckoutPaymentMethod = () => {
   const [param] = useSearchParams();
   const paymentMethod = param.get("payment-method");
+  const paymentNow = param.get("payment-now");
   const [searchParams, setSearchParams] = useSearchParams();
+  const { course } = useSelector((state) => state.course);
+  const { myCart } = useSelector((state) => state.cart);
+  const { courses } = myCart;
+  const { listDiscount } = useSelector((state) => state.discount);
   const handleClickPayPal = () => {
     searchParams.set("payment-method", "checkout");
     setSearchParams(searchParams);
@@ -34,7 +45,9 @@ const CheckoutPaymentMethod = () => {
     searchParams.set("payment-method", "element");
     setSearchParams(searchParams);
   };
-
+  const totalPrice =
+    totalCoursePrice(!paymentNow ? courses : [course]) -
+    totalDiscountPriceForCoupon(listDiscount);
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -70,8 +83,11 @@ const CheckoutPaymentMethod = () => {
               Unfortunately, PayPal does not support payments in VND therefore
               your payment will be in USD.
             </p>
-            <p className="text-base font-bold">
-              The amount you will be charged by Paypal is $38.98.
+            <p className="flex gap-1 text-base font-bold">
+              The amount you will be charged by Paypal is
+              <CoursePrice
+                price={totalPrice.toLocaleString("en-US")}
+              ></CoursePrice>
             </p>
           </RadioPaymentBody>
         </RadioPayment>

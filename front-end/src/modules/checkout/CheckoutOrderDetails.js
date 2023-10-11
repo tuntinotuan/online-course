@@ -26,7 +26,7 @@ const CheckoutOrderDetails = () => {
   const { myCart } = useSelector((state) => state.cart);
   const { courses } = myCart;
   useEffect(() => {
-    dispatch(handleGetSingleCourse(paymentNow));
+    dispatch(handleGetSingleCourse({ courseId: paymentNow }));
   }, [paymentNow, dispatch]);
 
   return (

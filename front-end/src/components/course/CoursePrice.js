@@ -4,7 +4,7 @@ import IconTag from "../icon/IconTag";
 
 const CoursePrice = ({
   className,
-  price = "666,666",
+  price = "xxx,xxx",
   tag = false,
   minus = false,
 }) => {

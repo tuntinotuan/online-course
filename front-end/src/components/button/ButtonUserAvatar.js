@@ -26,7 +26,7 @@ const ButtonUserAvatar = ({
     >
       {avatar && (role?.type === "admin" || role?.type === "moderator") && (
         <div
-          className={`absolute -top-[1px] -left-[1px] bg-gradient-to-r rounded-full animate-spin ${
+          className={`absolute -top-[1px] -left-[1px] bg-gradient-to-r rounded-full animate-spin  ${
             role?.type === "admin"
               ? "from-green-500 to-cyan-500"
               : "from-purple-500 to-pink-500"

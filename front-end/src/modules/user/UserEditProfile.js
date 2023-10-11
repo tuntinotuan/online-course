@@ -100,26 +100,28 @@ const UserEditProfile = () => {
           defaultValue={userData.description}
           onChange={handleEditorChange}
         />
-        <Button
-          className="flex items-center gap-2 font-bold bg-purpleTextA4 text-white"
-          borderNone
-          to="/user/me"
-        >
-          View Me <IconArrowRight></IconArrowRight>
-        </Button>
-        {/* <ReactMarkdown name="description">{userData.description}</ReactMarkdown> */}
-        <Button
-          type="submit"
-          className="flex items-center justify-center w-[90px] bg-primaryBlack text-white font-bold py-4 px-6 mt-5"
-          borderNone
-          disabled={loadingUser}
-        >
-          {loadingUser ? (
-            <LoadingSpin size="22px" borderSize="2px"></LoadingSpin>
-          ) : (
-            t("save")
-          )}
-        </Button>
+        <div className="flex justify-between w-full mt-5">
+          <Button
+            className="flex items-center gap-2 font-bold bg-purpleTextA4 text-white"
+            borderNone
+            to="/user/me"
+          >
+            View Me <IconArrowRight></IconArrowRight>
+          </Button>
+          {/* <ReactMarkdown name="description">{userData.description}</ReactMarkdown> */}
+          <Button
+            type="submit"
+            className="flex items-center justify-center w-[90px] bg-primaryBlack text-white font-bold py-4 px-6"
+            borderNone
+            disabled={loadingUser}
+          >
+            {loadingUser ? (
+              <LoadingSpin size="22px" borderSize="2px"></LoadingSpin>
+            ) : (
+              t("save")
+            )}
+          </Button>
+        </div>
       </form>
     </div>
   );

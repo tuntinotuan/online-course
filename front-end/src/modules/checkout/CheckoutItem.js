@@ -14,12 +14,12 @@ const CheckoutItem = ({ courses }) => {
         <CoursePrice
           price={(
             courses.current_price || courses.original_price
-          ).toLocaleString("en-US")}
+          )?.toLocaleString("en-US")}
           className="text-base font-normal"
         ></CoursePrice>
         {courses.current_price && (
           <CoursePrice
-            price={courses.original_price.toLocaleString("en-US")}
+            price={courses.original_price?.toLocaleString("en-US")}
             className="text-base font-normal text-grayA6 line-through"
           ></CoursePrice>
         )}
