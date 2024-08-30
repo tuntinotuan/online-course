@@ -64,7 +64,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="App">
+    <div className="App text-primaryBlack dark:bg-darkMain dark:text-white">
       <AllRoutes></AllRoutes>
       <TokenUnauthentication>
         <PopupSignUp></PopupSignUp>

@@ -14,16 +14,6 @@
     font-size: 14px;
     // height: 2000px;
     // @apply text-primaryBlack dark:bg-darkMain dark:text-white;
-    --tw-text-opacity: 1;
-    color: rgb(45 47 49 / var(--tw-text-opacity)) /* #2d2f31 */;
-    :is(.dark .dark\:bg-darkMain) {
-      --tw-bg-opacity: 1;
-      background-color: rgb(9 14 26 / var(--tw-bg-opacity)) /* #090e1a */;
-    }
-    :is(.dark .dark\:text-white) {
-      --tw-text-opacity: 1;
-      color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
-    }
   }
 }
 @layer components {
