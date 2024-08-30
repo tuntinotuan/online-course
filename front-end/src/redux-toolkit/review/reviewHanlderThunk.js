@@ -26,7 +26,7 @@ export const handleGetMySingleReview = createAsyncThunk(
   }
 );
 
-export const handleCreateReview = createAsyncThunk(
+export const handleCreateAndUpdateReview = createAsyncThunk(
   "review/handleCreateReview",
   async (data, { getState, dispatch }) => {
     const state = getState();

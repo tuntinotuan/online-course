@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  handleCreateReview,
+  handleCreateAndUpdateReview,
   handleGetMySingleReview,
 } from "./reviewHanlderThunk";
 
@@ -24,13 +24,13 @@ const reviewSlice = createSlice({
       .addCase(handleGetMySingleReview.fulfilled, (state, action) => {
         state.mySingleReview = action.payload;
       })
-      .addCase(handleCreateReview.fulfilled, (state, action) => {
+      .addCase(handleCreateAndUpdateReview.fulfilled, (state, action) => {
         state.reviewLoading = false;
       })
-      .addCase(handleCreateReview.pending, (state, action) => {
+      .addCase(handleCreateAndUpdateReview.pending, (state, action) => {
         state.reviewLoading = true;
       })
-      .addCase(handleCreateReview.rejected, (state, action) => {
+      .addCase(handleCreateAndUpdateReview.rejected, (state, action) => {
         state.reviewLoading = false;
       });
   },

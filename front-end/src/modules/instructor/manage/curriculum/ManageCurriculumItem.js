@@ -11,7 +11,7 @@ const ManageCurriculumItem = ({ section, sectionLocate }) => {
   const dispatch = useDispatch();
   const [showNewLecture, setShowNewLecture] = useState(false);
   const { control, watch } = useForm();
-  const createSectionHandler = () => {
+  const createLectureHandler = () => {
     const newTitle = watch("title");
     const sectionId = section.id;
     dispatch(handleCreateNewLecture({ newTitle, sectionId }));
@@ -67,7 +67,7 @@ const ManageCurriculumItem = ({ section, sectionLocate }) => {
           inputPlaceholder="Enter a title"
           onClickCancel={() => setShowNewLecture(false)}
           btnTitle="Add Lecture"
-          submitSave={createSectionHandler}
+          submitSave={createLectureHandler}
         ></Edit>
       )}
     </Curriculum>

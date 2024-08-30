@@ -22,7 +22,8 @@ const VideoItem = ({ data, title }) => {
         <div className="w-[65px]">
           <Image
             url={
-              `${strapiPathBE}${data?.preview_image?.url}` ||
+              (data?.preview_image?.url &&
+                `${strapiPathBE}${data?.preview_image?.url}`) ||
               "https://i.ytimg.com/vi/6XKShsLYVu0/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLAXpQ341XI6GO3mzzNLcUX8Txz6iQ"
             }
           ></Image>

@@ -5,8 +5,8 @@ import { toggleShowPopupReview } from "../../redux-toolkit/globalSlice";
 import CourseStar from "../course/CourseStar";
 import Textarea from "../textarea/Textarea";
 import Button from "../button/Button";
-import { handleCreateReview } from "../../redux-toolkit/review/reviewHanlderThunk";
 import LoadingSpin from "../loading/LoadingSpin";
+import { handleCreateAndUpdateReview } from "../../redux-toolkit/review/reviewHanlderThunk";
 
 const PopupReview = () => {
   const labels = {
@@ -38,7 +38,7 @@ const PopupReview = () => {
     dispatch(toggleShowPopupReview(false));
   };
   const createReviewHandler = () => {
-    dispatch(handleCreateReview({ value, content }));
+    dispatch(handleCreateAndUpdateReview({ value, content }));
   };
   return (
     <Popup
