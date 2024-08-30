@@ -19,19 +19,27 @@
 @layer components {
   .page-container {
     max-width: 1280px;
-    @apply mx-auto;
+    // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-fluid {
     max-width: 1086px;
-    @apply mx-auto;
+    // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-my-course {
     max-width: 950px;
-    @apply mx-auto;
+    // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-user-details {
     max-width: 850px;
-    @apply mx-auto;
+    // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
