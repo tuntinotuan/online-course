@@ -10,4 +10,11 @@ input[type="number"] {
 // Custom for input type date
 input[type="date"]::-webkit-calendar-picker-indicator {
   // @apply cursor-pointer dark:invert-[1];
+  cursor: pointer;
+  :is(.dark .dark\:invert-\[1\]) {
+    --tw-invert: invert(1);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+  }
 }

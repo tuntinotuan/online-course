@@ -8,9 +8,20 @@
 .react-mark-down code,
 .react-mark-down pre {
   // @apply dark:bg-black;
+  :is(.dark .dark\:bg-black) {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity)) /* #000000 */;
+  }
 }
 .react-mark-down pre {
   // @apply dark:border dark:border-primaryBlack;
+  :is(.dark .dark\:border) {
+    border-width: 1px;
+  }
+  :is(.dark .dark\:border-primaryBlack) {
+    --tw-border-opacity: 1;
+    border-color: rgb(45 47 49 / var(--tw-border-opacity)) /* #2d2f31 */;
+  }
 }
 .react-mark-down pre {
   display: block;
@@ -24,6 +35,10 @@
   border: 0;
   border-top: 1px solid #eee;
   // @apply dark:border-primaryBlack;
+  :is(.dark .dark\:border-primaryBlack) {
+    --tw-border-opacity: 1;
+    border-color: rgb(45 47 49 / var(--tw-border-opacity)) /* #2d2f31 */;
+  }
 }
 .react-mark-down blockquote {
   position: relative;
@@ -34,6 +49,10 @@
   border: none;
   border-left: 10px solid #d6dbdf;
   // @apply dark:text-white;
+  :is(.dark .dark\:text-white) {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
+  }
 }
 .react-mark-down ol,
 .react-mark-down ul {
@@ -79,7 +98,18 @@
 }
 .react-mark-down p {
   // @apply dark:text-darkTextCB;
+  :is(.dark .dark\:text-darkTextCB) {
+    --tw-text-opacity: 1;
+    color: rgb(203 213 225 / var(--tw-text-opacity)) /* #cbd5e1 */;
+  }
 }
 .react-mark-down strong {
   // @apply dark:text-white dark:font-bold;
+  :is(.dark .dark\:text-white) {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
+  }
+  :is(.dark .dark\:font-bold) {
+    font-weight: 700;
+  }
 }

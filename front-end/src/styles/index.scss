@@ -10,28 +10,46 @@
 
 @layer base {
   body {
-    // @apply text-primaryBlack dark:bg-darkMain dark:text-white;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
     // height: 2000px;
+    // @apply text-primaryBlack dark:bg-darkMain dark:text-white;
+    --tw-text-opacity: 1;
+    color: rgb(45 47 49 / var(--tw-text-opacity)) /* #2d2f31 */;
+    :is(.dark .dark\:bg-darkMain) {
+      --tw-bg-opacity: 1;
+      background-color: rgb(9 14 26 / var(--tw-bg-opacity)) /* #090e1a */;
+    }
+    :is(.dark .dark\:text-white) {
+      --tw-text-opacity: 1;
+      color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
+    }
   }
 }
 @layer components {
   .page-container {
     max-width: 1280px;
     // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-fluid {
     max-width: 1086px;
     // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-my-course {
     max-width: 950px;
     // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .page-container-user-details {
     max-width: 850px;
     // @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -51,6 +69,10 @@
 // User Sidebar Active Link
 .user-sidebar-link.active {
   // @apply bg-grayA6 font-semibold text-white;
+  --tw-bg-opacity: 1;
+  background-color: rgb(106 111 115 / var(--tw-bg-opacity)) /* #6a6f73*/;
+  font-weight: 600;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
 }
 
 // Styles for MUI Pagination
@@ -62,19 +84,29 @@
 // Custom background for per button
 .custom-btn:nth-child(5n + 1) {
   // @apply bg-indigo-500;
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity)) /* #6366f1 */;
 }
 .custom-btn:nth-child(5n + 2) {
   // @apply bg-purple-500;
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity)) /* #a855f7 */;
   margin-right: 20px;
 }
 .custom-btn:nth-child(5n + 3) {
   // @apply bg-pink-500;
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 72 153 / var(--tw-bg-opacity)) /* #ec4899 */;
 }
 .custom-btn:nth-child(5n + 4) {
   // @apply bg-emerald-500;
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity)) /* #10b981 */;
 }
 .custom-btn:nth-child(5n + 5) {
   // @apply bg-sky-500;
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity)) /* #0ea5e9 */;
 }
 
 // Instructor page
