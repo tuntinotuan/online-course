@@ -9,5 +9,5 @@ input[type="number"] {
 }
 // Custom for input type date
 input[type="date"]::-webkit-calendar-picker-indicator {
-  @apply cursor-pointer dark:invert-[1];
+  // @apply cursor-pointer dark:invert-[1];
 }

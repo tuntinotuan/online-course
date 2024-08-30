@@ -7,10 +7,10 @@
 }
 .react-mark-down code,
 .react-mark-down pre {
-  @apply dark:bg-black;
+  // @apply dark:bg-black;
 }
 .react-mark-down pre {
-  @apply dark:border dark:border-primaryBlack;
+  // @apply dark:border dark:border-primaryBlack;
 }
 .react-mark-down pre {
   display: block;
@@ -23,7 +23,7 @@
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #eee;
-  @apply dark:border-primaryBlack;
+  // @apply dark:border-primaryBlack;
 }
 .react-mark-down blockquote {
   position: relative;
@@ -33,7 +33,7 @@
   color: #333;
   border: none;
   border-left: 10px solid #d6dbdf;
-  @apply dark:text-white;
+  // @apply dark:text-white;
 }
 .react-mark-down ol,
 .react-mark-down ul {
@@ -78,8 +78,8 @@
   margin: 8px 0;
 }
 .react-mark-down p {
-  @apply dark:text-darkTextCB;
+  // @apply dark:text-darkTextCB;
 }
 .react-mark-down strong {
-  @apply dark:text-white dark:font-bold;
+  // @apply dark:text-white dark:font-bold;
 }
